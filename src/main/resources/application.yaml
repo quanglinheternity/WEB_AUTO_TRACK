@@ -1,0 +1,32 @@
+server:
+  port: 8080
+  # servlet:
+  #   context-path: /vanChuyen
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/transport
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    # database-platform: org.hibernate.dialect.MySQL8Dialect
+    defer-datasource-initialization: true
+  # sql:
+  #   init:
+  #     mode: always  # Luôn chạy file data.sql
+  #     platform: mysql
+jwt:  
+  signerKey: bvkfSG5tgcc6kHcMWz6VpgyEjCmg16w8EzZv5mPs3KT4Tt1lS3AhkkOBE3oabTJ8
+  vaild-duration: 18000
+  refresh-duration: 86400
+logging:
+  level:
+    com.vanchuyen: DEBUG
+    org.hibernate.SQL: DEBUG

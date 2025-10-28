@@ -1,0 +1,18 @@
+package com.transport.mapper;
+
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
+import com.transport.dto.trip.TripResponse;
+import com.transport.entity.domain.Trip;
+
+@Mapper(componentModel = "spring")
+public interface TripMapper {
+
+    @Mapping(target = "routeName", source = "route.name")
+    @Mapping(target = "vehiclePlateNumber", source = "vehicle.licensePlate")
+    @Mapping(target = "driverName", source = "driver.user.fullName")
+    @Mapping(target = "createdBy", expression = "java(trip.getCreatedBy() != null ? trip.getCreatedBy().getFullName() : null)")
+    @Mapping(target = "approvedBy", expression = "java(trip.getApprovedByUser() != null ? trip.getApprovedByUser().getFullName() : null)")
+    TripResponse toTripResponse(Trip trip);
+}
