@@ -3,6 +3,7 @@ package com.transport.exception;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.transport.dto.ApiResponse;
 
 import lombok.extern.slf4j.Slf4j;
@@ -38,21 +40,63 @@ public class GlobalException {
     //             .build();
     //     return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
     // }
+    // @ExceptionHandler(HttpMessageNotReadableException.class)
+    // public ResponseEntity<Map<String, Object>> handleEnumParseError(HttpMessageNotReadableException ex) {
+    //     Map<String, Object> body = new HashMap<>();
+    //     body.put("code", 400);
+    //     body.put("message", "Dữ liệu không hợp lệ");
+        
+    //     // Thông báo lỗi chi tiết cho enum
+    //     Map<String, String> errors = new HashMap<>();
+    //     if (ex.getMessage().contains("TrangThaiTaiXe")) {
+    //         errors.put("trangThaiLamViec", "Giá trị không hợp lệ. Các giá trị hợp lệ: RANH, DANG_CHAY, NGHI_PHEP, TAM_KHOA");
+    //     }
+    //     body.put("errors", errors);
+
+    //     return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    // }
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<Map<String, Object>> handleEnumParseError(HttpMessageNotReadableException ex) {
         Map<String, Object> body = new HashMap<>();
         body.put("code", 400);
         body.put("message", "Dữ liệu không hợp lệ");
-        
-        // Thông báo lỗi chi tiết cho enum
-        Map<String, String> errors = new HashMap<>();
-        if (ex.getMessage().contains("TrangThaiTaiXe")) {
-            errors.put("trangThaiLamViec", "Giá trị không hợp lệ. Các giá trị hợp lệ: RANH, DANG_CHAY, NGHI_PHEP, TAM_KHOA");
-        }
-        body.put("errors", errors);
 
+        Map<String, String> errors = new HashMap<>();
+
+        Throwable cause = ex.getCause();
+        if (cause instanceof InvalidFormatException invalidFormatException) {
+            // Lấy tên field bị lỗi
+            String fieldName = invalidFormatException.getPath()
+                .stream()
+                .map(ref -> ref.getFieldName() != null ? ref.getFieldName() : ref.getIndex() + "")
+                .collect(Collectors.joining("."));
+
+            String invalidValue = invalidFormatException.getValue().toString();
+            Class<?> targetType = invalidFormatException.getTargetType();
+
+            if (targetType != null && targetType.isEnum()) {
+                // Lấy danh sách giá trị hợp lệ của enum
+                String validValues = Arrays.stream(targetType.getEnumConstants())
+                    .map(Object::toString)
+                    .collect(Collectors.joining(", "));
+
+                String errorMsg = String.format(
+                    "Giá trị '%s' không hợp lệ. Các giá trị hợp lệ: %s",
+                    invalidValue, validValues
+                );
+
+                errors.put(fieldName, errorMsg);
+            } else {
+                errors.put(fieldName, "Giá trị không hợp lệ: " + invalidValue);
+            }
+        } else {
+            // Trường hợp không phải lỗi enum
+            errors.put("request", "Dữ liệu JSON không đúng định dạng");
+        }
+
+        body.put("errors", errors);
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
-    }
+}
     
     @ExceptionHandler(value = AppException.class)
     ResponseEntity<ApiResponse<Void>> handleAppException(AppException appException) {

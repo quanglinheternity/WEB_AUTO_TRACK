@@ -15,6 +15,7 @@ public interface UserMapper {
     UserResponse toResponse(User user);
     
     // @Mapping(target = "permissions", source = "permissions")
+    @Mapping(target = "roles", ignore = true)
     UserDetailResponse toDetailResponse(User user);
 
     @Mapping(target = "driver", ignore = true)

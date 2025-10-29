@@ -1,13 +1,15 @@
 package com.transport.service.user;
 
-import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.transport.dto.user.UserCreateRequest;
 import com.transport.dto.user.UserDetailResponse;
 import com.transport.dto.user.UserResponse;
 
 public interface UserService {
-    List<UserResponse> getAll();
+    Page<UserResponse> getAll(String keyword, Pageable pageable);
     
     UserDetailResponse getById(Long id);
 

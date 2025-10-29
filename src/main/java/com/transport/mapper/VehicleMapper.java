@@ -19,6 +19,7 @@ public interface VehicleMapper {
 
     @Mapping(target = "vehicleTypeName", source = "vehicleType.name")
     @Mapping(target = "status", source = "status", qualifiedByName = "mapStatusToDescription")
+    // @Mapping(source = "route.name", target = "routeName") // Nâng cao
     VehicleResponse toVehicleResponse(Vehicle vehicle);
 
     @Named("mapStatusToDescription")

@@ -117,12 +117,12 @@ public enum ErrorCode {
     VEHICLE_TYPE_DESCRIPTION_TOO_LONG(7007, "Mô tả không được vượt quá 255 ký tự", HttpStatus.BAD_REQUEST),
     VEHICLE_TYPE_STATUS_EMPTY(7008, "Trạng thái không được để trống", HttpStatus.BAD_REQUEST),
     VEHICLE_TYPE_STATUS_INVALID(7009, "Trạng thái không hợp lệ", HttpStatus.BAD_REQUEST),
-    
+    VEHICLE_TYPE_ALREADY_EXISTS(7010, "Loại xe đã tạo", HttpStatus.BAD_REQUEST),
 
     // Authentication-related Errors (8xxx)
     AUTHENTICATION_REQUIRED(8001, "Vui lòng đăng nhập để tiếp tục", HttpStatus.UNAUTHORIZED),
     TOKEN_EXPIRED(8002, "Phiên đăng nhập đã hết hạn", HttpStatus.UNAUTHORIZED),
-    INVALID_ENUM_VALUE(8003, "Gia tri khong hop le", HttpStatus.BAD_REQUEST),
+    INVALID_ENUM_VALUE(8003, "Gia tri không hợp lệ", HttpStatus.BAD_REQUEST),
     PASSWORD_REQUIRED(8004, "Mật khẩu không đc để trống", HttpStatus.BAD_REQUEST),
     ;
     private int code;

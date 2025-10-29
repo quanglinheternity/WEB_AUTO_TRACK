@@ -2,8 +2,9 @@ package com.transport.service.user;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -45,12 +46,11 @@ public class UserServiceImpl implements UserService {
     DriverRepository driverRepository;
     
     @Override
-    public List<UserResponse> getAll() {
+    public Page<UserResponse> getAll(String keyword, Pageable pageable) {
         // return nguoiDungRepository.findAll();
-        return userRepository.findAll()
-                .stream()
-                .map(userMapper::toResponse)
-                .collect(Collectors.toList());
+        Page<UserResponse> page = userRepository.searchUsers(keyword, pageable);
+
+        return page;
     }
     @Override
     public UserDetailResponse getById(Long id) {
