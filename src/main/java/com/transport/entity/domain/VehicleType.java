@@ -10,6 +10,7 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.querydsl.core.annotations.QueryEntity;
 
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@QueryEntity
 public class VehicleType {
     
     @Id

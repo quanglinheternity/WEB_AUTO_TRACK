@@ -119,6 +119,8 @@ public enum ErrorCode {
     VEHICLE_TYPE_STATUS_INVALID(7009, "Trạng thái không hợp lệ", HttpStatus.BAD_REQUEST),
     VEHICLE_TYPE_ALREADY_EXISTS(7010, "Loại xe đã tạo", HttpStatus.BAD_REQUEST),
 
+    EXPENSE_TYPE_ALREADY_EXISTS(7011, "Loại chi phí đã tạo", HttpStatus.BAD_REQUEST),
+    EXPENSE_TYPE_NOT_FOUND(7012, "Loại chi phí không tồn tại", HttpStatus.BAD_REQUEST),
     // Authentication-related Errors (8xxx)
     AUTHENTICATION_REQUIRED(8001, "Vui lòng đăng nhập để tiếp tục", HttpStatus.UNAUTHORIZED),
     TOKEN_EXPIRED(8002, "Phiên đăng nhập đã hết hạn", HttpStatus.UNAUTHORIZED),

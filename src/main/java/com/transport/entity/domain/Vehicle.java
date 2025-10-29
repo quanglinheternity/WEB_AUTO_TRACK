@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.querydsl.core.annotations.QueryEntity;
 import com.transport.entity.base.BaseEntity;
 import com.transport.enums.VehicleStatus;
 
@@ -19,6 +20,7 @@ import com.transport.enums.VehicleStatus;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@QueryEntity
 public class Vehicle extends BaseEntity {
     
     @Id

@@ -17,7 +17,7 @@ public interface TripMapper {
     @Mapping(target = "approvedBy", expression = "java(trip.getApprovedByUser() != null ? trip.getApprovedByUser().getFullName() : null)")
     TripResponse toTripResponse(Trip trip);
 
-    @Mapping(source = "route.name", target = "routeName") // ✅ map routeName từ entity Route
+    @Mapping(source = "route.name", target = "routeName") 
     @Mapping(source = "vehicle.licensePlate", target = "vehiclePlateNumber")
     @Mapping(source = "driver.user.fullName", target = "driverName")
     VehicleAndTripResponse.TripResponseSimple toTripResponseSimple(Trip trip);

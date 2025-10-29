@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.querydsl.core.annotations.QueryEntity;
 import com.transport.entity.base.BaseEntity;
 import com.transport.enums.UserRole;
 
@@ -20,6 +21,7 @@ import com.transport.enums.UserRole;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@QueryEntity
 public class User extends BaseEntity {
     
     @Id

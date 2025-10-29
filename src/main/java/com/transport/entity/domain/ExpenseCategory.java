@@ -5,6 +5,7 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.querydsl.core.annotations.QueryEntity;
 import com.transport.enums.ExpenseGroup;
 
 @Entity
@@ -14,6 +15,7 @@ import com.transport.enums.ExpenseGroup;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@QueryEntity
 public class ExpenseCategory {
     
     @Id
