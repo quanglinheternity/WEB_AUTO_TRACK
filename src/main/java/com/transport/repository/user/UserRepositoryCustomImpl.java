@@ -1,6 +1,7 @@
 package com.transport.repository.user;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -46,7 +47,17 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
                 .fetchFirst() != null;
     }
     @Override
+    public Optional<User> findByName(String name) {
+        return Optional.ofNullable(
+            queryFactory
+                .selectFrom(user)
+                .where(user.username.eq(name))
+                .fetchFirst()
+        );
+    }
+    @Override
     public Page<UserResponse> searchUsers(String keyword, Pageable pageable) {
+        
         BooleanBuilder builder = new BooleanBuilder();
 
         // Điều kiện tìm kiếm

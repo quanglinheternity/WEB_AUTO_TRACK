@@ -7,7 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.util.Date;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,5 +26,5 @@ public class InvalidatedToken {
     private String id;
     
     @Column(name = "expiry_time", nullable = false)
-    private LocalDateTime expiryTime;
+    private Date expiryTime;
 }

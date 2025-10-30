@@ -2,6 +2,7 @@ package com.transport.controller;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 public class VehicleController {
     VehicleService vehicleService;
 
+    @PreAuthorize("hasAuthority('VEHICLE_READ')")
     @GetMapping
     public ApiResponse<List<VehicleResponse>> getAll() {
         return ApiResponse.<List<VehicleResponse>>builder()
@@ -39,6 +41,7 @@ public class VehicleController {
                 .data(vehicleService.getAll())
                 .build();
     }
+
     @GetMapping("/{id}")
     public ApiResponse<VehicleAndTripResponse> getById(@PathVariable Long id) {
         return ApiResponse.<VehicleAndTripResponse>builder()
@@ -46,6 +49,7 @@ public class VehicleController {
                 .data(vehicleService.getById(id))
                 .build();
     }
+    @PreAuthorize("hasAuthority('VEHICLE_CREATE')")
     @PostMapping
     public ApiResponse<VehicleResponse> create(@RequestBody @Valid VehicleRequest request) {
         return ApiResponse.<VehicleResponse>builder()
@@ -53,6 +57,7 @@ public class VehicleController {
                 .data(vehicleService.create(request))
                 .build();
     }
+    @PreAuthorize("hasAuthority('VEHICLE_UPDATE')")
     @PutMapping("/{id}")
     public ApiResponse<VehicleResponse> update(@PathVariable Long id,@RequestBody @Valid VehicleUpdateRequest request) {
         return ApiResponse.<VehicleResponse>builder()
@@ -60,6 +65,7 @@ public class VehicleController {
                 .data(vehicleService.update(id, request))
                 .build();
     }
+    @PreAuthorize("hasAuthority('VEHICLE_DELETE')")
     @DeleteMapping("/{id}")
      public ApiResponse<Void> delete(@PathVariable Long id) {
         vehicleService.delete(id);

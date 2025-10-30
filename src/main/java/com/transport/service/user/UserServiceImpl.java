@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.transport.dto.driver.DriverRequest;
+import com.transport.dto.page.PageResponse;
 import com.transport.dto.user.UserCreateRequest;
 import com.transport.dto.user.UserDetailResponse;
 import com.transport.dto.user.UserResponse;
@@ -25,6 +26,7 @@ import com.transport.mapper.UserMapper;
 import com.transport.repository.driver.DriverRepository;
 import com.transport.repository.role.RoleRepository;
 import com.transport.repository.user.UserRepository;
+import com.transport.service.authentication.auth.AuthenticationService;
 import com.transport.util.CodeGenerator;
 
 import jakarta.transaction.Transactional;
@@ -44,19 +46,48 @@ public class UserServiceImpl implements UserService {
     RoleRepository roleRepository;
     DirverMapper driverMapper;
     DriverRepository driverRepository;
+
+    AuthenticationService authenticationService;
     
     @Override
-    public Page<UserResponse> getAll(String keyword, Pageable pageable) {
+    public PageResponse<UserResponse> getAll(String keyword, Pageable pageable) {
         // return nguoiDungRepository.findAll();
         Page<UserResponse> page = userRepository.searchUsers(keyword, pageable);
 
-        return page;
+        return new PageResponse<>(
+            page.getContent(),
+            page.getNumber(),
+            page.getSize(),
+            page.getTotalElements(),
+            page.getTotalPages()
+        );
     }
     @Override
     public UserDetailResponse getById(Long id) {
-        User nguoiDung = userRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
-        return userMapper.toDetailResponse(nguoiDung);
+        User currentUser = authenticationService.getCurrentUser();
+        User targetUser = userRepository.findById(id)
+            .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        UserRole currentRole = currentUser.getRole();
+        UserRole targetRole = targetUser.getRole();
+        switch (currentRole) {
+            case ADMIN -> {
+                // ADMIN xem tất cả
+            }
+            case MANAGER -> {
+                // MANAGER không được xem ADMIN
+                if (targetRole == UserRole.ADMIN) {
+                    throw new AppException(ErrorCode.ACCESS_DENIED);
+                }
+            }
+            case ACCOUNTANT, DRIVER -> {
+                // ACCOUNTANT hoặc DRIVER chỉ xem chính mình
+                if (!currentUser.getId().equals(id)) {
+                    throw new AppException(ErrorCode.ACCESS_DENIED);
+                }
+            }
+            default -> throw new AppException(ErrorCode.ACCESS_DENIED);
+        }
+        return userMapper.toDetailResponse(targetUser);
     }
     @Override
     public UserDetailResponse create(UserCreateRequest request) {
@@ -66,10 +97,15 @@ public class UserServiceImpl implements UserService {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setIsActive(true);
+        List<Role> roles = roleRepository.findAllById(request.getRoles());
+        user.setRoles(new HashSet<>(roles));
         user = userRepository.save(user);
 
         // Nếu là tài xế → tạo thông tin tài xế
         if (UserRole.DRIVER.equals(request.getRole()) && request.getDriver() != null) {
+            if (driverRepository.existsBylicenseNumber(request.getDriver().getLicenseNumber())) {
+                throw new AppException(ErrorCode.DRIVER_ALREADY_LICENSE_EXISTS);
+            }
             DriverRequest ttDriver = request.getDriver();
             Driver driver = driverMapper.toDriverFromCreateRequest(ttDriver);
             driver.setDriverCode(CodeGenerator.generateCode("TX"));

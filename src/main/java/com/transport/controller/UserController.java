@@ -1,8 +1,8 @@
 package com.transport.controller;
 
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.transport.dto.ApiResponse;
+import com.transport.dto.page.PageResponse;
 import com.transport.dto.user.UserCreateRequest;
 import com.transport.dto.user.UserDetailResponse;
 import com.transport.dto.user.UserResponse;
@@ -32,11 +33,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class UserController {
     UserService userService;
+
+    @PreAuthorize("hasAuthority('USER_READ')")
     @GetMapping
-    public ApiResponse<Page<UserResponse>> getAll(
+    public ApiResponse<PageResponse<UserResponse>> getAll(
             @RequestParam(required = false) String keyword,
             Pageable pageable) {
-        return ApiResponse.<Page<UserResponse>>builder()
+        return ApiResponse.<PageResponse<UserResponse>>builder()
                 .message("Lấy danh sách thành công")
                 .data(userService.getAll(keyword, pageable))
                 .build();
@@ -48,6 +51,7 @@ public class UserController {
                 .data(userService.getById(id))
                 .build();
     }
+    @PreAuthorize("hasAuthority('USER_CREATE')")
     @PostMapping
     public ApiResponse<UserDetailResponse> create(@RequestBody @Valid UserCreateRequest request) {
         return ApiResponse.<UserDetailResponse>builder()
@@ -55,6 +59,7 @@ public class UserController {
                 .data(userService.create(request))
                 .build();
     }
+    @PreAuthorize("hasAuthority('USER_UPDATE')")
     @PutMapping("/{id}")
     public ApiResponse<UserDetailResponse> update(@PathVariable Long id,@RequestBody @Valid UserCreateRequest request) {
         return ApiResponse.<UserDetailResponse>builder()
@@ -62,6 +67,7 @@ public class UserController {
                 .data(userService.update(id, request))
                 .build();
     }
+    @PreAuthorize("hasAuthority('USER_DELETE')")
     @DeleteMapping("/{id}")
     public ApiResponse<Void> delete(@PathVariable Long id) {
         userService.delete(id);

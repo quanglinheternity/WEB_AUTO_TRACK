@@ -11,6 +11,8 @@ public enum ErrorCode {
     // General Errors (0xxx)
     UNCATEGORIZED_ERROR(9999, "Lỗi hệ thống, vui lòng thử lại sau", HttpStatus.INTERNAL_SERVER_ERROR),
     INVALID_REQUEST(1000, "Yêu cầu không hợp lệ", HttpStatus.BAD_REQUEST),
+    UNAUTHORIZED(1000, "Bạn không có quyền truy cập.", HttpStatus.UNAUTHORIZED),
+    ACCESS_DENIED(1000, "Quyền truy cập khóa", HttpStatus.FORBIDDEN),
 
     // User-related Errors (1xxx)
     USER_NOT_FOUND(1001, "Người dùng không tồn tại", HttpStatus.BAD_REQUEST),
@@ -63,6 +65,7 @@ public enum ErrorCode {
     DRIVER_USER_ID_EMPTY(3012, "ID người dùng không được để trống", HttpStatus.BAD_REQUEST),
     DRIVER_STATUS_INVALID(3013, "Trạng thái làm việc không hợp lệ", HttpStatus.BAD_REQUEST),
     DRIVER_ALREADY_EXISTS(3014, "Thông tin của tài xế này đã được tạo", HttpStatus.BAD_REQUEST),
+    DRIVER_ALREADY_LICENSE_EXISTS(3014, "GPLX của tài xế này đã được tạo", HttpStatus.BAD_REQUEST),
     DRIVER_ALREADY_EMPTY(3015, "Thông tin của tài xế này không được để trống", HttpStatus.BAD_REQUEST),
 
     // Schedule-related Errors (4xxx)
@@ -126,6 +129,9 @@ public enum ErrorCode {
     TOKEN_EXPIRED(8002, "Phiên đăng nhập đã hết hạn", HttpStatus.UNAUTHORIZED),
     INVALID_ENUM_VALUE(8003, "Gia tri không hợp lệ", HttpStatus.BAD_REQUEST),
     PASSWORD_REQUIRED(8004, "Mật khẩu không đc để trống", HttpStatus.BAD_REQUEST),
+    INVALID_USERNAME(8005, "Tài khoản không hợp lệ", HttpStatus.BAD_REQUEST),
+    INVALID_PASSWORD(8006, "Mật khuẩn không hợp lệ", HttpStatus.BAD_REQUEST),
+    AUTHENTICATION_FAILED(8007, "Sai tài khoản hoặc mật khẩu", HttpStatus.UNAUTHORIZED),
     ;
     private int code;
     private String message;

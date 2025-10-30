@@ -1,0 +1,815 @@
+2025-10-29 17:33:47 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select count(*) from invalidated_tokens it1_0 where it1_0.token_id=?
+2025-10-29 17:33:47 [http-nio-8080-exec-5] ERROR c.t.exception.GlobalException - error
+java.lang.IllegalArgumentException: Failed to evaluate expression 'USER_READ'
+	at org.springframework.security.authorization.method.ExpressionUtils.evaluate(ExpressionUtils.java:51)
+	at org.springframework.security.authorization.method.PreAuthorizeAuthorizationManager.check(PreAuthorizeAuthorizationManager.java:101)
+	at org.springframework.security.authorization.method.PreAuthorizeAuthorizationManager.check(PreAuthorizeAuthorizationManager.java:41)
+	at org.springframework.security.authorization.AuthorizationManager.authorize(AuthorizationManager.java:69)
+	at org.springframework.security.authorization.method.AuthorizationManagerBeforeMethodInterceptor.attemptAuthorization(AuthorizationManagerBeforeMethodInterceptor.java:251)
+	at org.springframework.security.authorization.method.AuthorizationManagerBeforeMethodInterceptor.invoke(AuthorizationManagerBeforeMethodInterceptor.java:196)
+	at org.springframework.security.config.annotation.method.configuration.DeferringMethodInterceptor.invoke(DeferringMethodInterceptor.java:44)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+	at com.transport.controller.UserController$$SpringCGLIB$$0.getAll(<generated>)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:101)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:125)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AuthenticationFilter.doFilterInternal(AuthenticationFilter.java:177)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter.doFilterInternal(BearerTokenAuthenticationFilter.java:158)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:319)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$4(HandlerMappingIntrospector.java:267)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:240)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:116)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:398)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1776)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:975)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:493)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: org.springframework.expression.spel.SpelEvaluationException: EL1008E: Property or field 'USER_READ' cannot be found on object of type 'org.springframework.security.access.expression.method.MethodSecurityExpressionRoot' - maybe not public or not valid?
+	at org.springframework.expression.spel.ast.PropertyOrFieldReference.readProperty(PropertyOrFieldReference.java:229)
+	at org.springframework.expression.spel.ast.PropertyOrFieldReference.getValueInternal(PropertyOrFieldReference.java:112)
+	at org.springframework.expression.spel.ast.PropertyOrFieldReference.getValueInternal(PropertyOrFieldReference.java:100)
+	at org.springframework.expression.spel.ast.SpelNodeImpl.getValue(SpelNodeImpl.java:116)
+	at org.springframework.expression.spel.standard.SpelExpression.getValue(SpelExpression.java:273)
+	at org.springframework.security.authorization.method.ExpressionUtils.evaluate(ExpressionUtils.java:33)
+	... 116 common frames omitted
+2025-10-29 17:33:47 [http-nio-8080-exec-5] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [java.lang.IllegalArgumentException: Failed to evaluate expression 'USER_READ']
+2025-10-29 17:36:44 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-10-29 17:36:44 [Thread-15] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-10-29 17:36:44 [tomcat-shutdown] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2025-10-29 17:36:44 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-10-29 17:36:44 [Thread-15] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2025-10-29 17:36:44 [Thread-15] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29 17:36:44 [Thread-15] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Shutdown initiated...
+2025-10-29 17:36:44 [Thread-15] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Shutdown completed.
+2025-10-29 17:36:45 [restartedMain] INFO  com.transport.VanchuyenApplication - Starting VanchuyenApplication using Java 21.0.7 with PID 21812 (D:\ITS\Truck\target\classes started by LENOVO in D:\ITS\Truck)
+2025-10-29 17:36:45 [restartedMain] INFO  com.transport.VanchuyenApplication - No active profile set, falling back to 1 default profile: "default"
+2025-10-29 17:36:46 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-29 17:36:47 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 326 ms. Found 8 JPA repository interfaces.
+2025-10-29 17:36:47 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-10-29 17:36:47 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-10-29 17:36:47 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-10-29 17:36:47 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.46]
+2025-10-29 17:36:47 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-10-29 17:36:47 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2634 ms
+2025-10-29 17:36:48 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-29 17:36:48 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-10-29 17:36:48 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-29 17:36:48 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Starting...
+2025-10-29 17:36:48 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-5 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5673ee0d
+2025-10-29 17:36:48 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Start completed.
+2025-10-29 17:36:48 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-10-29 17:36:48 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-5)']
+	Database driver: undefined/unknown
+	Database version: 8.0.30
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-10-29 17:36:49 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-29 17:36:49 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29 17:36:50 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-10-29 17:36:50 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-10-29 17:36:50 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-10-29 17:36:50 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-10-29 17:36:50 [restartedMain] INFO  com.transport.VanchuyenApplication - Started VanchuyenApplication in 5.911 seconds (process running for 1307.886)
+2025-10-29 17:36:50 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2025-10-29 17:37:12 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-10-29 17:37:12 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-10-29 17:37:12 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2025-10-29 17:37:12 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select count(*) from invalidated_tokens it1_0 where it1_0.token_id=?
+2025-10-29 17:37:12 [http-nio-8080-exec-2] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.security.authorization.AuthorizationDeniedException: Access Denied]
+2025-10-29 17:37:15 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select count(*) from invalidated_tokens it1_0 where it1_0.token_id=?
+2025-10-29 17:37:16 [http-nio-8080-exec-3] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.security.authorization.AuthorizationDeniedException: Access Denied]
+2025-10-29 17:37:39 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select count(*) from invalidated_tokens it1_0 where it1_0.token_id=?
+2025-10-29 17:37:39 [http-nio-8080-exec-4] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.security.authorization.AuthorizationDeniedException: Access Denied]
+2025-10-29 17:39:19 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-10-29 17:39:19 [Thread-19] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-10-29 17:39:19 [tomcat-shutdown] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2025-10-29 17:39:19 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-10-29 17:39:19 [Thread-19] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2025-10-29 17:39:19 [Thread-19] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29 17:39:19 [Thread-19] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Shutdown initiated...
+2025-10-29 17:39:19 [Thread-19] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Shutdown completed.
+2025-10-29 17:39:20 [restartedMain] INFO  com.transport.VanchuyenApplication - Starting VanchuyenApplication using Java 21.0.7 with PID 21812 (D:\ITS\Truck\target\classes started by LENOVO in D:\ITS\Truck)
+2025-10-29 17:39:20 [restartedMain] INFO  com.transport.VanchuyenApplication - No active profile set, falling back to 1 default profile: "default"
+2025-10-29 17:39:21 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-29 17:39:22 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 285 ms. Found 8 JPA repository interfaces.
+2025-10-29 17:39:22 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-10-29 17:39:22 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-10-29 17:39:22 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-10-29 17:39:22 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.46]
+2025-10-29 17:39:22 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-10-29 17:39:22 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2739 ms
+2025-10-29 17:39:23 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-29 17:39:23 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-10-29 17:39:23 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-29 17:39:23 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Starting...
+2025-10-29 17:39:23 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-6 - Added connection com.mysql.cj.jdbc.ConnectionImpl@114f69eb
+2025-10-29 17:39:23 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Start completed.
+2025-10-29 17:39:23 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-10-29 17:39:23 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-6)']
+	Database driver: undefined/unknown
+	Database version: 8.0.30
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-10-29 17:39:24 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-29 17:39:24 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29 17:39:25 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-10-29 17:39:26 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-10-29 17:39:26 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-10-29 17:39:26 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-10-29 17:39:26 [restartedMain] INFO  com.transport.VanchuyenApplication - Started VanchuyenApplication in 6.872 seconds (process running for 1463.836)
+2025-10-29 17:39:26 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2025-10-29 17:39:32 [http-nio-8080-exec-4] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-10-29 17:39:32 [http-nio-8080-exec-4] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-10-29 17:39:32 [http-nio-8080-exec-4] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2025-10-29 17:39:32 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select count(*) from invalidated_tokens it1_0 where it1_0.token_id=?
+2025-10-29 17:39:32 [http-nio-8080-exec-4] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.security.authorization.AuthorizationDeniedException: Access Denied]
+2025-10-29 17:39:34 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select count(*) from invalidated_tokens it1_0 where it1_0.token_id=?
+2025-10-29 17:39:34 [http-nio-8080-exec-7] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.security.authorization.AuthorizationDeniedException: Access Denied]
+2025-10-29 17:46:24 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-10-29 17:46:24 [Thread-23] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-10-29 17:46:24 [tomcat-shutdown] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2025-10-29 17:46:24 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-10-29 17:46:24 [Thread-23] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2025-10-29 17:46:24 [Thread-23] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29 17:46:24 [Thread-23] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Shutdown initiated...
+2025-10-29 17:46:24 [Thread-23] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Shutdown completed.
+2025-10-29 17:46:25 [restartedMain] INFO  com.transport.VanchuyenApplication - Starting VanchuyenApplication using Java 21.0.7 with PID 21812 (D:\ITS\Truck\target\classes started by LENOVO in D:\ITS\Truck)
+2025-10-29 17:46:25 [restartedMain] INFO  com.transport.VanchuyenApplication - No active profile set, falling back to 1 default profile: "default"
+2025-10-29 17:46:26 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-29 17:46:26 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 229 ms. Found 8 JPA repository interfaces.
+2025-10-29 17:46:26 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-10-29 17:46:26 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-10-29 17:46:26 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-10-29 17:46:26 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.46]
+2025-10-29 17:46:27 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-10-29 17:46:27 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2071 ms
+2025-10-29 17:46:27 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-29 17:46:27 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-10-29 17:46:27 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-29 17:46:27 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-7 - Starting...
+2025-10-29 17:46:27 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-7 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6591dfcd
+2025-10-29 17:46:27 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-7 - Start completed.
+2025-10-29 17:46:27 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-10-29 17:46:27 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-7)']
+	Database driver: undefined/unknown
+	Database version: 8.0.30
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-10-29 17:46:28 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-29 17:46:28 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29 17:46:29 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-10-29 17:46:29 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-10-29 17:46:29 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-10-29 17:46:29 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-10-29 17:46:29 [restartedMain] INFO  com.transport.VanchuyenApplication - Started VanchuyenApplication in 4.766 seconds (process running for 1886.669)
+2025-10-29 17:46:29 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2025-10-29 17:46:34 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-10-29 17:46:34 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-10-29 17:46:34 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2025-10-29 17:46:34 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select count(*) from invalidated_tokens it1_0 where it1_0.token_id=?
+2025-10-29 17:46:34 [http-nio-8080-exec-2] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.security.authorization.AuthorizationDeniedException: Access Denied]
+2025-10-29 17:46:51 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-10-29 17:46:51 [Thread-27] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-10-29 17:46:51 [tomcat-shutdown] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2025-10-29 17:46:52 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-10-29 17:46:52 [Thread-27] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2025-10-29 17:46:52 [Thread-27] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29 17:46:52 [Thread-27] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-7 - Shutdown initiated...
+2025-10-29 17:47:11 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+2025-10-29 17:47:11 [restartedMain] INFO  com.transport.VanchuyenApplication - Starting VanchuyenApplication using Java 21.0.7 with PID 3424 (D:\ITS\Truck\target\classes started by LENOVO in D:\ITS\Truck)
+2025-10-29 17:47:11 [restartedMain] INFO  com.transport.VanchuyenApplication - No active profile set, falling back to 1 default profile: "default"
+2025-10-29 17:47:12 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-10-29 17:47:12 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-10-29 17:47:15 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-29 17:47:16 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 417 ms. Found 8 JPA repository interfaces.
+2025-10-29 17:47:19 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-10-29 17:47:19 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-10-29 17:47:19 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-10-29 17:47:19 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.46]
+2025-10-29 17:47:20 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-10-29 17:47:20 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 8247 ms
+2025-10-29 17:47:21 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-29 17:47:21 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.29.Final
+2025-10-29 17:47:21 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-10-29 17:47:23 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-29 17:47:23 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-10-29 17:47:24 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@31e7438b
+2025-10-29 17:47:24 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-10-29 17:47:25 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-10-29 17:47:25 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.30
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-10-29 17:47:32 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-29 17:47:33 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29 17:47:39 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-10-29 17:47:45 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-10-29 17:47:45 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-10-29 17:47:45 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-10-29 17:47:45 [restartedMain] INFO  com.transport.VanchuyenApplication - Started VanchuyenApplication in 36.043 seconds (process running for 38.198)
+2025-10-29 17:47:53 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-10-29 17:47:53 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-10-29 17:47:53 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2025-10-29 17:48:00 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select count(*) from invalidated_tokens it1_0 where it1_0.token_id=?
+2025-10-29 17:48:01 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.role,u1_0.updated_at,u1_0.username from users u1_0 order by u1_0.created_at desc limit ?,?
+2025-10-29 17:48:02 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:02 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:02 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:02 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:02 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:02 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:02 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:02 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:02 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:02 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:02 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:02 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:02 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:02 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:02 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:03 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:03 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:03 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:03 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select count(u1_0.id) from users u1_0
+2025-10-29 17:48:05 [http-nio-8080-exec-2] WARN  o.s.d.w.c.SpringDataJacksonConfiguration$PageModule$WarningLoggingModifier - Serializing PageImpl instances as-is is not supported, meaning that there is no guarantee about the stability of the resulting JSON structure!
+	For a stable JSON structure, please use Spring Data's PagedModel (globally via @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO))
+	or Spring HATEOAS and Spring Data's PagedResourcesAssembler as documented in https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables.
+
+2025-10-29 17:48:25 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select count(*) from invalidated_tokens it1_0 where it1_0.token_id=?
+2025-10-29 17:48:25 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.role,u1_0.updated_at,u1_0.username from users u1_0 order by u1_0.created_at desc limit ?,?
+2025-10-29 17:48:25 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:25 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:25 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:25 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:26 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:26 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:26 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:26 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:26 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:26 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:26 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:26 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:26 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:26 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:26 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:26 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:26 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:26 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:26 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select count(u1_0.id) from users u1_0
+2025-10-29 17:48:35 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select count(*) from invalidated_tokens it1_0 where it1_0.token_id=?
+2025-10-29 17:48:35 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.role,u1_0.updated_at,u1_0.username from users u1_0 order by u1_0.created_at desc limit ?,?
+2025-10-29 17:48:35 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:35 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:35 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:35 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:35 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:35 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:36 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:36 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:36 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:36 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:36 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:36 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:36 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:36 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:36 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:36 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:36 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:36 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:48:36 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select count(u1_0.id) from users u1_0
+2025-10-29 17:52:33 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+2025-10-29 17:52:33 [restartedMain] INFO  com.transport.VanchuyenApplication - Starting VanchuyenApplication using Java 21.0.7 with PID 22224 (D:\ITS\Truck\target\classes started by LENOVO in D:\ITS\Truck)
+2025-10-29 17:52:33 [restartedMain] INFO  com.transport.VanchuyenApplication - No active profile set, falling back to 1 default profile: "default"
+2025-10-29 17:52:33 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-10-29 17:52:33 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-10-29 17:52:37 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-29 17:52:38 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 572 ms. Found 8 JPA repository interfaces.
+2025-10-29 17:52:41 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-10-29 17:52:41 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-10-29 17:52:41 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-10-29 17:52:41 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.46]
+2025-10-29 17:52:42 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-10-29 17:52:42 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 8378 ms
+2025-10-29 17:52:42 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-29 17:52:43 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.29.Final
+2025-10-29 17:52:43 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-10-29 17:52:46 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-29 17:52:46 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-10-29 17:52:47 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@743d7c52
+2025-10-29 17:52:47 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-10-29 17:52:47 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-10-29 17:52:48 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.30
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-10-29 17:52:53 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-29 17:52:53 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29 17:52:59 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-10-29 17:53:02 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-10-29 17:53:02 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-10-29 17:53:03 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-10-29 17:53:03 [restartedMain] INFO  com.transport.VanchuyenApplication - Started VanchuyenApplication in 31.182 seconds (process running for 33.814)
+2025-10-29 17:53:10 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-10-29 17:53:10 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-10-29 17:53:10 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2025-10-29 17:53:13 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select count(*) from invalidated_tokens it1_0 where it1_0.token_id=?
+2025-10-29 17:53:14 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.role,u1_0.updated_at,u1_0.username from users u1_0 order by u1_0.created_at desc limit ?,?
+2025-10-29 17:53:14 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:53:15 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:53:15 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:53:15 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:53:15 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:53:15 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:53:15 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:53:15 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:53:15 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:53:15 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:53:15 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:53:15 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:53:15 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:53:15 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:53:15 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:53:15 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:53:15 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:53:15 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:53:15 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select count(u1_0.id) from users u1_0
+2025-10-29 17:53:16 [http-nio-8080-exec-2] WARN  o.s.d.w.c.SpringDataJacksonConfiguration$PageModule$WarningLoggingModifier - Serializing PageImpl instances as-is is not supported, meaning that there is no guarantee about the stability of the resulting JSON structure!
+	For a stable JSON structure, please use Spring Data's PagedModel (globally via @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO))
+	or Spring HATEOAS and Spring Data's PagedResourcesAssembler as documented in https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables.
+
+2025-10-29 17:55:26 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-10-29 17:55:26 [Thread-5] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-10-29 17:55:26 [tomcat-shutdown] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2025-10-29 17:55:26 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-10-29 17:55:26 [Thread-5] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2025-10-29 17:55:26 [Thread-5] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29 17:55:26 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-10-29 17:55:26 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-10-29 17:55:27 [restartedMain] INFO  com.transport.VanchuyenApplication - Starting VanchuyenApplication using Java 21.0.7 with PID 22224 (D:\ITS\Truck\target\classes started by LENOVO in D:\ITS\Truck)
+2025-10-29 17:55:27 [restartedMain] INFO  com.transport.VanchuyenApplication - No active profile set, falling back to 1 default profile: "default"
+2025-10-29 17:55:29 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-29 17:55:30 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 341 ms. Found 8 JPA repository interfaces.
+2025-10-29 17:55:31 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-10-29 17:55:31 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-10-29 17:55:31 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-10-29 17:55:31 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.46]
+2025-10-29 17:55:31 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-10-29 17:55:31 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 4138 ms
+2025-10-29 17:55:31 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-29 17:55:31 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-10-29 17:55:31 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-29 17:55:31 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-10-29 17:55:31 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4c918e43
+2025-10-29 17:55:31 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-10-29 17:55:31 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-10-29 17:55:31 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
+	Database driver: undefined/unknown
+	Database version: 8.0.30
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-10-29 17:55:33 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-29 17:55:34 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29 17:55:34 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-10-29 17:55:35 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-10-29 17:55:35 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-10-29 17:55:35 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-10-29 17:55:35 [restartedMain] INFO  com.transport.VanchuyenApplication - Started VanchuyenApplication in 8.711 seconds (process running for 186.375)
+2025-10-29 17:55:35 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2025-10-29 17:55:39 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-10-29 17:55:39 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-10-29 17:55:39 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-10-29 17:55:39 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select count(*) from invalidated_tokens it1_0 where it1_0.token_id=?
+2025-10-29 17:55:39 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.role,u1_0.updated_at,u1_0.username from users u1_0 order by u1_0.created_at desc limit ?,?
+2025-10-29 17:55:39 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:55:39 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:55:39 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:55:39 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:55:39 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:55:39 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:55:39 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:55:39 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:55:39 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:55:39 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:55:39 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:55:39 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:55:39 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:55:39 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:55:39 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:55:39 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:55:39 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:55:40 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 17:55:40 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select count(u1_0.id) from users u1_0
+2025-10-29 17:55:40 [http-nio-8080-exec-2] WARN  o.s.d.w.c.SpringDataJacksonConfiguration$PageModule$WarningLoggingModifier - Serializing PageImpl instances as-is is not supported, meaning that there is no guarantee about the stability of the resulting JSON structure!
+	For a stable JSON structure, please use Spring Data's PagedModel (globally via @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO))
+	or Spring HATEOAS and Spring Data's PagedResourcesAssembler as documented in https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables.
+
+2025-10-29 17:56:19 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-10-29 17:56:19 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-10-29 17:56:19 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29 17:56:19 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-10-29 17:56:19 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2025-10-29 18:02:26 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+2025-10-29 18:02:26 [restartedMain] INFO  com.transport.VanchuyenApplication - Starting VanchuyenApplication using Java 21.0.7 with PID 15200 (D:\ITS\Truck\target\classes started by LENOVO in D:\ITS\Truck)
+2025-10-29 18:02:26 [restartedMain] INFO  com.transport.VanchuyenApplication - No active profile set, falling back to 1 default profile: "default"
+2025-10-29 18:02:26 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-10-29 18:02:26 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-10-29 18:03:00 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+2025-10-29 18:03:00 [restartedMain] INFO  com.transport.VanchuyenApplication - Starting VanchuyenApplication using Java 21.0.7 with PID 18516 (D:\ITS\Truck\target\classes started by LENOVO in D:\ITS\Truck)
+2025-10-29 18:03:00 [restartedMain] INFO  com.transport.VanchuyenApplication - No active profile set, falling back to 1 default profile: "default"
+2025-10-29 18:03:00 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-10-29 18:03:00 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-10-29 18:03:05 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-29 18:03:05 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 562 ms. Found 8 JPA repository interfaces.
+2025-10-29 18:03:10 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-10-29 18:03:10 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-10-29 18:03:10 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-10-29 18:03:10 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.46]
+2025-10-29 18:03:10 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-10-29 18:03:10 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 9925 ms
+2025-10-29 18:03:12 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-29 18:03:12 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.29.Final
+2025-10-29 18:03:13 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-10-29 18:03:20 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-29 18:03:20 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-10-29 18:03:25 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6e9bd72
+2025-10-29 18:03:25 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-10-29 18:03:26 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-10-29 18:03:27 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.30
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-10-29 18:03:38 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-29 18:03:39 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29 18:03:47 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-10-29 18:03:52 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-10-29 18:03:52 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-10-29 18:03:53 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-10-29 18:03:53 [restartedMain] INFO  com.transport.VanchuyenApplication - Started VanchuyenApplication in 54.256 seconds (process running for 57.61)
+2025-10-29 18:04:10 [http-nio-8080-exec-4] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-10-29 18:04:10 [http-nio-8080-exec-4] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-10-29 18:04:10 [http-nio-8080-exec-4] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 6 ms
+2025-10-29 18:04:18 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select count(*) from invalidated_tokens it1_0 where it1_0.token_id=?
+2025-10-29 18:04:19 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.role,u1_0.updated_at,u1_0.username from users u1_0 order by u1_0.created_at desc limit ?,?
+2025-10-29 18:04:19 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:04:19 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:04:19 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:04:19 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:04:19 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:04:19 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:04:20 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:04:20 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:04:20 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:04:20 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:04:20 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:04:20 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:04:20 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:04:20 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:04:20 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:04:20 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:04:20 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:04:20 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:04:20 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select count(u1_0.id) from users u1_0
+2025-10-29 18:05:46 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-10-29 18:05:46 [Thread-5] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-10-29 18:05:46 [tomcat-shutdown] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2025-10-29 18:05:46 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-10-29 18:05:46 [Thread-5] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2025-10-29 18:05:46 [Thread-5] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29 18:05:46 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-10-29 18:05:46 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-10-29 18:05:47 [restartedMain] INFO  com.transport.VanchuyenApplication - Starting VanchuyenApplication using Java 21.0.7 with PID 18516 (D:\ITS\Truck\target\classes started by LENOVO in D:\ITS\Truck)
+2025-10-29 18:05:47 [restartedMain] INFO  com.transport.VanchuyenApplication - No active profile set, falling back to 1 default profile: "default"
+2025-10-29 18:05:50 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-29 18:05:51 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 752 ms. Found 8 JPA repository interfaces.
+2025-10-29 18:05:52 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-10-29 18:05:52 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-10-29 18:05:52 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-10-29 18:05:52 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.46]
+2025-10-29 18:05:52 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-10-29 18:05:52 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 4928 ms
+2025-10-29 18:05:52 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-29 18:05:52 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-10-29 18:05:52 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-29 18:05:52 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-10-29 18:05:52 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7132b2d5
+2025-10-29 18:05:52 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-10-29 18:05:52 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-10-29 18:05:52 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
+	Database driver: undefined/unknown
+	Database version: 8.0.30
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-10-29 18:05:54 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-29 18:05:55 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29 18:05:56 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-10-29 18:05:57 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-10-29 18:05:57 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-10-29 18:05:57 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-10-29 18:05:57 [restartedMain] INFO  com.transport.VanchuyenApplication - Started VanchuyenApplication in 10.686 seconds (process running for 182.116)
+2025-10-29 18:05:57 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2025-10-29 18:06:04 [http-nio-8080-exec-7] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-10-29 18:06:04 [http-nio-8080-exec-7] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-10-29 18:06:04 [http-nio-8080-exec-7] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2025-10-29 18:06:04 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select count(*) from invalidated_tokens it1_0 where it1_0.token_id=?
+2025-10-29 18:06:04 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.role,u1_0.updated_at,u1_0.username from users u1_0 order by u1_0.created_at desc limit ?,?
+2025-10-29 18:06:04 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:06:04 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:06:04 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:06:04 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:06:04 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:06:04 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:06:04 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:06:04 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:06:04 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:06:04 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:06:04 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:06:04 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:06:04 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:06:04 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:06:04 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:06:04 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:06:04 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:06:04 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:06:04 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select count(u1_0.id) from users u1_0
+2025-10-29 18:07:23 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-10-29 18:07:23 [Thread-7] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-10-29 18:07:23 [tomcat-shutdown] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2025-10-29 18:07:23 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-10-29 18:07:23 [Thread-7] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2025-10-29 18:07:23 [Thread-7] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29 18:07:23 [Thread-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-10-29 18:07:23 [Thread-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2025-10-29 18:07:23 [restartedMain] INFO  com.transport.VanchuyenApplication - Starting VanchuyenApplication using Java 21.0.7 with PID 18516 (D:\ITS\Truck\target\classes started by LENOVO in D:\ITS\Truck)
+2025-10-29 18:07:23 [restartedMain] INFO  com.transport.VanchuyenApplication - No active profile set, falling back to 1 default profile: "default"
+2025-10-29 18:07:25 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-29 18:07:25 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 291 ms. Found 8 JPA repository interfaces.
+2025-10-29 18:07:26 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-10-29 18:07:26 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-10-29 18:07:26 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-10-29 18:07:26 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.46]
+2025-10-29 18:07:26 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-10-29 18:07:26 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2747 ms
+2025-10-29 18:07:26 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-29 18:07:26 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-10-29 18:07:26 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-29 18:07:26 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
+2025-10-29 18:07:26 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@e3ace48
+2025-10-29 18:07:26 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
+2025-10-29 18:07:26 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-10-29 18:07:26 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-3)']
+	Database driver: undefined/unknown
+	Database version: 8.0.30
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-10-29 18:07:28 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-29 18:07:28 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29 18:07:29 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-10-29 18:07:30 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-10-29 18:07:30 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-10-29 18:07:30 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-10-29 18:07:30 [restartedMain] INFO  com.transport.VanchuyenApplication - Started VanchuyenApplication in 6.553 seconds (process running for 274.505)
+2025-10-29 18:07:30 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2025-10-29 18:07:45 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-10-29 18:07:45 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-10-29 18:07:46 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 26 ms
+2025-10-29 18:07:46 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select count(*) from invalidated_tokens it1_0 where it1_0.token_id=?
+2025-10-29 18:07:46 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.role,u1_0.updated_at,u1_0.username from users u1_0 order by u1_0.created_at desc limit ?,?
+2025-10-29 18:07:46 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:07:46 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:07:46 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:07:46 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:07:46 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:07:46 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:07:46 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:07:46 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:07:46 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:07:46 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:07:46 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:07:46 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:07:46 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:07:47 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:07:47 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:07:47 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:07:47 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:07:47 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:07:47 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select count(u1_0.id) from users u1_0
+2025-10-29 18:09:20 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select count(*) from invalidated_tokens it1_0 where it1_0.token_id=?
+2025-10-29 18:09:20 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.role,u1_0.updated_at,u1_0.username from users u1_0 order by u1_0.created_at desc limit ?,?
+2025-10-29 18:09:20 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select count(u1_0.id) from users u1_0
+2025-10-29 18:09:32 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select count(*) from invalidated_tokens it1_0 where it1_0.token_id=?
+2025-10-29 18:09:32 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.role,u1_0.updated_at,u1_0.username from users u1_0 order by u1_0.created_at desc limit ?,?
+2025-10-29 18:09:32 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:09:32 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:09:32 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:09:32 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:09:32 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:09:32 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:09:32 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:09:32 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:09:32 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:09:32 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:09:32 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:09:32 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:09:32 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:09:32 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:09:32 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:09:32 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:09:32 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:09:32 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:09:32 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select count(u1_0.id) from users u1_0
+2025-10-29 18:09:46 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select count(*) from invalidated_tokens it1_0 where it1_0.token_id=?
+2025-10-29 18:09:46 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.role,u1_0.updated_at,u1_0.username from users u1_0 order by u1_0.created_at desc limit ?,?
+2025-10-29 18:09:46 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select count(u1_0.id) from users u1_0
+2025-10-29 18:11:14 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-10-29 18:11:14 [Thread-11] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-10-29 18:11:14 [tomcat-shutdown] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2025-10-29 18:11:15 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-10-29 18:11:15 [Thread-11] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2025-10-29 18:11:15 [Thread-11] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29 18:11:15 [Thread-11] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown initiated...
+2025-10-29 18:11:15 [Thread-11] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown completed.
+2025-10-29 18:11:15 [restartedMain] INFO  com.transport.VanchuyenApplication - Starting VanchuyenApplication using Java 21.0.7 with PID 18516 (D:\ITS\Truck\target\classes started by LENOVO in D:\ITS\Truck)
+2025-10-29 18:11:15 [restartedMain] INFO  com.transport.VanchuyenApplication - No active profile set, falling back to 1 default profile: "default"
+2025-10-29 18:11:16 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-29 18:11:17 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 341 ms. Found 8 JPA repository interfaces.
+2025-10-29 18:11:17 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-10-29 18:11:17 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-10-29 18:11:17 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-10-29 18:11:17 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.46]
+2025-10-29 18:11:18 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-10-29 18:11:18 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2548 ms
+2025-10-29 18:11:18 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-29 18:11:18 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-10-29 18:11:18 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-29 18:11:18 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Starting...
+2025-10-29 18:11:18 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Added connection com.mysql.cj.jdbc.ConnectionImpl@c9146e2
+2025-10-29 18:11:18 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Start completed.
+2025-10-29 18:11:18 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-10-29 18:11:18 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-4)']
+	Database driver: undefined/unknown
+	Database version: 8.0.30
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-10-29 18:11:20 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-29 18:11:20 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-29 18:11:21 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-10-29 18:11:22 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-10-29 18:11:22 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-10-29 18:11:22 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-10-29 18:11:22 [restartedMain] INFO  com.transport.VanchuyenApplication - Started VanchuyenApplication in 6.764 seconds (process running for 506.548)
+2025-10-29 18:11:22 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2025-10-29 18:11:28 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-10-29 18:11:28 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-10-29 18:11:28 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 6 ms
+2025-10-29 18:11:28 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select count(*) from invalidated_tokens it1_0 where it1_0.token_id=?
+2025-10-29 18:11:28 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.role,u1_0.updated_at,u1_0.username from users u1_0 order by u1_0.created_at desc limit ?,?
+2025-10-29 18:11:28 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select count(u1_0.id) from users u1_0
+2025-10-29 18:11:41 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select count(*) from invalidated_tokens it1_0 where it1_0.token_id=?
+2025-10-29 18:11:41 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.role,u1_0.updated_at,u1_0.username from users u1_0 order by u1_0.created_at desc limit ?,?
+2025-10-29 18:11:41 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:11:41 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:11:41 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:11:41 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:11:41 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:11:41 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:11:41 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:11:41 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:11:41 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:11:41 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:11:41 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:11:41 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:11:41 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:11:41 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:11:41 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:11:41 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:11:41 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:11:41 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
+2025-10-29 18:11:41 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select count(u1_0.id) from users u1_0
+2025-10-29 21:38:32 [HikariPool-4:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Thread starvation or clock leap detected (housekeeper delta=3h13s427ms489µs100ns).

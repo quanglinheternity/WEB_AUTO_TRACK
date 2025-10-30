@@ -20,7 +20,9 @@ import lombok.experimental.FieldDefaults;
 public class UserValidator {
     UserRepository userRepository;
     public void validateBeforeCreate(UserCreateRequest request) {
-        validateBeforeCreate(request);
+        if (userRepository.existsByUsername(request.getUsername())) {
+            throw new AppException(ErrorCode.USER_ALREADY_EXISTS);
+        }
         validateDriverForCreate(request.getRole(), request.getDriver());
     }
     public void validateBeforeUpdate(Long id, UserCreateRequest request) {
