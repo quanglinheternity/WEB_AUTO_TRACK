@@ -1,6 +1,6 @@
 package com.transport.repository.vehicle;
 
-
+import java.math.BigDecimal;
 
 public interface VehicleRepositoryCustom {
     boolean existsByLicensePlate(String licensePlate);
@@ -11,5 +11,6 @@ public interface VehicleRepositoryCustom {
 
     boolean existsByVinAndIdNot(String vin, Long id);
 
+    BigDecimal findMaxPayloadByVehicleId(Long vehicleId);
     
 }

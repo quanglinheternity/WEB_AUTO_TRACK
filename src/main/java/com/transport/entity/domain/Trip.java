@@ -71,7 +71,8 @@ public class Trip extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "approved_by")
     private User approvedByUser; // Người phê duyệt chuyến đi đã hoàn thành
-    
+    @Column(name = "approval_status")
+    private Boolean approvalStatus;
     @Column(name = "completed_at")
     private LocalDateTime completedAt; // Thời điểm chuyến đi hoàn thành
     

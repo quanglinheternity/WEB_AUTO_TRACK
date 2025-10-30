@@ -14,6 +14,9 @@ public enum ErrorCode {
     UNAUTHORIZED(1000, "Bạn không có quyền truy cập.", HttpStatus.UNAUTHORIZED),
     ACCESS_DENIED(1000, "Quyền truy cập khóa", HttpStatus.FORBIDDEN),
 
+    INVALID_TRIP_STATUS_TRANSITION(1000, "Trạng thái không hợp lệ", HttpStatus.BAD_REQUEST),
+    CANNOT_CANCEL_COMPLETED_TRIP(1000, "Trạng thái không thể bị hủy", HttpStatus.BAD_REQUEST),
+    CANCELLATION_REASON_REQUIRED(1000, "Phải ghi lý do bị hủy", HttpStatus.BAD_REQUEST),
     // User-related Errors (1xxx)
     USER_NOT_FOUND(1001, "Người dùng không tồn tại", HttpStatus.BAD_REQUEST),
     USER_ALREADY_EXISTS(1002, "Người dùng đã tồn tại", HttpStatus.BAD_REQUEST),
@@ -29,6 +32,7 @@ public enum ErrorCode {
     USER_AUTHENTICATION_FAILED(1012, "Sai tài khoản hoặc mật khẩu", HttpStatus.UNAUTHORIZED),
     ROLE_NOT_NULL(1013, "Quyền người dùng không được để trống", HttpStatus.BAD_REQUEST),
     USER_ROLE_INVALID(1014, "Quyền người dùng không hợp lệ", HttpStatus.BAD_REQUEST),
+    NEW_STATUS_REQUIRED(1015, "Trạng thái mới không được để trống", HttpStatus.BAD_REQUEST),
     // Vehicle-related Errors (2xxx)
     VEHICLE_LICENSE_PLATE_EMPTY(2001, "Biển số xe không được để trống", HttpStatus.BAD_REQUEST),
     VEHICLE_LICENSE_PLATE_TOO_LONG(2002, "Biển số xe không được vượt quá 15 ký tự", HttpStatus.BAD_REQUEST),
@@ -49,7 +53,7 @@ public enum ErrorCode {
     VEHICLE_TYPE_NOT_FOUND(2014, "Loại xe không tồn tại", HttpStatus.BAD_REQUEST),
     VEHICLE_NOT_FOUND(2015, "Xe không tồn tại", HttpStatus.BAD_REQUEST),
     VEHICLE_INACTIVE(2016, "Xe đang không hoạt động", HttpStatus.BAD_REQUEST),
-
+    ONLY_NOT_STARTED_TRIP_CAN_BE_DELETED(2017, "Không thể xóa khi xe đã đi", HttpStatus.BAD_REQUEST),
     // Driver-related Errors (3xxx)
     DRIVER_NOT_FOUND(3001, "Tài xế không tồn tại", HttpStatus.BAD_REQUEST),
     DRIVER_INACTIVE(3002, "Tài xế đang không hoạt động", HttpStatus.BAD_REQUEST),
@@ -86,7 +90,10 @@ public enum ErrorCode {
     SCHEDULE_WEIGHT_EMPTY(4015, "Trọng lượng hàng không được để trống", HttpStatus.BAD_REQUEST),
     SCHEDULE_WEIGHT_INVALID(4016, "Trọng lượng hàng phải lớn hơn 0", HttpStatus.BAD_REQUEST),
     SCHEDULE_NEW_STATUS_EMPTY(4017, "Trạng thái mới không được để trống", HttpStatus.BAD_REQUEST),
-
+    SCHEDULE_DRIVER_ALREADY_BOOKED(4018, "Tài xế này có lịch trình trong khoảng thời gian này", HttpStatus.BAD_REQUEST),
+    CARGO_OVER_WEIGHT(4019, "Trọng lượng hóa quá với trọng lượng tối đa của xe.", HttpStatus.BAD_REQUEST),
+    VEHICLE_PAYLOAD_NOT_CONFIGURED(4020, "Xe không tìm thấy trọng lượng tối đa trọng lượng hóa", HttpStatus.BAD_REQUEST),
+    CARGO_WEIGHT_REQUIRED(4021, "Trọng lượng hóa không được để trống", HttpStatus.BAD_REQUEST),
     // Route-related Errors (5xxx)
     ROUTE_NOT_FOUND(5001, "Tuyến đường không tồn tại", HttpStatus.BAD_REQUEST),
     ROUTE_INACTIVE(5002, "Tuyến đường đã dừng hoạt động", HttpStatus.BAD_REQUEST),
@@ -124,6 +131,15 @@ public enum ErrorCode {
 
     EXPENSE_TYPE_ALREADY_EXISTS(7011, "Loại chi phí đã tạo", HttpStatus.BAD_REQUEST),
     EXPENSE_TYPE_NOT_FOUND(7012, "Loại chi phí không tồn tại", HttpStatus.BAD_REQUEST),
+    SCHEDULE_DRIVER_ID_EMPTY(7015,"Tài xế không được để trống", HttpStatus.BAD_REQUEST),
+    SCHEDULE_DEPARTURE_TIME_EMPTY(7016,"Thời gian khởi hành không được để trống", HttpStatus.BAD_REQUEST),
+    SCHEDULE_DEPARTURE_TIME_INVALID(7017,"Thời gian khởi hành phải ở tương lai", HttpStatus.BAD_REQUEST),
+    SCHEDULE_EXPECTED_ARRIVAL_TIME_EMPTY(7016,"Thời gian dự kiến đến không được để trống", HttpStatus.BAD_REQUEST),
+    SCHEDULE_EXPECTED_ARRIVAL_TIME_INVALID(7017,"Thời gian dự kiến đến phải ở tương lai", HttpStatus.BAD_REQUEST),
+    CARGO_DESCRIPTION_TOO_LONG(7018,"Mô tả hàng hóa không được vượt quá 255 ký tự", HttpStatus.BAD_REQUEST),
+    CARGO_WEIGHT_INVALID(7019,"Trọng lượng hàng hóa phải lớn hơn 0", HttpStatus.BAD_REQUEST),
+    TRIP_NOT_FOUND(7020,"Chuyến đi không tồn tại", HttpStatus.BAD_REQUEST),
+    ONLY_NOT_STARTED_TRIP_CAN_BE_UPDATED(7021,"Chỉ được cập nhật chuyến đi chưa bắt đầu.", HttpStatus.BAD_REQUEST),
     // Authentication-related Errors (8xxx)
     AUTHENTICATION_REQUIRED(8001, "Vui lòng đăng nhập để tiếp tục", HttpStatus.UNAUTHORIZED),
     TOKEN_EXPIRED(8002, "Phiên đăng nhập đã hết hạn", HttpStatus.UNAUTHORIZED),
@@ -132,6 +148,10 @@ public enum ErrorCode {
     INVALID_USERNAME(8005, "Tài khoản không hợp lệ", HttpStatus.BAD_REQUEST),
     INVALID_PASSWORD(8006, "Mật khuẩn không hợp lệ", HttpStatus.BAD_REQUEST),
     AUTHENTICATION_FAILED(8007, "Sai tài khoản hoặc mật khẩu", HttpStatus.UNAUTHORIZED),
+    TRIP_NOT_ARRIVED(8008, "Chuyến đi chưa đến", HttpStatus.BAD_REQUEST),
+    TRIP_ALREADY_REVIEWED(8009, "Chuyến đi đã được duyệt", HttpStatus.BAD_REQUEST),
+    REJECTION_REASON_REQUIRED(8010, "Vui lòng nhập lý do từ chối", HttpStatus.BAD_REQUEST),
+    APPROVAL_REQUIRED(8011, "Vui lòng duyệt chuyến đi.", HttpStatus.BAD_REQUEST),
     ;
     private int code;
     private String message;

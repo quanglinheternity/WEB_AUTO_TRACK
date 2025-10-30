@@ -3,8 +3,6 @@ package com.transport.dto.trip;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import com.transport.enums.TripStatus;
-
 public record TripResponse(
     Long id,
     String tripCode,
@@ -18,7 +16,7 @@ public record TripResponse(
     LocalDateTime estimatedArrivalTime,
     LocalDateTime actualArrivalTime,
 
-    TripStatus status,
+    String status,
 
     String cargoDescription,
     BigDecimal cargoWeight,
