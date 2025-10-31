@@ -152,6 +152,8 @@ public enum ErrorCode {
     TRIP_ALREADY_REVIEWED(8009, "Chuyến đi đã được duyệt", HttpStatus.BAD_REQUEST),
     REJECTION_REASON_REQUIRED(8010, "Vui lòng nhập lý do từ chối", HttpStatus.BAD_REQUEST),
     APPROVAL_REQUIRED(8011, "Vui lòng duyệt chuyến đi.", HttpStatus.BAD_REQUEST),
+    ROUTE_NAME_ALREADY_EXISTS(8012, "Tên tuyến đường đã tạo", HttpStatus.BAD_REQUEST),
+    ROUTE_HAS_TRIPS(8013, "Tuyến đường có chuyến đi", HttpStatus.BAD_REQUEST),
     ;
     private int code;
     private String message;
