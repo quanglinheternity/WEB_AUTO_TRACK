@@ -1,13 +1,15 @@
 package com.transport.service.vehicle;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.transport.dto.page.PageResponse;
 import com.transport.dto.vehicle.VehicleAndTripResponse;
 import com.transport.dto.vehicle.VehicleRequest;
 import com.transport.dto.vehicle.VehicleResponse;
+import com.transport.dto.vehicle.VehicleSearchRequest;
 import com.transport.dto.vehicle.VehicleUpdateRequest;
 import com.transport.entity.domain.Vehicle;
 import com.transport.entity.domain.VehicleType;
@@ -33,11 +35,9 @@ public class VehicleServiceImpl implements VehicleService {
     VehicleMapper vehicleMapper;
     VehicleValidator vehicleValidator;
     @Override
-    public List<VehicleResponse> getAll() {
-        return vehicleRepository.findAll()
-                .stream()
-                .map(vehicleMapper::toVehicleResponse)
-                .collect(Collectors.toList());
+    public PageResponse<VehicleResponse> getAll(VehicleSearchRequest request, Pageable pageable) {
+        Page<VehicleResponse> page = vehicleRepository.searchVehicles(request, pageable);
+        return PageResponse.from(page);
     }
     @Override
     public VehicleResponse create(VehicleRequest request) {

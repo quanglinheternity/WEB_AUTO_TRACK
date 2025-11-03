@@ -116,7 +116,8 @@ public enum ErrorCode {
     COST_AMOUNT_INVALID(6007, "Số tiền phải lớn hơn 0", HttpStatus.BAD_REQUEST),
     COST_DATE_EMPTY(6008, "Ngày chi phí không được để trống", HttpStatus.BAD_REQUEST),
     COST_LOCATION_TOO_LONG(6009, "Địa điểm chi phí không được vượt quá 255 ký tự", HttpStatus.BAD_REQUEST),
-
+    COST_TRIP_ID_EMPTY(6010, "Chuyến đi không được để trống", HttpStatus.BAD_REQUEST),
+    EXPENSE_NOT_PENDING(6011, "Yêu cầu chi phí đã duyệt không thể thay đổi.", HttpStatus.BAD_REQUEST),
     // Vehicle Type-related Errors (7xxx)
     VEHICLE_TYPE_CODE_EMPTY(7001, "Mã loại xe không được để trống", HttpStatus.BAD_REQUEST),
     VEHICLE_TYPE_CODE_TOO_LONG(7002, "Mã loại xe không được vượt quá 20 ký tự", HttpStatus.BAD_REQUEST),
@@ -154,6 +155,11 @@ public enum ErrorCode {
     APPROVAL_REQUIRED(8011, "Vui lòng duyệt chuyến đi.", HttpStatus.BAD_REQUEST),
     ROUTE_NAME_ALREADY_EXISTS(8012, "Tên tuyến đường đã tạo", HttpStatus.BAD_REQUEST),
     ROUTE_HAS_TRIPS(8013, "Tuyến đường có chuyến đi", HttpStatus.BAD_REQUEST),
+    EXPENSE_NOT_FOUND(8014, "Yêu cầu chi phí không tồn tại", HttpStatus.BAD_REQUEST),
+    INVALID_STATE_TRANSITION(2004, "Trạng thái đã được xử lý", HttpStatus.BAD_REQUEST),
+    COST_ID_EMPTY(8015, "Duyệt yêu cầu chi phí không được trống", HttpStatus.BAD_REQUEST),
+    ACCESS_DENIED_CREATE_USER(8016, "Không có quyền tạo tài khoản", HttpStatus.BAD_REQUEST),
+    IS_DRIVER_NOT_NULL(8017, "Bạn phải chọn là tài xế hay không", HttpStatus.BAD_REQUEST),
     ;
     private int code;
     private String message;

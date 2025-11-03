@@ -6,7 +6,6 @@ import java.util.Set;
 
 import com.transport.dto.driver.DriverResponse;
 import com.transport.dto.role.RoleResponse;
-import com.transport.enums.UserRole;
 
 public record UserDetailResponse(
     Long id,
@@ -17,7 +16,6 @@ public record UserDetailResponse(
     LocalDate dateOfBirth,
     String address,
     String avatarUrl,
-    UserRole role,
     Boolean isActive,
     LocalDateTime createdAt,
     LocalDateTime updatedAt,

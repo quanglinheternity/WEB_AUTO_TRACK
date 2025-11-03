@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.transport.dto.expenseCategory.ExpenseCategoryRequest;
 import com.transport.dto.expenseCategory.ExpenseCategoryResponse;
+import com.transport.dto.expenseCategory.ExpenseCategorySearchRequest;
+import com.transport.dto.page.PageResponse;
 import com.transport.entity.domain.ExpenseCategory;
 import com.transport.exception.AppException;
 import com.transport.exception.ErrorCode;
@@ -28,9 +30,10 @@ public class ExpenseCategoryServiceImpl implements ExpenseCategoryService {
     ExpenseCategoryRepository expenseCategoryRepository;
     ExpenseCategoryMapper expenseCategoryMapper;
     ExpenseCategoryValidator expenseCategoryValidator;
-    public Page<ExpenseCategoryResponse> search(String keyword, Pageable pageable){
-        Page<ExpenseCategory> page = expenseCategoryRepository.search(keyword, pageable);
-        return page.map(expenseCategoryMapper::toResponse);
+    public PageResponse<ExpenseCategoryResponse> search(ExpenseCategorySearchRequest request, Pageable pageable){
+        Page<ExpenseCategory> page = expenseCategoryRepository.searchExpenseCategories(request, pageable);
+
+        return PageResponse.from(page.map(expenseCategoryMapper::toResponse));
     }
     @Override
     public ExpenseCategoryResponse getById(Long id) {

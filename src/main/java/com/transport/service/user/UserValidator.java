@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 import com.transport.dto.driver.DriverRequest;
 import com.transport.dto.user.UserCreateRequest;
 import com.transport.entity.domain.User;
-import com.transport.enums.UserRole;
 import com.transport.exception.AppException;
 import com.transport.exception.ErrorCode;
 import com.transport.repository.user.UserRepository;
@@ -23,12 +22,12 @@ public class UserValidator {
         if (userRepository.existsByUsername(request.getUsername())) {
             throw new AppException(ErrorCode.USER_ALREADY_EXISTS);
         }
-        validateDriverForCreate(request.getRole(), request.getDriver());
+        validateDriverForCreate(request.getIsDriver(), request.getDriver());
     }
     public void validateBeforeUpdate(Long id, UserCreateRequest request) {
         validateAndGetExistingUser(id);
         validateDuplicateUsername(request.getUsername(), id);
-        validateDriverForUpdate(request.getRole(), request.getDriver());
+        validateDriverForUpdate(request.getIsDriver(), request.getDriver());
     }
     
     public User validateAndGetExistingUser(Long id) {
@@ -47,14 +46,14 @@ public class UserValidator {
             throw new AppException(ErrorCode.PASSWORD_REQUIRED);
         }
     }
-    public void validateDriverForCreate(UserRole role, DriverRequest driverRequest) {
-        if (UserRole.DRIVER.equals(role) && driverRequest == null) {
+    public void validateDriverForCreate(Boolean isDriver, DriverRequest driverRequest) {
+        if (Boolean.TRUE.equals(isDriver) && driverRequest == null) {
             throw new AppException(ErrorCode.DRIVER_ALREADY_EMPTY);
         }
     }
 
-    public void validateDriverForUpdate(UserRole role, DriverRequest driverRequest) {
-        if (UserRole.DRIVER.equals(role) && driverRequest == null) {
+    public void validateDriverForUpdate(Boolean isDriver, DriverRequest driverRequest) {
+        if (Boolean.TRUE.equals(isDriver) && driverRequest == null) {
             throw new AppException(ErrorCode.DRIVER_ALREADY_EMPTY);
         }
     }

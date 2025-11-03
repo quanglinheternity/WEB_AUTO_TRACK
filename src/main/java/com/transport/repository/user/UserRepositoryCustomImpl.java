@@ -9,10 +9,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.transport.dto.user.UserResponse;
+import com.transport.dto.user.UserSearchRequest;
 import com.transport.entity.domain.QUser;
 import com.transport.entity.domain.User;
 import com.transport.mapper.UserMapper;
@@ -56,54 +56,70 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
         );
     }
     @Override
-    public Page<UserResponse> searchUsers(String keyword, Pageable pageable) {
-        
+    public Page<UserResponse> searchUsers(UserSearchRequest request, Pageable pageable) {
+
         BooleanBuilder builder = new BooleanBuilder();
 
-        // Điều kiện tìm kiếm
-        if (keyword != null && !keyword.trim().isEmpty()) {
-            BooleanExpression usernameContains = user.username.containsIgnoreCase(keyword);
-            BooleanExpression fullNameContains = user.fullName.containsIgnoreCase(keyword);
-            builder.and(usernameContains.or(fullNameContains));
+        // 🔍 Keyword: tìm theo username, fullName, phone, idNumber
+        if (request.getKeyword() != null && !request.getKeyword().trim().isEmpty()) {
+            String kw = "%" + request.getKeyword().trim().toLowerCase() + "%";
+            builder.and(
+                    user.username.lower().like(kw)
+                            .or(user.fullName.lower().like(kw))
+                            .or(user.phone.lower().like(kw))
+                            .or(user.idNumber.lower().like(kw))
+            );
         }
 
-        // Truy vấn dữ liệu phân trang
+        // 🔍 Lọc theo role (nếu có)
+        if (request.getRole() != null) {
+            builder.and(user.roles.any().roleName.eq(request.getRole()));
+        }
+
+        // 🔍 Lọc theo trạng thái hoạt động
+        if (request.getIsActive() != null) {
+            builder.and(user.isActive.eq(request.getIsActive()));
+        } else {
+            builder.and(user.isActive.isTrue()); // mặc định chỉ lấy active
+        }
+
+        // ⚙️ Truy vấn phân trang
         JPAQuery<User> query = queryFactory
                 .selectFrom(user)
                 .where(builder)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize());
 
-        // Áp dụng sắp xếp
+        // ⚙️ Sắp xếp động
         if (pageable.getSort().isSorted()) {
             pageable.getSort().forEach(order -> {
                 switch (order.getProperty()) {
                     case "username" ->
                             query.orderBy(order.isAscending() ? user.username.asc() : user.username.desc());
-                    case "createdAt" ->
-                            query.orderBy(order.isAscending() ? user.createdAt.asc() : user.createdAt.desc());
                     case "fullName" ->
                             query.orderBy(order.isAscending() ? user.fullName.asc() : user.fullName.desc());
+                    case "createdAt" ->
+                            query.orderBy(order.isAscending() ? user.createdAt.asc() : user.createdAt.desc());
+                    default ->
+                            query.orderBy(user.createdAt.desc());
                 }
             });
         } else {
-            query.orderBy(user.createdAt.desc()); // Mặc định sắp xếp mới nhất
+            query.orderBy(user.createdAt.desc());
         }
 
-        // Lấy danh sách
+        // ⚙️ Lấy kết quả & đếm tổng
         List<User> users = query.fetch();
 
-        // ✅ Đếm tổng số bản ghi (QueryDSL 5.x, không deprecated)
         Long total = queryFactory
                 .select(user.id.count())
                 .from(user)
                 .where(builder)
                 .fetchOne();
 
-        // Tránh NullPointer nếu không có kết quả
-        long totalCount = total != null ? total : 0;
+        long totalCount = (total != null) ? total : 0L;
 
-        // Map sang UserResponse (giả sử bạn có mapper)
+        // ✅ Map sang DTO phản hồi
         List<UserResponse> responses = users.stream()
                 .map(userMapper::toResponse)
                 .toList();

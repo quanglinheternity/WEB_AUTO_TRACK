@@ -61,7 +61,7 @@ public class Expense extends BaseEntity {
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "driver_by_id")
-    private Driver driverBy;
+    private User driverBy;
     
     @Column(name = "manager_approved_at")
     private LocalDateTime managerApprovedAt;

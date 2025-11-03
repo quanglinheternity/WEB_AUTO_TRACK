@@ -10,12 +10,11 @@ import com.transport.dto.user.UserDetailResponse;
 import com.transport.dto.user.UserResponse;
 import com.transport.entity.domain.User;
 
-@Mapper(componentModel = "spring", uses = { PermissionMapper.class })
+@Mapper(componentModel = "spring", uses = { RoleMapper.class })
 public interface UserMapper {
     UserResponse toResponse(User user);
     
-    // @Mapping(target = "permissions", source = "permissions")
-    @Mapping(target = "roles", ignore = true)
+    @Mapping(target = "roles", source = "roles")
     UserDetailResponse toDetailResponse(User user);
 
     @Mapping(target = "driver", ignore = true)
@@ -31,7 +30,6 @@ public interface UserMapper {
     @Mapping(target = "avatarUrl", ignore = true)
     @Mapping(target = "createdTrips", ignore = true)
     @Mapping(target = "id", ignore = true)
-    // @Mapping(target = "permissions", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "roles", ignore = true)

@@ -10,7 +10,6 @@ import java.util.Set;
 
 import com.querydsl.core.annotations.QueryEntity;
 import com.transport.entity.base.BaseEntity;
-import com.transport.enums.UserRole;
 
 @Entity
 @Table(name = "users", indexes = {
@@ -51,10 +50,6 @@ public class User extends BaseEntity {
     
     @Column(name = "avatar_url")
     private String avatarUrl;
-    
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false)
-    private UserRole role;
 
     @Builder.Default
     @Column(name = "is_active")

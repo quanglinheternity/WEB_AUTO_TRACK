@@ -1,7 +1,9 @@
 package com.transport.controller;
 
-import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.transport.dto.ApiResponse;
+import com.transport.dto.page.PageResponse;
 import com.transport.dto.vehicle.VehicleAndTripResponse;
 import com.transport.dto.vehicle.VehicleRequest;
 import com.transport.dto.vehicle.VehicleResponse;
+import com.transport.dto.vehicle.VehicleSearchRequest;
 import com.transport.dto.vehicle.VehicleUpdateRequest;
 import com.transport.service.vehicle.VehicleService;
 
@@ -35,10 +39,14 @@ public class VehicleController {
 
     @PreAuthorize("hasAuthority('VEHICLE_READ')")
     @GetMapping
-    public ApiResponse<List<VehicleResponse>> getAll() {
-        return ApiResponse.<List<VehicleResponse>>builder()
+    public ApiResponse<PageResponse<VehicleResponse>> getAll(
+        VehicleSearchRequest request,
+        @PageableDefault(page = 0, size = 10, sort = "expenseDate", direction = Sort.Direction.DESC)
+        Pageable pageable
+        ) {
+        return ApiResponse.<PageResponse<VehicleResponse>>builder()
                 .message("Lấy danh sách thành công")
-                .data(vehicleService.getAll())
+                .data(vehicleService.getAll(request, pageable))
                 .build();
     }
 

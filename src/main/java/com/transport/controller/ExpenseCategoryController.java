@@ -1,7 +1,8 @@
 package com.transport.controller;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,12 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.transport.dto.ApiResponse;
 import com.transport.dto.expenseCategory.ExpenseCategoryRequest;
 import com.transport.dto.expenseCategory.ExpenseCategoryResponse;
+import com.transport.dto.expenseCategory.ExpenseCategorySearchRequest;
+import com.transport.dto.page.PageResponse;
 import com.transport.service.expenseCategory.ExpenseCategoryService;
 
 import jakarta.validation.Valid;
@@ -28,12 +30,13 @@ import lombok.RequiredArgsConstructor;
 public class ExpenseCategoryController {
     private final ExpenseCategoryService service;
     @GetMapping
-    public ApiResponse<Page<ExpenseCategoryResponse>> search(
-            @RequestParam(required = false) String keyword,
+    public ApiResponse<PageResponse<ExpenseCategoryResponse>> search(
+            ExpenseCategorySearchRequest request,
+            @PageableDefault(page = 0, size = 10, sort = "expenseDate", direction = Sort.Direction.DESC)
             Pageable pageable) {
-        return ApiResponse.<Page<ExpenseCategoryResponse>>builder()
+        return ApiResponse.<PageResponse<ExpenseCategoryResponse>>builder()
                 .message("Lấy danh sách thành cônng")
-                .data(service.search(keyword, pageable))
+                .data(service.search(request, pageable))
                 .build();
     }
     @PostMapping

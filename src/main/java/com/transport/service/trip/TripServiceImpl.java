@@ -1,14 +1,15 @@
 package com.transport.service.trip;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.transport.dto.page.PageResponse;
 import com.transport.dto.trip.ApproveTripRequest;
 import com.transport.dto.trip.TripCreateRequest;
 import com.transport.dto.trip.TripResponse;
+import com.transport.dto.trip.TripSearchRequest;
 import com.transport.dto.trip.TripUpdateRequest;
 import com.transport.dto.trip.UpdateTripStatusRequest;
 import com.transport.entity.domain.Driver;
@@ -40,11 +41,15 @@ public class TripServiceImpl implements TripService {
     AuthenticationService authenticationService;
 
     @Override
-    public List<TripResponse> getAll() {
-        return tripRepository.findAll()
-        .stream()
-        .map(tripMapper::toTripResponse)
-        .collect(Collectors.toList());
+    public PageResponse<TripResponse> getAll(TripSearchRequest request, Pageable pageable) {
+        // return nguoiDungRepository.findAll();
+        User currentUser = authenticationService.getCurrentUser();
+        if (!authenticationService.hasPermission("TRIP_READ")) {
+            request.setDriverId(currentUser.getId());
+        }
+        Page<Trip> page = tripRepository.searchTrips(request, pageable);
+
+        return PageResponse.from(page.map(tripMapper::toTripResponse));
     }
     @Override
     public TripResponse createTrip(TripCreateRequest request){

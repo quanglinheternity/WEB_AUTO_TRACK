@@ -1,11 +1,14 @@
 package com.transport.service.route;
 
-import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.transport.dto.page.PageResponse;
 import com.transport.dto.route.RouteRequest;
 import com.transport.dto.route.RouteResponse;
+import com.transport.dto.route.RouteSearchRequest;
 import com.transport.dto.route.RouteUpdateRequest;
 import com.transport.entity.domain.Route;
 import com.transport.exception.AppException;
@@ -28,8 +31,10 @@ import lombok.extern.slf4j.Slf4j;
 public class RouteServiceImpl implements RouteService {
     RouteRepository routeRepository;
     RouteMapper routeMapper;
-    public List<RouteResponse> getAll() {
-        return routeRepository.findAll().stream().map(routeMapper::toRouteResponse).toList();
+
+    public PageResponse<RouteResponse> getAll(RouteSearchRequest request, Pageable pageable) {
+        Page<RouteResponse> page = routeRepository.searchRoutes(request, pageable);
+        return PageResponse.from(page);
     }
     public RouteResponse getById(Long id) {
         return routeRepository.findById(id).map(routeMapper::toRouteResponse)

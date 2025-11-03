@@ -114,7 +114,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public boolean hasRole(String roleName) {
-        return getCurrentUser().getRole().name().equalsIgnoreCase(roleName);
+        User currentUser = getCurrentUser();
+        if (currentUser.getRoles().stream().anyMatch(r -> r.getRoleName().equalsIgnoreCase(roleName))) {
+            return true;
+        }
+        return  false;
     }
 
     @Override

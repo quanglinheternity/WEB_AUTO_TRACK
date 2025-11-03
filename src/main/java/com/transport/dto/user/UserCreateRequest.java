@@ -4,8 +4,7 @@ import java.time.LocalDate;
 import java.util.Set;
 
 import com.transport.dto.driver.DriverRequest;
-import com.transport.enums.UserRole;
-import com.transport.validation.ValidEnum;
+
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -50,13 +49,12 @@ public class UserCreateRequest {
 
     Boolean isActive;
     
-    @NotNull(message = "ROLE_NOT_NULL")
-    @ValidEnum(enumClass = UserRole.class, message = "USER_ROLE_INVALID")
-    UserRole role;
+    @NotNull(message = "IS_DRIVER_NOT_NULL")
+    Boolean isDriver;
     
     @Valid
     DriverRequest driver;
-
+    @NotNull(message = "ROLE_NOT_NULL")
     Set<String> roles;
     
 }

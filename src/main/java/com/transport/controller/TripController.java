@@ -1,7 +1,8 @@
 package com.transport.controller;
 
-import java.util.List;
-
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.transport.dto.ApiResponse;
+import com.transport.dto.page.PageResponse;
 import com.transport.dto.trip.ApproveTripRequest;
 import com.transport.dto.trip.TripCreateRequest;
 import com.transport.dto.trip.TripResponse;
+import com.transport.dto.trip.TripSearchRequest;
 import com.transport.dto.trip.TripUpdateRequest;
 import com.transport.dto.trip.UpdateTripStatusRequest;
 import com.transport.service.trip.TripService;
@@ -33,10 +36,14 @@ import lombok.extern.slf4j.Slf4j;
 public class TripController {
     TripService tripService;
     @GetMapping
-    public ApiResponse<List<TripResponse>> getAll() {
-        return ApiResponse.<List<TripResponse>>builder()
+    public ApiResponse<PageResponse<TripResponse>> getAll(
+        TripSearchRequest request,
+        @PageableDefault(page = 0, size = 10, sort = "expenseDate", direction = Sort.Direction.DESC)
+        Pageable pageable
+    ) {
+        return ApiResponse.<PageResponse<TripResponse>>builder()
                 .message("Lấy danh sách thành công")
-                .data(tripService.getAll())
+                .data(tripService.getAll(request, pageable))
                 .build();
     }
     @PostMapping

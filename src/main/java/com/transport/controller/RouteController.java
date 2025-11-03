@@ -1,7 +1,9 @@
 package com.transport.controller;
 
-import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.transport.dto.ApiResponse;
+import com.transport.dto.page.PageResponse;
 import com.transport.dto.route.RouteRequest;
 import com.transport.dto.route.RouteResponse;
+import com.transport.dto.route.RouteSearchRequest;
 import com.transport.dto.route.RouteUpdateRequest;
 import com.transport.service.route.RouteService;
 
@@ -32,11 +36,15 @@ public class RouteController {
     RouteService routeService;
 
     @GetMapping
-    public ApiResponse<List<RouteResponse>> getAll() {
+    public ApiResponse<PageResponse<RouteResponse>> getAll(
+        RouteSearchRequest request,
+        @PageableDefault(page = 0, size = 10, sort = "expenseDate", direction = Sort.Direction.DESC)
+        Pageable pageable
+    ) {
         
-        return   ApiResponse.<List<RouteResponse>>builder()
+        return   ApiResponse.<PageResponse<RouteResponse>>builder()
                 .message("Lấy danh sách tuyến đường thành công")
-                .data(routeService.getAll())
+                .data(routeService.getAll(request, pageable))
                 .build();
     }
     @GetMapping("/{id}")

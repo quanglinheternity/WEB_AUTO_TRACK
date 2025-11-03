@@ -1,14 +1,15 @@
 package com.transport.service.expenseCategory;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.transport.dto.expenseCategory.ExpenseCategoryRequest;
 import com.transport.dto.expenseCategory.ExpenseCategoryResponse;
+import com.transport.dto.expenseCategory.ExpenseCategorySearchRequest;
+import com.transport.dto.page.PageResponse;
 
 
 public interface ExpenseCategoryService {
-    Page<ExpenseCategoryResponse> search(String keyword, Pageable pageable);
+    PageResponse<ExpenseCategoryResponse> search(ExpenseCategorySearchRequest request, Pageable pageable);
 
     ExpenseCategoryResponse create(ExpenseCategoryRequest request);
 

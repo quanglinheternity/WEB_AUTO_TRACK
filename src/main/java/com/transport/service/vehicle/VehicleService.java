@@ -1,14 +1,17 @@
 package com.transport.service.vehicle;
 
-import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
+import com.transport.dto.page.PageResponse;
 import com.transport.dto.vehicle.VehicleAndTripResponse;
 import com.transport.dto.vehicle.VehicleRequest;
 import com.transport.dto.vehicle.VehicleResponse;
+import com.transport.dto.vehicle.VehicleSearchRequest;
 import com.transport.dto.vehicle.VehicleUpdateRequest;
 
 public interface  VehicleService {
-    List<VehicleResponse> getAll();
+    PageResponse<VehicleResponse> getAll(VehicleSearchRequest request, Pageable pageable);
 
     VehicleResponse create(VehicleRequest request);
 

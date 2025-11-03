@@ -15,9 +15,9 @@ import com.transport.enums.VehicleStatus;
 import com.transport.exception.AppException;
 import com.transport.exception.ErrorCode;
 import com.transport.repository.driver.DriverRepository;
-import com.transport.repository.route.RouteRepository;
 import com.transport.repository.trip.TripRepository;
 import com.transport.repository.vehicle.VehicleRepository;
+import com.transport.service.route.RouteValidator;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +28,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class TripValidator {
     TripRepository tripRepository;
-    RouteRepository routeRepository;
+    RouteValidator routeValidator;
     DriverRepository driverRepository;
     VehicleRepository vehicleRepository;
 
@@ -38,11 +38,7 @@ public class TripValidator {
     }
 
     public Route validateRoute(Long routeId) {
-        Route route = routeRepository.findById(routeId)
-                .orElseThrow(() -> new AppException(ErrorCode.ROUTE_NOT_FOUND));
-        if (!Boolean.TRUE.equals(route.getIsActive())) {
-            throw new AppException(ErrorCode.ROUTE_INACTIVE);
-        }
+        Route route = routeValidator.validateRoute(routeId);
         return route;
     }
 

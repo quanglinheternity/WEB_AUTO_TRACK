@@ -7,9 +7,10 @@ import com.transport.dto.page.PageResponse;
 import com.transport.dto.user.UserCreateRequest;
 import com.transport.dto.user.UserDetailResponse;
 import com.transport.dto.user.UserResponse;
+import com.transport.dto.user.UserSearchRequest;
 
 public interface UserService {
-    PageResponse<UserResponse> getAll(String keyword, Pageable pageable);
+    PageResponse<UserResponse> getAll(UserSearchRequest request,Pageable pageable);
     
     UserDetailResponse getById(Long id);
 

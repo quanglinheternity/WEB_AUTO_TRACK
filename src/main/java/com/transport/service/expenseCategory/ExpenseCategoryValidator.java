@@ -20,7 +20,9 @@ public class ExpenseCategoryValidator {
             throw new AppException(ErrorCode.EXPENSE_TYPE_ALREADY_EXISTS);
         }
     }
-
+    public ExpenseCategory validateCategoryById(Long id) {
+        return expenseCategoryRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.EXPENSE_TYPE_NOT_FOUND));
+    }
     public void validateBeforeUpdate(Long id, ExpenseCategoryRequest request) {
         if (expenseCategoryRepository.existsByNameAndIdNot(request.getName(), id)) {
             throw new AppException(ErrorCode.EXPENSE_TYPE_ALREADY_EXISTS);

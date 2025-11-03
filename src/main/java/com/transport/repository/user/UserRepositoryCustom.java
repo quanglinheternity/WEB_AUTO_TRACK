@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.transport.dto.user.UserResponse;
+import com.transport.dto.user.UserSearchRequest;
 import com.transport.entity.domain.User;
 
 public interface UserRepositoryCustom {
@@ -13,7 +14,7 @@ public interface UserRepositoryCustom {
 
     boolean existsByUsernameAndIdNot(String username, Long id);
     
-    Page<UserResponse> searchUsers(String keyword, Pageable pageable);
+    Page<UserResponse> searchUsers(UserSearchRequest request, Pageable pageable);
 
     Optional<User> findByName(String name);
 }
