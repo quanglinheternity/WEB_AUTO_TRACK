@@ -15,7 +15,9 @@ import com.transport.dto.route.RouteSearchRequest;
 import com.transport.entity.domain.QRoute;
 import com.transport.entity.domain.Route;
 import com.transport.mapper.RouteMapper;
+
 import lombok.RequiredArgsConstructor;
+
 @Repository
 @RequiredArgsConstructor
 public class RouteRepositoryImpl implements RouteRepositoryCustom {
@@ -31,12 +33,12 @@ public class RouteRepositoryImpl implements RouteRepositoryCustom {
         // 🔍 Tìm kiếm theo từ khóa: code, name, origin, destination
         if (request.getKeyword() != null && !request.getKeyword().trim().isEmpty()) {
             String kw = "%" + request.getKeyword().trim().toLowerCase() + "%";
-            builder.and(
-                    route.code.lower().like(kw)
-                            .or(route.name.lower().like(kw))
-                            .or(route.origin.lower().like(kw))
-                            .or(route.destination.lower().like(kw))
-            );
+            builder.and(route.code
+                    .lower()
+                    .like(kw)
+                    .or(route.name.lower().like(kw))
+                    .or(route.origin.lower().like(kw))
+                    .or(route.destination.lower().like(kw)));
         }
 
         // 🔍 Lọc theo trạng thái hoạt động
@@ -57,16 +59,13 @@ public class RouteRepositoryImpl implements RouteRepositoryCustom {
         if (pageable.getSort().isSorted()) {
             pageable.getSort().forEach(order -> {
                 switch (order.getProperty()) {
-                    case "code" ->
-                            query.orderBy(order.isAscending() ? route.code.asc() : route.code.desc());
-                    case "name" ->
-                            query.orderBy(order.isAscending() ? route.name.asc() : route.name.desc());
-                    case "distanceKm" ->
-                            query.orderBy(order.isAscending() ? route.distanceKm.asc() : route.distanceKm.desc());
-                    case "createdAt" ->
-                            query.orderBy(order.isAscending() ? route.createdAt.asc() : route.createdAt.desc());
-                    default ->
-                            query.orderBy(route.createdAt.desc());
+                    case "code" -> query.orderBy(order.isAscending() ? route.code.asc() : route.code.desc());
+                    case "name" -> query.orderBy(order.isAscending() ? route.name.asc() : route.name.desc());
+                    case "distanceKm" -> query.orderBy(
+                            order.isAscending() ? route.distanceKm.asc() : route.distanceKm.desc());
+                    case "createdAt" -> query.orderBy(
+                            order.isAscending() ? route.createdAt.asc() : route.createdAt.desc());
+                    default -> query.orderBy(route.createdAt.desc());
                 }
             });
         } else {
@@ -75,18 +74,14 @@ public class RouteRepositoryImpl implements RouteRepositoryCustom {
 
         // ⚙️ Lấy danh sách & đếm tổng
         List<Route> routes = query.fetch();
-        Long total = queryFactory
-                .select(route.id.count())
-                .from(route)
-                .where(builder)
-                .fetchOne();
+        Long total =
+                queryFactory.select(route.id.count()).from(route).where(builder).fetchOne();
 
         long totalCount = (total != null) ? total : 0L;
 
         // ✅ Map sang DTO phản hồi
-        List<RouteResponse> responses = routes.stream()
-                .map(routeMapper::toRouteResponse)
-                .toList();
+        List<RouteResponse> responses =
+                routes.stream().map(routeMapper::toRouteResponse).toList();
 
         return new PageImpl<>(responses, pageable, totalCount);
     }

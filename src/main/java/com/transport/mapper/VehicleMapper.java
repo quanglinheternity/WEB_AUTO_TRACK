@@ -14,7 +14,9 @@ import com.transport.dto.vehicle.VehicleUpdateRequest;
 import com.transport.entity.domain.Vehicle;
 import com.transport.enums.VehicleStatus;
 
-@Mapper(componentModel = "spring", uses={TripMapper.class})
+@Mapper(
+        componentModel = "spring",
+        uses = {TripMapper.class})
 public interface VehicleMapper {
 
     @Mapping(target = "vehicleTypeName", source = "vehicleType.name")
@@ -32,7 +34,6 @@ public interface VehicleMapper {
     VehicleAndTripResponse toVehicleDetailResponse(Vehicle vehicle);
 
     @Mapping(target = "id", ignore = true)
-    
     @Mapping(target = "trips", ignore = true)
     @Mapping(target = "vehicleType", ignore = true)
     @Mapping(target = "inspectionExpiryDate", source = "inspectionExpiryDate", dateFormat = "yyyy-MM-dd")

@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,6 +40,4 @@ public class RouteRequest {
     @NotNull(message = "ROUTE_EXPECTED_COST_EMPTY")
     @DecimalMin(value = "0", inclusive = true, message = "ROUTE_EXPECTED_COST_INVALID")
     private BigDecimal estimatedFuelCost;
-
-    
 }

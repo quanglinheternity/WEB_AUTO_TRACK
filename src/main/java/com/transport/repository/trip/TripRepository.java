@@ -6,6 +6,4 @@ import org.springframework.stereotype.Repository;
 import com.transport.entity.domain.Trip;
 
 @Repository
-public interface TripRepository extends JpaRepository<Trip, Long>, TripRepositoryCustom {
-
-}
+public interface TripRepository extends JpaRepository<Trip, Long>, TripRepositoryCustom {}

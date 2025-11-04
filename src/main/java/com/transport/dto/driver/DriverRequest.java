@@ -3,13 +3,14 @@ package com.transport.dto.driver;
 import java.math.BigDecimal;
 import java.sql.Date;
 
-import com.transport.enums.EmploymentStatus;
-import com.transport.validation.ValidEnum;
-
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+
+import com.transport.enums.EmploymentStatus;
+import com.transport.validation.ValidEnum;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

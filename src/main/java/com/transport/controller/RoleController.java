@@ -2,6 +2,8 @@ package com.transport.controller;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +18,6 @@ import com.transport.dto.role.RoleRequest;
 import com.transport.dto.role.RoleResponse;
 import com.transport.service.role.RoleService;
 
-import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -30,6 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @PreAuthorize("hasAuthority('ROLE')")
 public class RoleController {
     RoleService roleService;
+
     @GetMapping
     public ApiResponse<List<RoleResponse>> getAll() {
         return ApiResponse.<List<RoleResponse>>builder()
@@ -37,6 +39,7 @@ public class RoleController {
                 .data(roleService.getAll())
                 .build();
     }
+
     @PostMapping
     public ApiResponse<RoleResponse> create(@RequestBody @Valid RoleRequest request) {
         return ApiResponse.<RoleResponse>builder()
@@ -44,11 +47,10 @@ public class RoleController {
                 .data(roleService.creatRoleResponse(request))
                 .build();
     }
+
     @DeleteMapping("/{roleName}")
     public ApiResponse<Void> delete(@PathVariable String roleName) {
         roleService.deleteRole(roleName);
-        return ApiResponse.<Void>builder()
-                .message("Xóa quyền thành công")
-                .build();
+        return ApiResponse.<Void>builder().message("Xóa quyền thành công").build();
     }
 }

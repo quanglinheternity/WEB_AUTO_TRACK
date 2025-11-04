@@ -1,8 +1,9 @@
 package com.transport.dto.trip;
 
+import jakarta.validation.constraints.NotNull;
+
 import com.transport.enums.TripStatus;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +18,6 @@ public class UpdateTripStatusRequest {
 
     @NotNull(message = "NEW_STATUS_REQUIRED")
     TripStatus newStatus;
-    
+
     String note;
 }

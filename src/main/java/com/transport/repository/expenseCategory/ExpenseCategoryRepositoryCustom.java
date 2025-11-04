@@ -10,6 +10,6 @@ public interface ExpenseCategoryRepositoryCustom {
     Page<ExpenseCategory> searchExpenseCategories(ExpenseCategorySearchRequest request, Pageable pageable);
 
     boolean existsByName(String name);
-    
+
     boolean existsByNameAndIdNot(String name, Long id);
 }

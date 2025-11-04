@@ -20,5 +20,4 @@ public interface VehicleRepositoryCustom {
     BigDecimal findMaxPayloadByVehicleId(Long vehicleId);
 
     Page<VehicleResponse> searchVehicles(VehicleSearchRequest request, Pageable pageable);
-    
 }

@@ -6,6 +6,4 @@ import org.springframework.stereotype.Repository;
 import com.transport.entity.domain.VehicleType;
 
 @Repository
-public interface VehicleTypeRepository extends JpaRepository<VehicleType, Long> , VehicleTypeRepositoryCustom {
-
-}
+public interface VehicleTypeRepository extends JpaRepository<VehicleType, Long>, VehicleTypeRepositoryCustom {}

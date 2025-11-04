@@ -33,8 +33,7 @@ public class TripValidator {
     VehicleRepository vehicleRepository;
 
     public Trip validateTrip(Long id) {
-        return tripRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.SCHEDULE_NOT_FOUND));
+        return tripRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.SCHEDULE_NOT_FOUND));
     }
 
     public Route validateRoute(Long routeId) {
@@ -43,47 +42,58 @@ public class TripValidator {
     }
 
     public Vehicle validateVehicle(Long vehicleId) {
-        Vehicle vehicle = vehicleRepository.findById(vehicleId)
-                .orElseThrow(() -> new AppException(ErrorCode.VEHICLE_NOT_FOUND));
+        Vehicle vehicle =
+                vehicleRepository.findById(vehicleId).orElseThrow(() -> new AppException(ErrorCode.VEHICLE_NOT_FOUND));
         if (vehicle.getStatus() != VehicleStatus.AVAILABLE && vehicle.getStatus() != VehicleStatus.IN_USE) {
             throw new AppException(ErrorCode.VEHICLE_INACTIVE);
         }
         return vehicle;
     }
 
-    public void validateVehicleOverlap(Long vehicleId, LocalDateTime departureTime, LocalDateTime estimatedArrivalTime) {
-        Long countOverlappingTrips = tripRepository.countOverlappingTripsByVehicle(vehicleId,departureTime, estimatedArrivalTime);
+    public void validateVehicleOverlap(
+            Long vehicleId, LocalDateTime departureTime, LocalDateTime estimatedArrivalTime) {
+        Long countOverlappingTrips =
+                tripRepository.countOverlappingTripsByVehicle(vehicleId, departureTime, estimatedArrivalTime);
         if (countOverlappingTrips > 0) {
             throw new AppException(ErrorCode.SCHEDULE_VEHICLE_ALREADY_BOOKED);
         }
     }
+
     public void validateDriverOverlap(Long driverId, LocalDateTime departureTime, LocalDateTime estimatedArrivalTime) {
-        Long countOverlappingTrips = tripRepository.countOverlappingTripsByDriver(driverId,departureTime, estimatedArrivalTime);
+        Long countOverlappingTrips =
+                tripRepository.countOverlappingTripsByDriver(driverId, departureTime, estimatedArrivalTime);
         if (countOverlappingTrips > 0) {
             throw new AppException(ErrorCode.SCHEDULE_DRIVER_ALREADY_BOOKED);
         }
     }
-    public void validateVehicleOverlapExcluding(Long vehicleId, LocalDateTime departureTime, LocalDateTime estimatedArrivalTime, Long excludeTripId) {
-        Long countOverlappingTrips = tripRepository.countOverlappingTripsByVehicleExcluding(vehicleId,departureTime, estimatedArrivalTime, excludeTripId);
+
+    public void validateVehicleOverlapExcluding(
+            Long vehicleId, LocalDateTime departureTime, LocalDateTime estimatedArrivalTime, Long excludeTripId) {
+        Long countOverlappingTrips = tripRepository.countOverlappingTripsByVehicleExcluding(
+                vehicleId, departureTime, estimatedArrivalTime, excludeTripId);
         if (countOverlappingTrips > 0) {
             throw new AppException(ErrorCode.SCHEDULE_VEHICLE_ALREADY_BOOKED);
         }
     }
-    public void validateDriverOverlapExcluding(Long driverId, LocalDateTime departureTime, LocalDateTime estimatedArrivalTime, Long excludeTripId) {
-        Long countOverlappingTrips = tripRepository.countOverlappingTripsByDriverExcluding(driverId,departureTime, estimatedArrivalTime, excludeTripId);
+
+    public void validateDriverOverlapExcluding(
+            Long driverId, LocalDateTime departureTime, LocalDateTime estimatedArrivalTime, Long excludeTripId) {
+        Long countOverlappingTrips = tripRepository.countOverlappingTripsByDriverExcluding(
+                driverId, departureTime, estimatedArrivalTime, excludeTripId);
         if (countOverlappingTrips > 0) {
             throw new AppException(ErrorCode.SCHEDULE_DRIVER_ALREADY_BOOKED);
         }
     }
 
     public Driver validateDriver(Long taiXeId) {
-        Driver driver = driverRepository.findById(taiXeId)
-                .orElseThrow(() -> new AppException(ErrorCode.DRIVER_NOT_FOUND));
+        Driver driver =
+                driverRepository.findById(taiXeId).orElseThrow(() -> new AppException(ErrorCode.DRIVER_NOT_FOUND));
         if (driver.getEmploymentStatus() != EmploymentStatus.ACTIVE) {
             throw new AppException(ErrorCode.DRIVER_INACTIVE);
         }
         return driver;
     }
+
     public void validateCargoWeight(Long vehicleId, BigDecimal cargoWeight) {
         if (cargoWeight == null) {
             throw new AppException(ErrorCode.CARGO_WEIGHT_REQUIRED);
@@ -138,5 +148,4 @@ public class TripValidator {
             }
         }
     }
-
 }

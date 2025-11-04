@@ -8,19 +8,16 @@ import com.transport.dto.driver.DriverResponse;
 import com.transport.dto.role.RoleResponse;
 
 public record UserDetailResponse(
-    Long id,
-    String username,
-    String phone,
-    String fullName,
-    String idNumber,
-    LocalDate dateOfBirth,
-    String address,
-    String avatarUrl,
-    Boolean isActive,
-    LocalDateTime createdAt,
-    LocalDateTime updatedAt,
-    DriverResponse driver,
-    Set<RoleResponse> roles
-) {
-
-}
+        Long id,
+        String username,
+        String phone,
+        String fullName,
+        String idNumber,
+        LocalDate dateOfBirth,
+        String address,
+        String avatarUrl,
+        Boolean isActive,
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt,
+        DriverResponse driver,
+        Set<RoleResponse> roles) {}

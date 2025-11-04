@@ -18,15 +18,21 @@ public interface TripMapper {
     @Mapping(target = "routeName", source = "route.name")
     @Mapping(target = "vehiclePlateNumber", source = "vehicle.licensePlate")
     @Mapping(target = "driverName", source = "driver.user.fullName")
-    @Mapping(target = "createdBy", expression = "java(trip.getCreatedBy() != null ? trip.getCreatedBy().getFullName() : null)")
-    @Mapping(target = "approvedBy", expression = "java(trip.getApprovedByUser() != null ? trip.getApprovedByUser().getFullName() : null)")
+    @Mapping(
+            target = "createdBy",
+            expression = "java(trip.getCreatedBy() != null ? trip.getCreatedBy().getFullName() : null)")
+    @Mapping(
+            target = "approvedBy",
+            expression = "java(trip.getApprovedByUser() != null ? trip.getApprovedByUser().getFullName() : null)")
     @Mapping(target = "status", source = "status", qualifiedByName = "mapStatusToDescription")
     TripResponse toTripResponse(Trip trip);
+
     @Named("mapStatusToDescription")
     default String mapStatusToDescription(TripStatus status) {
         return status != null ? status.getDescription() : null;
     }
-    @Mapping(source = "route.name", target = "routeName") 
+
+    @Mapping(source = "route.name", target = "routeName")
     @Mapping(source = "vehicle.licensePlate", target = "vehiclePlateNumber")
     @Mapping(source = "driver.user.fullName", target = "driverName")
     VehicleAndTripResponse.TripResponseSimple toTripResponseSimple(Trip trip);

@@ -13,6 +13,7 @@ import com.transport.entity.domain.Route;
 @Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface RouteMapper {
     RouteResponse toRouteResponse(Route route);
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "code", ignore = true)
     @Mapping(target = "isActive", ignore = true)

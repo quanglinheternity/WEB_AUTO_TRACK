@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import jakarta.transaction.Transactional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -25,7 +27,6 @@ import com.transport.exception.ErrorCode;
 import com.transport.repository.salary.SalaryReportRepository;
 import com.transport.repository.trip.TripRepository;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,16 +37,16 @@ import lombok.extern.slf4j.Slf4j;
 public class SalaryReportService {
     private final SalaryReportRepository salaryReportRepository;
     private final TripRepository tripRepository;
-     public SalaryReportDetailResponse getSalaryReportDetail(Long reportId) {
-        SalaryReport report = salaryReportRepository.findById(reportId)
+
+    public SalaryReportDetailResponse getSalaryReportDetail(Long reportId) {
+        SalaryReport report = salaryReportRepository
+                .findById(reportId)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy báo cáo lương"));
 
         // Lấy danh sách chuyến đi trong tháng
         YearMonth month = report.getReportMonth();
         List<Trip> trips = tripRepository.findCompletedTripsByDriverAndMonth(
-                report.getDriver().getId(),
-                month
-        );
+                report.getDriver().getId(), month);
 
         List<SalaryReportDetailResponse.TripSummary> tripSummaries = trips.stream()
                 .map(trip -> SalaryReportDetailResponse.TripSummary.builder()
@@ -78,6 +79,7 @@ public class SalaryReportService {
                 .trips(tripSummaries)
                 .build();
     }
+
     public void paySalaries(PaySalaryRequest request) {
         LocalDateTime now = LocalDateTime.now();
 
@@ -89,7 +91,7 @@ public class SalaryReportService {
         for (SalaryReport report : reports) {
 
             if (Boolean.TRUE.equals(report.getIsPaid())) {
-                
+
                 continue;
             }
 
@@ -102,41 +104,37 @@ public class SalaryReportService {
                 String existingNote = report.getNote() != null ? report.getNote() + "; " : "";
                 report.setNote(existingNote + request.getNote());
             }
-
         }
 
         // 3️⃣ Lưu toàn bộ
         salaryReportRepository.saveAll(reports);
     }
+
     public Map<String, Object> getSalaryStatistics(YearMonth month) {
-        if(month == null || month.isAfter(YearMonth.now())) {
+        if (month == null || month.isAfter(YearMonth.now())) {
             month = YearMonth.now();
         }
         List<SalaryReport> reports = salaryReportRepository.findAllByReportMonth(month);
-        
-        BigDecimal totalSalary = reports.stream()
-                .map(SalaryReport::getTotalSalary)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-        
+
+        BigDecimal totalSalary =
+                reports.stream().map(SalaryReport::getTotalSalary).reduce(BigDecimal.ZERO, BigDecimal::add);
+
         BigDecimal paidSalary = reports.stream()
                 .filter(SalaryReport::getIsPaid)
                 .map(SalaryReport::getTotalSalary)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
-        
+
         BigDecimal unpaidSalary = totalSalary.subtract(paidSalary);
-        
+
         long totalDrivers = reports.size();
         long paidDrivers = reports.stream().filter(SalaryReport::getIsPaid).count();
         long unpaidDrivers = totalDrivers - paidDrivers;
-        
-        Integer totalTrips = reports.stream()
-                .map(SalaryReport::getTotalTrips)
-                .reduce(0, Integer::sum);
-        
-        BigDecimal totalDistance = reports.stream()
-                .map(SalaryReport::getTotalDistance)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-        
+
+        Integer totalTrips = reports.stream().map(SalaryReport::getTotalTrips).reduce(0, Integer::sum);
+
+        BigDecimal totalDistance =
+                reports.stream().map(SalaryReport::getTotalDistance).reduce(BigDecimal.ZERO, BigDecimal::add);
+
         Map<String, Object> statistics = new HashMap<>();
         statistics.put("month", month);
         statistics.put("totalDrivers", totalDrivers);
@@ -147,14 +145,17 @@ public class SalaryReportService {
         statistics.put("unpaidSalary", unpaidSalary);
         statistics.put("totalTrips", totalTrips);
         statistics.put("totalDistance", totalDistance);
-        statistics.put("averageSalary", totalDrivers > 0 ? 
-                totalSalary.divide(BigDecimal.valueOf(totalDrivers), 2, RoundingMode.HALF_UP) : 
-                BigDecimal.ZERO);
-        
+        statistics.put(
+                "averageSalary",
+                totalDrivers > 0
+                        ? totalSalary.divide(BigDecimal.valueOf(totalDrivers), 2, RoundingMode.HALF_UP)
+                        : BigDecimal.ZERO);
+
         return statistics;
-     
     }
-    public PageResponse<SalaryCalculationResponse> searchSalaryReports(SalaryReportSearchRequest request, Pageable pageable) {
+
+    public PageResponse<SalaryCalculationResponse> searchSalaryReports(
+            SalaryReportSearchRequest request, Pageable pageable) {
         Page<SalaryCalculationResponse> page = salaryReportRepository.searchSalaryReports(request, pageable);
         return PageResponse.from(page);
     }

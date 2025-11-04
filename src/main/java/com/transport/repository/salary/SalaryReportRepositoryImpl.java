@@ -1,7 +1,5 @@
 package com.transport.repository.salary;
 
-
-
 import java.time.YearMonth;
 import java.util.List;
 
@@ -35,12 +33,10 @@ public class SalaryReportRepositoryImpl implements SalaryReportRepositoryCustom 
 
         // Giả sử field trong DB là LocalDate hoặc YearMonth bạn lưu tháng đó
 
-        Integer count = queryFactory.selectOne()
+        Integer count = queryFactory
+                .selectOne()
                 .from(salaryReport)
-                .where(
-                        salaryReport.driver.id.eq(driverId),
-                        salaryReport.reportMonth.eq(reportMonth)
-                )
+                .where(salaryReport.driver.id.eq(driverId), salaryReport.reportMonth.eq(reportMonth))
                 .fetchFirst();
 
         return count != null;
@@ -50,7 +46,8 @@ public class SalaryReportRepositoryImpl implements SalaryReportRepositoryCustom 
     public List<SalaryReport> findAllByIdIn(List<Long> reportIds) {
         if (reportIds == null || reportIds.isEmpty()) return List.of();
 
-        return queryFactory.selectFrom(salaryReport)
+        return queryFactory
+                .selectFrom(salaryReport)
                 .where(salaryReport.id.in(reportIds))
                 .fetch();
     }
@@ -59,14 +56,14 @@ public class SalaryReportRepositoryImpl implements SalaryReportRepositoryCustom 
     public List<SalaryReport> findAllByReportMonth(YearMonth month) {
         if (month == null) return List.of();
 
-
-        return queryFactory.selectFrom(salaryReport)
+        return queryFactory
+                .selectFrom(salaryReport)
                 .where(salaryReport.reportMonth.eq(month))
                 .fetch();
     }
+
     @Override
     public Page<SalaryCalculationResponse> searchSalaryReports(SalaryReportSearchRequest request, Pageable pageable) {
-        
 
         BooleanBuilder builder = new BooleanBuilder();
 
@@ -88,30 +85,34 @@ public class SalaryReportRepositoryImpl implements SalaryReportRepositoryCustom 
         // --- Tìm kiếm theo keyword ---
         if (request.getKeyword() != null && !request.getKeyword().isBlank()) {
             String keyword = request.getKeyword().trim();
-            builder.and(
-                salaryReport.driver.user.fullName.containsIgnoreCase(keyword)
-                    .or(salaryReport.note.containsIgnoreCase(keyword))
-            );
+            builder.and(salaryReport
+                    .driver
+                    .user
+                    .fullName
+                    .containsIgnoreCase(keyword)
+                    .or(salaryReport.note.containsIgnoreCase(keyword)));
         }
 
         // --- Khởi tạo query ---
-        var query = queryFactory.selectFrom(salaryReport)
-                .leftJoin(salaryReport.driver, driver).fetchJoin()
-                .leftJoin(driver.user, user).fetchJoin()
+        var query = queryFactory
+                .selectFrom(salaryReport)
+                .leftJoin(salaryReport.driver, driver)
+                .fetchJoin()
+                .leftJoin(driver.user, user)
+                .fetchJoin()
                 .where(builder);
 
         // --- Sort ---
         if (pageable.getSort().isSorted()) {
             pageable.getSort().forEach(order -> {
                 switch (order.getProperty()) {
-                    case "reportMonth" ->
-                            query.orderBy(order.isAscending() ? salaryReport.reportMonth.asc() : salaryReport.reportMonth.desc());
-                    case "totalSalary" ->
-                            query.orderBy(order.isAscending() ? salaryReport.totalSalary.asc() : salaryReport.totalSalary.desc());
-                    case "isPaid" ->
-                            query.orderBy(order.isAscending() ? salaryReport.isPaid.asc() : salaryReport.isPaid.desc());
-                    default ->
-                            query.orderBy(salaryReport.createdAt.desc());
+                    case "reportMonth" -> query.orderBy(
+                            order.isAscending() ? salaryReport.reportMonth.asc() : salaryReport.reportMonth.desc());
+                    case "totalSalary" -> query.orderBy(
+                            order.isAscending() ? salaryReport.totalSalary.asc() : salaryReport.totalSalary.desc());
+                    case "isPaid" -> query.orderBy(
+                            order.isAscending() ? salaryReport.isPaid.asc() : salaryReport.isPaid.desc());
+                    default -> query.orderBy(salaryReport.createdAt.desc());
                 }
             });
         } else {
@@ -126,27 +127,23 @@ public class SalaryReportRepositoryImpl implements SalaryReportRepositoryCustom 
                 .fetchOne();
 
         // --- Kết quả ---
-        List<SalaryCalculationResponse> results = query
-            .offset(pageable.getOffset())
-            .limit(pageable.getPageSize())
-            .fetch()
-            .stream()
-            .map(report -> SalaryCalculationResponse.builder()
-                    .driverId(report.getDriver().getId())
-                    .driverName(report.getDriver().getUser().getFullName())
-                    .driverCode(report.getDriver().getDriverCode())
-                    .month(report.getReportMonth())
-                    .baseSalary(report.getBaseSalary())
-                    .totalTrips(report.getTotalTrips())
-                    .totalDistance(report.getTotalDistance())
-                    .tripBonus(report.getTripBonus())
-                    .allowance(report.getAllowance())
-                    .deduction(report.getDeduction())
-                    .totalSalary(report.getTotalSalary())
-                    .note(report.getNote())
-                    .build()
-            )
-            .toList();
+        List<SalaryCalculationResponse> results =
+                query.offset(pageable.getOffset()).limit(pageable.getPageSize()).fetch().stream()
+                        .map(report -> SalaryCalculationResponse.builder()
+                                .driverId(report.getDriver().getId())
+                                .driverName(report.getDriver().getUser().getFullName())
+                                .driverCode(report.getDriver().getDriverCode())
+                                .month(report.getReportMonth())
+                                .baseSalary(report.getBaseSalary())
+                                .totalTrips(report.getTotalTrips())
+                                .totalDistance(report.getTotalDistance())
+                                .tripBonus(report.getTripBonus())
+                                .allowance(report.getAllowance())
+                                .deduction(report.getDeduction())
+                                .totalSalary(report.getTotalSalary())
+                                .note(report.getNote())
+                                .build())
+                        .toList();
 
         return new PageImpl<>(results, pageable, total);
     }

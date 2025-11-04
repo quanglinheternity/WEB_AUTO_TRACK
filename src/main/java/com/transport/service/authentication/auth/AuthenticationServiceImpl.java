@@ -43,7 +43,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         validation.validateLoginRequest(request);
 
-        User user = userRepository.findByName(request.getUsername())
+        User user = userRepository
+                .findByName(request.getUsername())
                 .orElseThrow(() -> new AppException(ErrorCode.AUTHENTICATION_FAILED));
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
@@ -51,10 +52,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
 
         String token = tokenService.generateToken(user);
-        return AuthenticationResponse.builder()
-                .token(token)
-                .authenticated(true)
-                .build();
+        return AuthenticationResponse.builder().token(token).authenticated(true).build();
     }
 
     @Override
@@ -83,16 +81,18 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         Date expiry = signedJWT.getJWTClaimsSet().getExpirationTime();
 
         invalidateRepository.save(
-                InvalidatedToken.builder().id(jwtId).expiryTime(expiry).build()
-        );
+                InvalidatedToken.builder().id(jwtId).expiryTime(expiry).build());
 
         String username = signedJWT.getJWTClaimsSet().getSubject();
-        User user = userRepository.findByName(username)
-                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        User user = userRepository.findByName(username).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
 
         String newToken = tokenService.generateToken(user);
-        return AuthenticationResponse.builder().token(newToken).authenticated(true).build();
+        return AuthenticationResponse.builder()
+                .token(newToken)
+                .authenticated(true)
+                .build();
     }
+
     @Override
     public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -103,12 +103,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         String username = authentication.getName();
 
-        return userRepository.findByName(username)
-                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        return userRepository.findByName(username).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
     }
 
     @Override
-     public Long getCurrentUserId() {
+    public Long getCurrentUserId() {
         return getCurrentUser().getId();
     }
 
@@ -118,7 +117,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if (currentUser.getRoles().stream().anyMatch(r -> r.getRoleName().equalsIgnoreCase(roleName))) {
             return true;
         }
-        return  false;
+        return false;
     }
 
     @Override
@@ -128,6 +127,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .flatMap(role -> role.getPermissions().stream())
                 .anyMatch(p -> p.getPermissionName().equalsIgnoreCase(permissionCode));
     }
+
     @Override
     public void requirePermission(String permissionCode) {
         if (!hasPermission(permissionCode)) {

@@ -7,6 +7,6 @@ import com.transport.entity.domain.Driver;
 
 public interface DriverRepositoryCustom {
     boolean existsBylicenseNumber(String licenseNumber);
-    List<Driver> findAllActiveDriversExcludePaid(YearMonth month);
 
+    List<Driver> findAllActiveDriversExcludePaid(YearMonth month);
 }

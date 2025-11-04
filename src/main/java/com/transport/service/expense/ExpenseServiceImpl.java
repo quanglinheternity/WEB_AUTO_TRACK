@@ -1,7 +1,8 @@
 package com.transport.service.expense;
 
-
 import java.time.LocalDateTime;
+
+import jakarta.transaction.Transactional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,7 +28,6 @@ import com.transport.service.authentication.auth.AuthenticationService;
 import com.transport.service.file.FileStorageService;
 import com.transport.util.CodeGenerator;
 
-import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -35,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE,  makeFinal = true)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Transactional
 @Slf4j
 public class ExpenseServiceImpl implements ExpenseService {
@@ -44,6 +44,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     ExpenseValidator expenseValidator;
     AuthenticationService authenticationService;
     FileStorageService fileStorageService;
+
     public PageResponse<ExpenseResponse> getAll(ExpenseSearchRequest request, Pageable pageable) {
         User currentUser = authenticationService.getCurrentUser();
 
@@ -54,7 +55,8 @@ public class ExpenseServiceImpl implements ExpenseService {
         Page<ExpenseResponse> mappedPage = page.map(expenseMapper::toExpenseResponse);
         return PageResponse.from(mappedPage);
     }
-    public ExpenseResponse create(ExpenseRequest expenseRequest,  MultipartFile file) {
+
+    public ExpenseResponse create(ExpenseRequest expenseRequest, MultipartFile file) {
         ExpenseCategory expenseCategory = expenseValidator.validateExpenseCategory(expenseRequest.getCategoryId());
         Trip trip = expenseValidator.validateTrip(expenseRequest.getTripId());
         User user = authenticationService.getCurrentUser();
@@ -73,35 +75,35 @@ public class ExpenseServiceImpl implements ExpenseService {
         expense = expenseRepository.save(expense);
         return expenseMapper.toExpenseResponse(expense);
     }
+
     public ExpenseResponse update(Long id, ExpenseUpdateRequest expenseRequest, MultipartFile file) {
         Expense expense = expenseValidator.validateExpense(id);
         if (expense.getStatus() != ExpenseStatus.PENDING) {
             throw new AppException(ErrorCode.EXPENSE_NOT_PENDING);
         }
         expenseMapper.updateExpenseFromRequest(expenseRequest, expense);
-        if (expenseRequest.getCategoryId() != null &&
-            (expense.getCategory() == null ||
-            !expense.getCategory().getId().equals(expenseRequest.getCategoryId()))) {
+        if (expenseRequest.getCategoryId() != null
+                && (expense.getCategory() == null
+                        || !expense.getCategory().getId().equals(expenseRequest.getCategoryId()))) {
 
             ExpenseCategory newCategory = expenseValidator.validateExpenseCategory(expenseRequest.getCategoryId());
             expense.setCategory(newCategory);
         }
 
-        if (expenseRequest.getTripId() != null &&
-            (expense.getTrip() == null ||
-            !expense.getTrip().getId().equals(expenseRequest.getTripId()))) {
+        if (expenseRequest.getTripId() != null
+                && (expense.getTrip() == null || !expense.getTrip().getId().equals(expenseRequest.getTripId()))) {
 
             Trip newTrip = expenseValidator.validateTrip(expenseRequest.getTripId());
             expense.setTrip(newTrip);
         }
-         // Xử lý file mới
+        // Xử lý file mới
         if (file != null && !file.isEmpty()) {
             // Xóa file cũ nếu có
             if (expense.getAttachmentUrl() != null) {
                 log.info("File deleted for expense {}: {}", id, expense.getAttachmentUrl());
                 fileStorageService.deleteFile(expense.getAttachmentUrl());
             }
-            
+
             // Upload file mới
             String filePath = fileStorageService.uploadFile(file, "expenses");
             expense.setAttachmentUrl(filePath);
@@ -111,10 +113,12 @@ public class ExpenseServiceImpl implements ExpenseService {
         expense = expenseRepository.save(expense);
         return expenseMapper.toExpenseResponse(expense);
     }
+
     public ExpenseResponse getById(Long id) {
         Expense expense = expenseValidator.validateExpense(id);
         return expenseMapper.toExpenseResponse(expense);
     }
+
     public void delete(Long id) {
         Expense expense = expenseValidator.validateExpense(id);
         if (expense.getStatus() != ExpenseStatus.PENDING) {
@@ -123,6 +127,7 @@ public class ExpenseServiceImpl implements ExpenseService {
         fileStorageService.deleteFile(expense.getAttachmentUrl());
         expenseRepository.delete(expense);
     }
+
     public ExpenseResponse expenseApprove(Long id, ExpenseApproveRequest request) {
         Expense expense = expenseValidator.validateExpense(id);
         ExpenseStatus currentStatus = expense.getStatus();
@@ -189,7 +194,4 @@ public class ExpenseServiceImpl implements ExpenseService {
         expense = expenseRepository.save(expense);
         return expenseMapper.toExpenseResponse(expense);
     }
-
-
-
 }

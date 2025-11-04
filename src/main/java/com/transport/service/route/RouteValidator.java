@@ -16,9 +16,9 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class RouteValidator {
     RouteRepository routeRepository;
-     public Route validateRoute(Long routeId) {
-        Route route = routeRepository.findById(routeId)
-                .orElseThrow(() -> new AppException(ErrorCode.ROUTE_NOT_FOUND));
+
+    public Route validateRoute(Long routeId) {
+        Route route = routeRepository.findById(routeId).orElseThrow(() -> new AppException(ErrorCode.ROUTE_NOT_FOUND));
         if (!Boolean.TRUE.equals(route.getIsActive())) {
             throw new AppException(ErrorCode.ROUTE_INACTIVE);
         }

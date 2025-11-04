@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import jakarta.transaction.Transactional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,7 +33,6 @@ import com.transport.repository.user.UserRepository;
 import com.transport.service.authentication.auth.AuthenticationService;
 import com.transport.util.CodeGenerator;
 
-import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -50,7 +51,7 @@ public class UserServiceImpl implements UserService {
     DriverRepository driverRepository;
 
     AuthenticationService authenticationService;
-    
+
     @Override
     public PageResponse<UserResponse> getAll(UserSearchRequest request, Pageable pageable) {
         // return nguoiDungRepository.findAll();
@@ -58,13 +59,14 @@ public class UserServiceImpl implements UserService {
 
         return PageResponse.from(page);
     }
+
     @Override
     public UserDetailResponse getById(Long id) {
-        User targetUser = userRepository.findById(id)
-            .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        User targetUser = userRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
         if (authenticationService.hasRole("ADMIN")) return userMapper.toDetailResponse(targetUser);
 
-        if (authenticationService.hasRole("MANAGER") && "ADMIN".equals(targetUser.getRoles().iterator().next().getRoleName()))
+        if (authenticationService.hasRole("MANAGER")
+                && "ADMIN".equals(targetUser.getRoles().iterator().next().getRoleName()))
             throw new AppException(ErrorCode.ACCESS_DENIED);
 
         if ((authenticationService.hasRole("ACCOUNTANT") || authenticationService.hasRole("DRIVER"))
@@ -72,15 +74,14 @@ public class UserServiceImpl implements UserService {
             throw new AppException(ErrorCode.ACCESS_DENIED);
         return userMapper.toDetailResponse(targetUser);
     }
+
     @Override
     public UserDetailResponse create(UserCreateRequest request) {
 
         // --- PHÂN QUYỀN TẠO USER ---
         // Lấy danh sách role được tạo
         List<Role> rolesToAssign = roleRepository.findAllById(request.getRoles());
-        Set<String> roleNames = rolesToAssign.stream()
-                .map(Role::getRoleName)
-                .collect(Collectors.toSet());
+        Set<String> roleNames = rolesToAssign.stream().map(Role::getRoleName).collect(Collectors.toSet());
 
         // Kiểm tra vai trò của người tạo
         if (authenticationService.hasRole("ADMIN")) {
@@ -120,22 +121,20 @@ public class UserServiceImpl implements UserService {
 
         return userMapper.toDetailResponse(user);
     }
+
     public UserDetailResponse update(Long id, UserCreateRequest request) {
         userValidator.validateBeforeUpdate(id, request);
         User user = userValidator.validateAndGetExistingUser(id);
         User currentUser = authenticationService.getCurrentUser();
         if (authenticationService.hasRole("ADMIN")) {
-        // ADMIN: full quyền → không giới hạn
+            // ADMIN: full quyền → không giới hạn
         } else if (authenticationService.hasRole("MANAGER")) {
             // MANAGER: không được sửa ADMIN
-            boolean targetIsAdmin = user.getRoles().stream()
-                    .anyMatch(r -> "ADMIN".equals(r.getRoleName()));
-            if (targetIsAdmin)
-                throw new AppException(ErrorCode.ACCESS_DENIED);
+            boolean targetIsAdmin = user.getRoles().stream().anyMatch(r -> "ADMIN".equals(r.getRoleName()));
+            if (targetIsAdmin) throw new AppException(ErrorCode.ACCESS_DENIED);
         } else if (authenticationService.hasRole("ACCOUNTANT") || authenticationService.hasRole("DRIVER")) {
             // Chỉ được sửa chính mình
-            if (!currentUser.getId().equals(id))
-                throw new AppException(ErrorCode.ACCESS_DENIED);
+            if (!currentUser.getId().equals(id)) throw new AppException(ErrorCode.ACCESS_DENIED);
         } else {
             throw new AppException(ErrorCode.ACCESS_DENIED);
         }
@@ -144,27 +143,27 @@ public class UserServiceImpl implements UserService {
             PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
             user.setPassword(passwordEncoder.encode(request.getPassword()));
         }
-         // Nếu vai trò là tài xế, tạo thêm thông tin tài xế
+        // Nếu vai trò là tài xế, tạo thêm thông tin tài xế
         if (Boolean.TRUE.equals(request.getIsDriver()) && request.getDriver() == null) {
             DriverRequest driverRequest = request.getDriver();
-            if (driverRequest  == null) {
+            if (driverRequest == null) {
                 throw new AppException(ErrorCode.DRIVER_ALREADY_EMPTY);
             }
-            
+
             Driver driver = user.getDriver();
             if (driver == null) {
                 driver = driverMapper.toDriverFromCreateRequest(driverRequest);
                 driver.setUser(user);
                 driver.setDriverCode(CodeGenerator.generateCode("TX"));
-            }else {
+            } else {
                 driverMapper.updateDriverFromRequest(driverRequest, driver);
             }
-            
+
             driver = driverRepository.save(driver);
-            
+
             user.setDriver(driver);
-            
-        }else {
+
+        } else {
             if (user.getDriver() != null) {
                 driverRepository.delete(user.getDriver());
                 user.setDriver(null);
@@ -176,7 +175,7 @@ public class UserServiceImpl implements UserService {
         return userMapper.toDetailResponse(user);
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         User user = userValidator.validateAndGetExistingUser(id);
         if (user.getDriver() != null) {
             driverRepository.delete(user.getDriver());

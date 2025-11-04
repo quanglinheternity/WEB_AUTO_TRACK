@@ -1,5 +1,7 @@
 package com.transport.controller;
 
+import jakarta.validation.Valid;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -22,7 +24,6 @@ import com.transport.dto.trip.TripUpdateRequest;
 import com.transport.dto.trip.UpdateTripStatusRequest;
 import com.transport.service.trip.TripService;
 
-import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -35,17 +36,18 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TripController {
     TripService tripService;
+
     @GetMapping
     public ApiResponse<PageResponse<TripResponse>> getAll(
-        TripSearchRequest request,
-        @PageableDefault(page = 0, size = 10, sort = "expenseDate", direction = Sort.Direction.DESC)
-        Pageable pageable
-    ) {
+            TripSearchRequest request,
+            @PageableDefault(page = 0, size = 10, sort = "expenseDate", direction = Sort.Direction.DESC)
+                    Pageable pageable) {
         return ApiResponse.<PageResponse<TripResponse>>builder()
                 .message("Lấy danh sách thành công")
                 .data(tripService.getAll(request, pageable))
                 .build();
     }
+
     @PostMapping
     public ApiResponse<TripResponse> create(@RequestBody TripCreateRequest request) {
         return ApiResponse.<TripResponse>builder()
@@ -53,33 +55,33 @@ public class TripController {
                 .data(tripService.createTrip(request))
                 .build();
     }
+
     @PutMapping("/{id}")
-    public ApiResponse<TripResponse> update(@PathVariable Long id,@RequestBody TripUpdateRequest request) {
+    public ApiResponse<TripResponse> update(@PathVariable Long id, @RequestBody TripUpdateRequest request) {
         return ApiResponse.<TripResponse>builder()
                 .message("Cập nhật lịch trình thành công")
                 .data(tripService.updateTrip(id, request))
                 .build();
     }
+
     @PutMapping("/{id}/trang-thai-van-chuyen")
-    public ApiResponse<TripResponse> updateTripStatus (
-            @PathVariable Long id,
-            @Valid @RequestBody UpdateTripStatusRequest request
-    ) {
+    public ApiResponse<TripResponse> updateTripStatus(
+            @PathVariable Long id, @Valid @RequestBody UpdateTripStatusRequest request) {
         return ApiResponse.<TripResponse>builder()
                 .data(tripService.updateTripStatus(id, request))
                 .build();
     }
+
     @PutMapping("/{id}/phe-duyet")
     public ApiResponse<TripResponse> approve(@PathVariable Long id, @RequestBody @Valid ApproveTripRequest request) {
         return ApiResponse.<TripResponse>builder()
                 .data(tripService.approveTrip(id, request))
                 .build();
     }
+
     @DeleteMapping("/{id}")
     public ApiResponse<Void> delete(@PathVariable Long id) {
         tripService.delete(id);
-        return ApiResponse.<Void>builder()
-                .message("Xóa lịch trình thành công")
-                .build();
+        return ApiResponse.<Void>builder().message("Xóa lịch trình thành công").build();
     }
 }

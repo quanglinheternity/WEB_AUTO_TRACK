@@ -8,7 +8,6 @@ public final class CodeGenerator {
 
     private CodeGenerator() {}
 
-    
     public static String generateCode(String prefix) {
         String timestamp = String.valueOf(System.currentTimeMillis()).substring(8); // phần cuối của timestamp
         int random = RANDOM.nextInt(1000); // 3 số ngẫu nhiên

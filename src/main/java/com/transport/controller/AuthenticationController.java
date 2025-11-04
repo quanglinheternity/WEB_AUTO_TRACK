@@ -29,6 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AuthenticationController {
     AuthenticationService authenticationService;
+
     @PostMapping("/login")
     public ApiResponse<AuthenticationResponse> login(@RequestBody AuthenticationRequest request) {
         AuthenticationResponse result = authenticationService.authenticate(request);
@@ -37,14 +38,15 @@ public class AuthenticationController {
                 .data(result)
                 .build();
     }
+
     @PostMapping("/introspect")
     ApiResponse<IntrospectResponse> authticated(@RequestBody IntrospectRequest request)
             throws ParseException, JOSEException {
         var result = authenticationService.introspect(request);
         return ApiResponse.<IntrospectResponse>builder()
-                    .message("Introspect thành công!")
-                    .data(result)
-                    .build();
+                .message("Introspect thành công!")
+                .data(result)
+                .build();
     }
 
     @PostMapping("/refresh")
@@ -62,6 +64,4 @@ public class AuthenticationController {
         authenticationService.logout(request);
         return ApiResponse.<Void>builder().message("Đăng xuất thành công").build();
     }
-
-
 }

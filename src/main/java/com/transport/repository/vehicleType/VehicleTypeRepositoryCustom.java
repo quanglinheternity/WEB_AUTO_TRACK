@@ -9,7 +9,10 @@ import com.transport.entity.domain.VehicleType;
 
 public interface VehicleTypeRepositoryCustom {
     boolean existsByNameAndIdNot(String name, Long id);
+
     boolean existsByName(String name);
+
     Optional<VehicleType> findByIdAndIsActiveTrue(Long id);
+
     Page<VehicleType> search(String keyword, Pageable pageable);
 }

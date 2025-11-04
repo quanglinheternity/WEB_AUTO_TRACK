@@ -1,5 +1,6 @@
 package com.transport.controller;
 
+import jakarta.validation.Valid;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -23,7 +24,6 @@ import com.transport.dto.vehicle.VehicleSearchRequest;
 import com.transport.dto.vehicle.VehicleUpdateRequest;
 import com.transport.service.vehicle.VehicleService;
 
-import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -40,10 +40,9 @@ public class VehicleController {
     @PreAuthorize("hasAuthority('VEHICLE_READ')")
     @GetMapping
     public ApiResponse<PageResponse<VehicleResponse>> getAll(
-        VehicleSearchRequest request,
-        @PageableDefault(page = 0, size = 10, sort = "expenseDate", direction = Sort.Direction.DESC)
-        Pageable pageable
-        ) {
+            VehicleSearchRequest request,
+            @PageableDefault(page = 0, size = 10, sort = "expenseDate", direction = Sort.Direction.DESC)
+                    Pageable pageable) {
         return ApiResponse.<PageResponse<VehicleResponse>>builder()
                 .message("Lấy danh sách thành công")
                 .data(vehicleService.getAll(request, pageable))
@@ -57,6 +56,7 @@ public class VehicleController {
                 .data(vehicleService.getById(id))
                 .build();
     }
+
     @PreAuthorize("hasAuthority('VEHICLE_CREATE')")
     @PostMapping
     public ApiResponse<VehicleResponse> create(@RequestBody @Valid VehicleRequest request) {
@@ -65,25 +65,27 @@ public class VehicleController {
                 .data(vehicleService.create(request))
                 .build();
     }
+
     @PreAuthorize("hasAuthority('VEHICLE_UPDATE')")
     @PutMapping("/{id}")
-    public ApiResponse<VehicleResponse> update(@PathVariable Long id,@RequestBody @Valid VehicleUpdateRequest request) {
+    public ApiResponse<VehicleResponse> update(
+            @PathVariable Long id, @RequestBody @Valid VehicleUpdateRequest request) {
         return ApiResponse.<VehicleResponse>builder()
                 .message("Cập nhật xe thành công")
                 .data(vehicleService.update(id, request))
                 .build();
     }
+
     @PreAuthorize("hasAuthority('VEHICLE_DELETE')")
     @DeleteMapping("/{id}")
-     public ApiResponse<Void> delete(@PathVariable Long id) {
+    public ApiResponse<Void> delete(@PathVariable Long id) {
         vehicleService.delete(id);
-        return ApiResponse.<Void>builder()
-                .message("Xóa xe thành công")
-                .build();
+        return ApiResponse.<Void>builder().message("Xóa xe thành công").build();
     }
+
     @PutMapping("/{id}/trang-thai")
     public ApiResponse<VehicleResponse> updateByTrangThai(@PathVariable Long id) {
-        
+
         return ApiResponse.<VehicleResponse>builder()
                 .code(1000)
                 .message("Cập nhật trạng thái thành công")

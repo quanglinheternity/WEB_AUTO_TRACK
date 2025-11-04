@@ -1,6 +1,5 @@
 package com.transport.service.trip;
 
-
 import org.springframework.data.domain.Pageable;
 
 import com.transport.dto.page.PageResponse;
@@ -15,8 +14,12 @@ public interface TripService {
     PageResponse<TripResponse> getAll(TripSearchRequest request, Pageable pageable);
 
     TripResponse createTrip(TripCreateRequest request);
+
     TripResponse updateTrip(Long id, TripUpdateRequest request);
+
     TripResponse updateTripStatus(Long id, UpdateTripStatusRequest request);
+
     TripResponse approveTrip(Long id, ApproveTripRequest request);
+
     void delete(Long id);
 }

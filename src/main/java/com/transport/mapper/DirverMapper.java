@@ -12,7 +12,7 @@ import com.transport.entity.domain.Driver;
 
 @Mapper(componentModel = "spring")
 public interface DirverMapper {
-      // Convert từ request sang entity khi tạo mới
+    // Convert từ request sang entity khi tạo mới
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "driverCode", ignore = true)
     @Mapping(target = "salaryReports", ignore = true)

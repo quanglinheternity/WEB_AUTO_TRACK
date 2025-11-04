@@ -1,5 +1,6 @@
 package com.transport.controller;
 
+import jakarta.validation.Valid;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -22,7 +23,6 @@ import com.transport.dto.user.UserResponse;
 import com.transport.dto.user.UserSearchRequest;
 import com.transport.service.user.UserService;
 
-import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -41,12 +41,13 @@ public class UserController {
     public ApiResponse<PageResponse<UserResponse>> getAll(
             UserSearchRequest request,
             @PageableDefault(page = 0, size = 10, sort = "expenseDate", direction = Sort.Direction.DESC)
-            Pageable pageable) {
+                    Pageable pageable) {
         return ApiResponse.<PageResponse<UserResponse>>builder()
                 .message("Lấy danh sách thành công")
                 .data(userService.getAll(request, pageable))
                 .build();
     }
+
     @GetMapping("/{id}")
     public ApiResponse<UserDetailResponse> getById(@PathVariable Long id) {
         return ApiResponse.<UserDetailResponse>builder()
@@ -62,20 +63,21 @@ public class UserController {
                 .data(userService.create(request))
                 .build();
     }
+
     @PreAuthorize("hasAuthority('USER_UPDATE')")
     @PutMapping("/{id}")
-    public ApiResponse<UserDetailResponse> update(@PathVariable Long id,@RequestBody @Valid UserCreateRequest request) {
+    public ApiResponse<UserDetailResponse> update(
+            @PathVariable Long id, @RequestBody @Valid UserCreateRequest request) {
         return ApiResponse.<UserDetailResponse>builder()
                 .message("Cập nhật người dùng thành công")
                 .data(userService.update(id, request))
                 .build();
     }
+
     @PreAuthorize("hasAuthority('USER_DELETE')")
     @DeleteMapping("/{id}")
     public ApiResponse<Void> delete(@PathVariable Long id) {
         userService.delete(id);
-        return ApiResponse.<Void>builder()
-                .message("Xóa người dùng thành công")
-                .build();
+        return ApiResponse.<Void>builder().message("Xóa người dùng thành công").build();
     }
 }

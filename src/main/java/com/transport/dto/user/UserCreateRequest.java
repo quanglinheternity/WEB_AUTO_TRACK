@@ -3,15 +3,15 @@ package com.transport.dto.user;
 import java.time.LocalDate;
 import java.util.Set;
 
-import com.transport.dto.driver.DriverRequest;
-
-
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+
+import com.transport.dto.driver.DriverRequest;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -48,13 +48,13 @@ public class UserCreateRequest {
     String address;
 
     Boolean isActive;
-    
+
     @NotNull(message = "IS_DRIVER_NOT_NULL")
     Boolean isDriver;
-    
+
     @Valid
     DriverRequest driver;
+
     @NotNull(message = "ROLE_NOT_NULL")
     Set<String> roles;
-    
 }

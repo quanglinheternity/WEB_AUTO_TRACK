@@ -13,5 +13,4 @@ public enum TripStatus {
     CANCELLED("Đã hủy chuyến");
 
     private final String description;
-
 }

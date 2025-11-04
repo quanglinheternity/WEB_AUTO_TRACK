@@ -6,6 +6,4 @@ import org.springframework.stereotype.Repository;
 import com.transport.entity.domain.Expense;
 
 @Repository
-public interface ExpenseRepository extends JpaRepository<Expense, Long> , ExpenseRepositoryCustom {
-
-}
+public interface ExpenseRepository extends JpaRepository<Expense, Long>, ExpenseRepositoryCustom {}

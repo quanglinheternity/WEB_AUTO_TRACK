@@ -1,14 +1,14 @@
 package com.transport.dto.salary;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.List;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
@@ -20,7 +20,7 @@ public class SalaryReportDetailResponse {
     private String driverName;
     private String driverCode;
     private YearMonth month;
-    
+
     private BigDecimal baseSalary;
     private Integer totalTrips;
     private BigDecimal totalDistance;
@@ -28,14 +28,14 @@ public class SalaryReportDetailResponse {
     private BigDecimal allowance;
     private BigDecimal deduction;
     private BigDecimal totalSalary;
-    
+
     private Boolean isPaid;
     private LocalDateTime paidAt;
     private String note;
-    
+
     // Danh sách chuyến đi trong tháng
     private List<TripSummary> trips;
-    
+
     @Data
     @Builder
     @NoArgsConstructor

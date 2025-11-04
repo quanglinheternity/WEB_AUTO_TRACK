@@ -16,12 +16,12 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class RouteUpdateRequest {
 
-    private String name;              // optional, nếu muốn đổi tên
-    private String origin;            // optional
-    private String destination;       // optional
-    private BigDecimal distanceKm;    // optional
+    private String name; // optional, nếu muốn đổi tên
+    private String origin; // optional
+    private String destination; // optional
+    private BigDecimal distanceKm; // optional
     private BigDecimal estimatedDurationHours; // optional
-    private String description;       // optional
+    private String description; // optional
     private BigDecimal estimatedFuelCost; // optional
-    private Boolean isActive;         // optional, true = Hoạt động, false = Ngưng hoạt động
+    private Boolean isActive; // optional, true = Hoạt động, false = Ngưng hoạt động
 }

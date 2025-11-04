@@ -18,21 +18,22 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserValidator {
     UserRepository userRepository;
+
     public void validateBeforeCreate(UserCreateRequest request) {
         if (userRepository.existsByUsername(request.getUsername())) {
             throw new AppException(ErrorCode.USER_ALREADY_EXISTS);
         }
         validateDriverForCreate(request.getIsDriver(), request.getDriver());
     }
+
     public void validateBeforeUpdate(Long id, UserCreateRequest request) {
         validateAndGetExistingUser(id);
         validateDuplicateUsername(request.getUsername(), id);
         validateDriverForUpdate(request.getIsDriver(), request.getDriver());
     }
-    
+
     public User validateAndGetExistingUser(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        return userRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
     }
 
     public void validateDuplicateUsername(String username, Long id) {
@@ -46,6 +47,7 @@ public class UserValidator {
             throw new AppException(ErrorCode.PASSWORD_REQUIRED);
         }
     }
+
     public void validateDriverForCreate(Boolean isDriver, DriverRequest driverRequest) {
         if (Boolean.TRUE.equals(isDriver) && driverRequest == null) {
             throw new AppException(ErrorCode.DRIVER_ALREADY_EMPTY);

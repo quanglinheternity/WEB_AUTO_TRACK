@@ -15,24 +15,23 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 public record VehicleAndTripResponse(
-    Long id,
-    String licensePlate,
-    String brand,
-    String vehicleTypeName,
-    String model,
-    String color,
-    String vin,
-    String engineNumber,
-    LocalDate registrationDate,
-    LocalDate inspectionExpiryDate,
-    LocalDate insuranceExpiryDate,
-    Integer manufactureYear,
-    String status,
-    String note,
-    Set<TripResponseSimple> trips,
-    LocalDateTime createdAt,
-    LocalDateTime updatedAt
-) {
+        Long id,
+        String licensePlate,
+        String brand,
+        String vehicleTypeName,
+        String model,
+        String color,
+        String vin,
+        String engineNumber,
+        LocalDate registrationDate,
+        LocalDate inspectionExpiryDate,
+        LocalDate insuranceExpiryDate,
+        Integer manufactureYear,
+        String status,
+        String note,
+        Set<TripResponseSimple> trips,
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt) {
     @Data
     @Builder
     @NoArgsConstructor

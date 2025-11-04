@@ -13,11 +13,21 @@ import com.transport.entity.domain.Trip;
 
 public interface TripRepositoryCustom {
     long countOverlappingTripsByDriver(Long driverId, LocalDateTime departureTime, LocalDateTime estimatedArrivalTime);
-    long countOverlappingTripsByVehicle(Long vehicleId, LocalDateTime departureTime, LocalDateTime estimatedArrivalTime);
-    long countOverlappingTripsByVehicleExcluding(Long vehicleId, LocalDateTime departureTime, LocalDateTime estimatedArrivalTime, Long excludeTripId);
-    long countOverlappingTripsByDriverExcluding(Long vehicleId, LocalDateTime departureTime, LocalDateTime estimatedArrivalTime, Long excludeTripId);
+
+    long countOverlappingTripsByVehicle(
+            Long vehicleId, LocalDateTime departureTime, LocalDateTime estimatedArrivalTime);
+
+    long countOverlappingTripsByVehicleExcluding(
+            Long vehicleId, LocalDateTime departureTime, LocalDateTime estimatedArrivalTime, Long excludeTripId);
+
+    long countOverlappingTripsByDriverExcluding(
+            Long vehicleId, LocalDateTime departureTime, LocalDateTime estimatedArrivalTime, Long excludeTripId);
+
     Page<Trip> searchTrips(TripSearchRequest request, Pageable pageable);
+
     long countTripsByDriverAndMonth(Long driverId, YearMonth month);
+
     BigDecimal sumDistanceByDriverAndMonth(Long driverId, YearMonth month);
+
     List<Trip> findCompletedTripsByDriverAndMonth(Long driverId, YearMonth month);
 }

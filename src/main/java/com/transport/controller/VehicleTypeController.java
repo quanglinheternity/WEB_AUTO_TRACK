@@ -1,5 +1,7 @@
 package com.transport.controller;
 
+import jakarta.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +21,6 @@ import com.transport.dto.vehicleType.VehicleTypeRequest;
 import com.transport.dto.vehicleType.VehicleTypeResponse;
 import com.transport.service.vehicleType.VehicleTypeService;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -40,8 +41,7 @@ public class VehicleTypeController {
 
     @PutMapping("/{id}")
     public ApiResponse<VehicleTypeResponse> update(
-            @PathVariable Long id,
-            @Valid @RequestBody VehicleTypeRequest request) {
+            @PathVariable Long id, @Valid @RequestBody VehicleTypeRequest request) {
         return ApiResponse.<VehicleTypeResponse>builder()
                 .message("Cập nhật loại xe thành công")
                 .data(service.update(id, request))
@@ -51,9 +51,7 @@ public class VehicleTypeController {
     @DeleteMapping("/{id}")
     public ApiResponse<Void> delete(@PathVariable Long id) {
         service.delete(id);
-        return ApiResponse.<Void>builder()
-                .message("Xóa loại xe thành công")
-                .build();
+        return ApiResponse.<Void>builder().message("Xóa loại xe thành công").build();
     }
 
     @GetMapping("/{id}")
@@ -63,8 +61,7 @@ public class VehicleTypeController {
 
     @GetMapping
     public ApiResponse<Page<VehicleTypeResponse>> search(
-            @RequestParam(required = false) String keyword,
-            Pageable pageable) {
+            @RequestParam(required = false) String keyword, Pageable pageable) {
         return ApiResponse.<Page<VehicleTypeResponse>>builder()
                 .message("Lấy danh sách thành cônng")
                 .data(service.search(keyword, pageable))

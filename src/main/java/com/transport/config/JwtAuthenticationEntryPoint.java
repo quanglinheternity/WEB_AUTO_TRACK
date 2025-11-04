@@ -14,9 +14,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.transport.dto.ApiResponse;
 import com.transport.exception.ErrorCode;
 
-
-
-
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override // ghi đè

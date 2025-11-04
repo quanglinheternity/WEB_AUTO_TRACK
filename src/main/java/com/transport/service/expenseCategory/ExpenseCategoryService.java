@@ -7,7 +7,6 @@ import com.transport.dto.expenseCategory.ExpenseCategoryResponse;
 import com.transport.dto.expenseCategory.ExpenseCategorySearchRequest;
 import com.transport.dto.page.PageResponse;
 
-
 public interface ExpenseCategoryService {
     PageResponse<ExpenseCategoryResponse> search(ExpenseCategorySearchRequest request, Pageable pageable);
 

@@ -1,8 +1,9 @@
 package com.transport.validation;
 
+import java.util.Arrays;
+
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import java.util.Arrays;
 
 public class EnumValidator implements ConstraintValidator<ValidEnum, Enum<?>> {
     private Class<? extends Enum<?>> enumClass;

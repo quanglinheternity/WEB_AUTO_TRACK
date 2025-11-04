@@ -6,6 +6,4 @@ import org.springframework.stereotype.Repository;
 import com.transport.entity.domain.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> , UserRepositoryCustom{
-
-}
+public interface UserRepository extends JpaRepository<User, Long>, UserRepositoryCustom {}

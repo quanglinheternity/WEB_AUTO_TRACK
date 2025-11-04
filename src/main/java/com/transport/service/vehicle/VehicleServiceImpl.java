@@ -1,5 +1,6 @@
 package com.transport.service.vehicle;
 
+import jakarta.transaction.Transactional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +21,6 @@ import com.transport.mapper.VehicleMapper;
 import com.transport.repository.vehicle.VehicleRepository;
 import com.transport.repository.vehicleType.VehicleTypeRepository;
 
-import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -34,44 +34,50 @@ public class VehicleServiceImpl implements VehicleService {
     VehicleTypeRepository vehicleTypeRepository;
     VehicleMapper vehicleMapper;
     VehicleValidator vehicleValidator;
+
     @Override
     public PageResponse<VehicleResponse> getAll(VehicleSearchRequest request, Pageable pageable) {
         Page<VehicleResponse> page = vehicleRepository.searchVehicles(request, pageable);
         return PageResponse.from(page);
     }
+
     @Override
     public VehicleResponse create(VehicleRequest request) {
         vehicleValidator.validateBeforeCreate(request);
 
         Vehicle vehicle = vehicleMapper.toVehicleFromCreateRequest(request);
 
-        VehicleType type = vehicleTypeRepository.findById(request.getVehicleTypeId())
+        VehicleType type = vehicleTypeRepository
+                .findById(request.getVehicleTypeId())
                 .orElseThrow(() -> new AppException(ErrorCode.VEHICLE_TYPE_NOT_FOUND));
         vehicle.setVehicleType(type);
 
         vehicleRepository.save(vehicle);
         return vehicleMapper.toVehicleResponse(vehicle);
     }
+
     @Override
     public VehicleResponse update(Long id, VehicleUpdateRequest request) {
-        
+
         Vehicle vehicle = vehicleValidator.validateBeforeUpdate(id, request);
-        
+
         vehicleMapper.updateVehicleFromUpdateRequest(request, vehicle);
         vehicleRepository.save(vehicle);
         return vehicleMapper.toVehicleResponse(vehicle);
     }
-     
+
     @Override
     public VehicleAndTripResponse getById(Long id) {
         Vehicle vehicle = vehicleValidator.validateAndGetExistingVehicle(id);
         return vehicleMapper.toVehicleDetailResponse(vehicle);
     }
+
     @Override
     public void delete(Long id) {
         vehicleValidator.validateExistence(id);
         vehicleRepository.deleteById(id);
     }
+
     @Override
     public VehicleResponse toggleActiveStatus(Long id) {
         Vehicle vehicle = vehicleValidator.validateAndGetExistingVehicle(id);

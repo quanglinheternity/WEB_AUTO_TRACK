@@ -22,13 +22,15 @@ public class ExpenseValidator {
     ExpenseRepository expenseRepository;
     TripValidator tripValidator;
     ExpenseCategoryValidator expenseCategoryValidator;
+
     public Trip validateTrip(Long tripId) {
-       return tripValidator.validateTrip(tripId);
+        return tripValidator.validateTrip(tripId);
     }
 
     public ExpenseCategory validateExpenseCategory(Long expenseCategoryId) {
-       return expenseCategoryValidator.validateCategoryById(expenseCategoryId);
+        return expenseCategoryValidator.validateCategoryById(expenseCategoryId);
     }
+
     public Expense validateExpense(Long id) {
         return expenseRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.EXPENSE_NOT_FOUND));
     }

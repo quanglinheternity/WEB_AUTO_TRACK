@@ -1,5 +1,16 @@
 package com.transport.service.authentication.token;
 
+import java.text.ParseException;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+import java.util.StringJoiner;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.*;
 import com.nimbusds.jwt.*;
@@ -10,15 +21,6 @@ import com.transport.repository.invalidate.InvalidateRepository;
 
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-import org.springframework.beans.factory.annotation.Value;
-import java.text.ParseException;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
-import java.util.StringJoiner;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -64,7 +66,11 @@ public class TokenServiceImpl implements TokenService {
         JWSVerifier verifier = new MACVerifier(SIGNER_KEY.getBytes());
 
         Date expiry = isRefresh
-                ? Date.from(signedJWT.getJWTClaimsSet().getExpirationTime().toInstant().plus(REFRESH_DURATION, ChronoUnit.SECONDS))
+                ? Date.from(signedJWT
+                        .getJWTClaimsSet()
+                        .getExpirationTime()
+                        .toInstant()
+                        .plus(REFRESH_DURATION, ChronoUnit.SECONDS))
                 : signedJWT.getJWTClaimsSet().getExpirationTime();
 
         boolean verified = signedJWT.verify(verifier);
@@ -92,6 +98,7 @@ public class TokenServiceImpl implements TokenService {
             return false;
         }
     }
+
     private String buildScope(User user) {
         StringJoiner joiner = new StringJoiner(" ");
         if (!CollectionUtils.isEmpty(user.getRoles())) {

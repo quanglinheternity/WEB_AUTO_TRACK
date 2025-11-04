@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class VanchuyenApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(VanchuyenApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(VanchuyenApplication.class, args);
+    }
 }

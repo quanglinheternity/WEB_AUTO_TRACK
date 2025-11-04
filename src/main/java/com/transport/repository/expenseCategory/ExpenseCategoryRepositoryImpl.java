@@ -19,15 +19,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ExpenseCategoryRepositoryImpl implements ExpenseCategoryRepositoryCustom {
     private final JPAQueryFactory queryFactory;
-    private final QExpenseCategory category  = QExpenseCategory.expenseCategory;
+    private final QExpenseCategory category = QExpenseCategory.expenseCategory;
 
     @Override
     public boolean existsByNameAndIdNot(String name, Long id) {
         Integer count = queryFactory
                 .selectOne()
                 .from(category)
-                .where(category.name.eq(name)
-                        .and(category.id.ne(id)))
+                .where(category.name.eq(name).and(category.id.ne(id)))
                 .fetchFirst();
 
         return count != null;
@@ -52,11 +51,11 @@ public class ExpenseCategoryRepositoryImpl implements ExpenseCategoryRepositoryC
         // 🔍 Điều kiện tìm kiếm động
         if (request.getKeyword() != null && !request.getKeyword().trim().isEmpty()) {
             String kw = "%" + request.getKeyword().trim().toLowerCase() + "%";
-            builder.and(
-                    category.code.lower().like(kw)
-                            .or(category.name.lower().like(kw))
-                            .or(category.description.lower().like(kw))
-            );
+            builder.and(category.code
+                    .lower()
+                    .like(kw)
+                    .or(category.name.lower().like(kw))
+                    .or(category.description.lower().like(kw)));
         }
 
         if (request.getGroup() != null) {

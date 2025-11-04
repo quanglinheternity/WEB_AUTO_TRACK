@@ -1,13 +1,14 @@
 package com.transport.dto.vehicle;
 
-import com.transport.enums.VehicleStatus;
-
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+
+import com.transport.enums.VehicleStatus;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -66,5 +67,6 @@ public class VehicleRequest {
 
     @NotNull(message = "VEHICLE_STATUS_EMPTY")
     VehicleStatus status;
+
     String note;
 }

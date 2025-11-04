@@ -1,14 +1,5 @@
 package com.transport.service.file;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.transport.exception.AppException;
-import com.transport.exception.ErrorCode;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,6 +9,16 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.transport.exception.AppException;
+import com.transport.exception.ErrorCode;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
@@ -29,15 +30,17 @@ public class FileStorageService {
     @Value("${app.file.max-size:5242880}") // 5MB default
     private long maxFileSize;
 
-    private static final List<String> ALLOWED_EXTENSIONS = Arrays.asList(
-        "jpg", "jpeg", "png", "pdf", "doc", "docx", "xls", "xlsx"
-    );
+    private static final List<String> ALLOWED_EXTENSIONS =
+            Arrays.asList("jpg", "jpeg", "png", "pdf", "doc", "docx", "xls", "xlsx");
 
     private static final List<String> ALLOWED_CONTENT_TYPES = Arrays.asList(
-        "image/jpeg", "image/png", "application/pdf",
-        "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        "application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    );
+            "image/jpeg",
+            "image/png",
+            "application/pdf",
+            "application/msword",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "application/vnd.ms-excel",
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 
     /**
      * Upload file và trả về đường dẫn file
@@ -48,10 +51,10 @@ public class FileStorageService {
         try {
             // Tạo tên file unique
             String fileName = generateUniqueFileName(file.getOriginalFilename());
-            
+
             // Tạo đường dẫn theo ngày: uploads/expenses/2024/11/03/
             Path uploadPath = createUploadPath(subFolder);
-            
+
             // Copy file vào thư mục
             Path filePath = uploadPath.resolve(fileName);
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
@@ -61,9 +64,9 @@ public class FileStorageService {
             Path relativePath = rootPath.relativize(filePath.toAbsolutePath().normalize());
             // String relativePath = uploadPath.relativize(Paths.get(uploadDir)).resolve(fileName).toString();
             log.info("File uploaded successfully: {}", relativePath);
-            
+
             return relativePath.toString().replace("\\", "/"); // Chuẩn hóa path
-            
+
         } catch (IOException e) {
             log.error("Failed to upload file", e);
             throw new AppException(ErrorCode.FILE_UPLOAD_FAILED);
@@ -127,10 +130,10 @@ public class FileStorageService {
     private Path createUploadPath(String subFolder) throws IOException {
         LocalDate now = LocalDate.now();
         Path uploadPath = Paths.get(uploadDir)
-            .resolve(subFolder)
-            .resolve(String.valueOf(now.getYear()))
-            .resolve(String.format("%02d", now.getMonthValue()))
-            .resolve(String.format("%02d", now.getDayOfMonth()));
+                .resolve(subFolder)
+                .resolve(String.valueOf(now.getYear()))
+                .resolve(String.format("%02d", now.getMonthValue()))
+                .resolve(String.format("%02d", now.getDayOfMonth()));
 
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
@@ -146,7 +149,7 @@ public class FileStorageService {
         String name = StringUtils.cleanPath(originalFileName);
         String extension = getFileExtension(name);
         String nameWithoutExt = name.substring(0, name.lastIndexOf('.'));
-        
+
         return UUID.randomUUID().toString() + "_" + nameWithoutExt + "." + extension;
     }
 

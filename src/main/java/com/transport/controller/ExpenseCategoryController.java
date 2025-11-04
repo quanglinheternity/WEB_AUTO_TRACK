@@ -1,5 +1,7 @@
 package com.transport.controller;
 
+import jakarta.validation.Valid;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -20,7 +22,6 @@ import com.transport.dto.expenseCategory.ExpenseCategorySearchRequest;
 import com.transport.dto.page.PageResponse;
 import com.transport.service.expenseCategory.ExpenseCategoryService;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -29,16 +30,18 @@ import lombok.RequiredArgsConstructor;
 @PreAuthorize("hasAuthority('EXPENSE_CATEGORY')")
 public class ExpenseCategoryController {
     private final ExpenseCategoryService service;
+
     @GetMapping
     public ApiResponse<PageResponse<ExpenseCategoryResponse>> search(
             ExpenseCategorySearchRequest request,
             @PageableDefault(page = 0, size = 10, sort = "expenseDate", direction = Sort.Direction.DESC)
-            Pageable pageable) {
+                    Pageable pageable) {
         return ApiResponse.<PageResponse<ExpenseCategoryResponse>>builder()
                 .message("Lấy danh sách thành cônng")
                 .data(service.search(request, pageable))
                 .build();
     }
+
     @PostMapping
     public ApiResponse<ExpenseCategoryResponse> create(@Valid @RequestBody ExpenseCategoryRequest request) {
         return ApiResponse.<ExpenseCategoryResponse>builder()
@@ -49,8 +52,7 @@ public class ExpenseCategoryController {
 
     @PutMapping("/{id}")
     public ApiResponse<ExpenseCategoryResponse> update(
-            @PathVariable Long id,
-            @Valid @RequestBody ExpenseCategoryRequest request) {
+            @PathVariable Long id, @Valid @RequestBody ExpenseCategoryRequest request) {
         return ApiResponse.<ExpenseCategoryResponse>builder()
                 .message("Cập nhật loại chi phí thành công")
                 .data(service.update(id, request))

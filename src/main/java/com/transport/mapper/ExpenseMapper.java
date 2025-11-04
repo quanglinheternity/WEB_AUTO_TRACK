@@ -26,6 +26,7 @@ public interface ExpenseMapper {
     default String mapStatusToDescription(ExpenseStatus status) {
         return status != null ? status.getDescription() : null;
     }
+
     @Mapping(target = "trip", ignore = true)
     @Mapping(target = "category", ignore = true)
     @Mapping(target = "driverBy", ignore = true)

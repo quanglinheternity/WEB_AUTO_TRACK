@@ -4,7 +4,4 @@ import java.util.Set;
 
 import com.transport.dto.permission.PermissionResponse;
 
-public record RoleResponse( String name, String description, Set<PermissionResponse> permissions) {
-   
-    
-}
+public record RoleResponse(String name, String description, Set<PermissionResponse> permissions) {}

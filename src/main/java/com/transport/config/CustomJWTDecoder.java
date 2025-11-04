@@ -18,7 +18,6 @@ import com.transport.service.authentication.auth.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-
 @Component
 @RequiredArgsConstructor
 @Slf4j

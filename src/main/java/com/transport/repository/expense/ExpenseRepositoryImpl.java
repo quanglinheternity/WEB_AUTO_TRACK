@@ -20,10 +20,10 @@ import lombok.RequiredArgsConstructor;
 public class ExpenseRepositoryImpl implements ExpenseRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
-    private  final QExpense expense = QExpense.expense;
+    private final QExpense expense = QExpense.expense;
+
     @Override
     public Page<Expense> searchExpenses(ExpenseSearchRequest request, Pageable pageable) {
-       
 
         BooleanBuilder builder = new BooleanBuilder();
 
@@ -42,12 +42,12 @@ public class ExpenseRepositoryImpl implements ExpenseRepositoryCustom {
         }
         if (request.getKeyword() != null && !request.getKeyword().trim().isEmpty()) {
             String kw = "%" + request.getKeyword().trim().toLowerCase() + "%";
-            builder.and(
-                expense.expenseCode.lower().like(kw)
+            builder.and(expense.expenseCode
+                    .lower()
+                    .like(kw)
                     .or(expense.description.lower().like(kw))
                     .or(expense.location.lower().like(kw))
-                    .or(expense.receiptNumber.lower().like(kw))
-            );
+                    .or(expense.receiptNumber.lower().like(kw)));
         }
         if (request.getStartDate() != null) {
             builder.and(expense.expenseDate.goe(request.getStartDate()));

@@ -7,13 +7,7 @@ import org.springframework.data.domain.Page;
 import lombok.Builder;
 
 @Builder
-public record PageResponse<T>(
-    List<T> content,
-    int pageNumber,
-    int pageSize,
-    long totalElements,
-    int totalPages
-) {
+public record PageResponse<T>(List<T> content, int pageNumber, int pageSize, long totalElements, int totalPages) {
     public static <T> PageResponse<T> from(Page<T> page) {
         return PageResponse.<T>builder()
                 .content(page.getContent())

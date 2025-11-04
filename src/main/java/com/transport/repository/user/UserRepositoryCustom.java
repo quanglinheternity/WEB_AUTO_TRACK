@@ -13,7 +13,7 @@ public interface UserRepositoryCustom {
     boolean existsByUsername(String username);
 
     boolean existsByUsernameAndIdNot(String username, Long id);
-    
+
     Page<UserResponse> searchUsers(UserSearchRequest request, Pageable pageable);
 
     Optional<User> findByName(String name);

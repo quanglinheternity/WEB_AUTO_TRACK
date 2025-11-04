@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +23,7 @@ public class TripUpdateRequest {
     Long routeId;
     Long vehicleId;
     Long driverId;
+
     @Future(message = "SCHEDULE_DEPARTURE_TIME_INVALID")
     LocalDateTime departureTime;
 

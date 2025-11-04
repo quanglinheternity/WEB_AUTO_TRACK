@@ -1,5 +1,6 @@
 package com.transport.controller;
 
+import jakarta.validation.Valid;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -21,7 +22,6 @@ import com.transport.dto.route.RouteSearchRequest;
 import com.transport.dto.route.RouteUpdateRequest;
 import com.transport.service.route.RouteService;
 
-import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -37,37 +37,40 @@ public class RouteController {
 
     @GetMapping
     public ApiResponse<PageResponse<RouteResponse>> getAll(
-        RouteSearchRequest request,
-        @PageableDefault(page = 0, size = 10, sort = "expenseDate", direction = Sort.Direction.DESC)
-        Pageable pageable
-    ) {
-        
-        return   ApiResponse.<PageResponse<RouteResponse>>builder()
+            RouteSearchRequest request,
+            @PageableDefault(page = 0, size = 10, sort = "expenseDate", direction = Sort.Direction.DESC)
+                    Pageable pageable) {
+
+        return ApiResponse.<PageResponse<RouteResponse>>builder()
                 .message("Lấy danh sách tuyến đường thành công")
                 .data(routeService.getAll(request, pageable))
                 .build();
     }
+
     @GetMapping("/{id}")
     public ApiResponse<RouteResponse> getById(@PathVariable Long id) {
-        return   ApiResponse.<RouteResponse>builder()
+        return ApiResponse.<RouteResponse>builder()
                 .message("Lấy chi tiết tuyến đường thành công.")
                 .data(routeService.getById(id))
                 .build();
     }
+
     @PostMapping
     public ApiResponse<RouteResponse> create(@Valid @RequestBody RouteRequest request) {
-        return   ApiResponse.<RouteResponse>builder()
+        return ApiResponse.<RouteResponse>builder()
                 .message("Tạo tuyến đường thành công.")
                 .data(routeService.create(request))
                 .build();
     }
+
     @PutMapping("/{id}")
-    public ApiResponse<RouteResponse> update(@PathVariable Long id,@Valid @RequestBody RouteUpdateRequest request) {
-        return   ApiResponse.<RouteResponse>builder()
+    public ApiResponse<RouteResponse> update(@PathVariable Long id, @Valid @RequestBody RouteUpdateRequest request) {
+        return ApiResponse.<RouteResponse>builder()
                 .message("Cập nhật tuyến đường thành công.")
                 .data(routeService.update(id, request))
                 .build();
     }
+
     @DeleteMapping("/{id}")
     public ApiResponse<Void> delete(@PathVariable Long id) {
         routeService.delete(id);

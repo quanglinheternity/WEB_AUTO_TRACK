@@ -12,8 +12,10 @@ import com.transport.entity.domain.SalaryReport;
 
 public interface SalaryReportRepositoryCustom {
     boolean existsByDriverIdAndReportMonth(Long driverId, YearMonth reportMonth);
+
     List<SalaryReport> findAllByIdIn(List<Long> reportIds);
+
     List<SalaryReport> findAllByReportMonth(YearMonth month);
+
     Page<SalaryCalculationResponse> searchSalaryReports(SalaryReportSearchRequest request, Pageable pageable);
 }
-

@@ -1,6 +1,9 @@
 package com.transport.service.role;
 
+import java.util.HashSet;
 import java.util.List;
+
+import jakarta.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
@@ -12,11 +15,10 @@ import com.transport.mapper.RoleMapper;
 import com.transport.repository.permission.PermissionRepository;
 import com.transport.repository.role.RoleRepository;
 
-import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import java.util.HashSet;
+
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -33,16 +35,15 @@ public class RoleServiceImpl implements RoleService {
         List<Permission> permissions = permissionRepository.findAllById(roleRequest.getPermissions());
         role.setPermissions(new HashSet<>(permissions));
         return roleMapper.toResponse(role);
-
     }
+
     @Override
     public List<RoleResponse> getAll() {
         return roleRepository.findAll().stream().map(roleMapper::toResponse).toList();
     }
+
     @Override
     public void deleteRole(String RoleName) {
         roleRepository.deleteById(RoleName);
     }
-
-
 }

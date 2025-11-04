@@ -13,5 +13,4 @@ public enum VehicleStatus {
     INACTIVE("Không hoạt động");
 
     private final String description;
-
 }

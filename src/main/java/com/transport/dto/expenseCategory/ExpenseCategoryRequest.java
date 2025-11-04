@@ -1,9 +1,10 @@
 package com.transport.dto.expenseCategory;
 
-import com.transport.enums.ExpenseGroup;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+
+import com.transport.enums.ExpenseGroup;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,6 +22,7 @@ public class ExpenseCategoryRequest {
 
     @NotNull(message = "COST_GROUP_EMPTY")
     ExpenseGroup categoryGroup;
+
     @NotNull(message = "VEHICLE_TYPE_STATUS_EMPTY")
     Boolean isActive;
 }

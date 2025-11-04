@@ -31,22 +31,16 @@ public class DriverRepositoryImpl implements DriverRepositoryCustom {
 
         return count != null;
     }
+
     @Override
     public List<Driver> findAllActiveDriversExcludePaid(YearMonth month) {
         return queryFactory
                 .selectFrom(qDriver)
                 .where(
-                    qDriver.employmentStatus.eq(EmploymentStatus.ACTIVE),
-                    qDriver.id.notIn(
-                            JPAExpressions
-                                    .select(salaryReport.driver.id)
-                                    .from(salaryReport)
-                                    .where(
-                                           salaryReport.reportMonth.eq(month)
-                                    )
-                    )
-                )
+                        qDriver.employmentStatus.eq(EmploymentStatus.ACTIVE),
+                        qDriver.id.notIn(JPAExpressions.select(salaryReport.driver.id)
+                                .from(salaryReport)
+                                .where(salaryReport.reportMonth.eq(month))))
                 .fetch();
     }
-
 }

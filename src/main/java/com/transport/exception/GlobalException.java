@@ -46,11 +46,12 @@ public class GlobalException {
     //     Map<String, Object> body = new HashMap<>();
     //     body.put("code", 400);
     //     body.put("message", "Dữ liệu không hợp lệ");
-        
+
     //     // Thông báo lỗi chi tiết cho enum
     //     Map<String, String> errors = new HashMap<>();
     //     if (ex.getMessage().contains("TrangThaiTaiXe")) {
-    //         errors.put("trangThaiLamViec", "Giá trị không hợp lệ. Các giá trị hợp lệ: RANH, DANG_CHAY, NGHI_PHEP, TAM_KHOA");
+    //         errors.put("trangThaiLamViec", "Giá trị không hợp lệ. Các giá trị hợp lệ: RANH, DANG_CHAY, NGHI_PHEP,
+    // TAM_KHOA");
     //     }
     //     body.put("errors", errors);
 
@@ -64,6 +65,7 @@ public class GlobalException {
         apiResponse.setMessage(errorCode.getMessage());
         return ResponseEntity.status(errorCode.getHttpStatusCode()).body(apiResponse);
     }
+
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<Map<String, Object>> handleEnumParseError(HttpMessageNotReadableException ex) {
         Map<String, Object> body = new HashMap<>();
@@ -75,10 +77,9 @@ public class GlobalException {
         Throwable cause = ex.getCause();
         if (cause instanceof InvalidFormatException invalidFormatException) {
             // Lấy tên field bị lỗi
-            String fieldName = invalidFormatException.getPath()
-                .stream()
-                .map(ref -> ref.getFieldName() != null ? ref.getFieldName() : ref.getIndex() + "")
-                .collect(Collectors.joining("."));
+            String fieldName = invalidFormatException.getPath().stream()
+                    .map(ref -> ref.getFieldName() != null ? ref.getFieldName() : ref.getIndex() + "")
+                    .collect(Collectors.joining("."));
 
             String invalidValue = invalidFormatException.getValue().toString();
             Class<?> targetType = invalidFormatException.getTargetType();
@@ -86,13 +87,11 @@ public class GlobalException {
             if (targetType != null && targetType.isEnum()) {
                 // Lấy danh sách giá trị hợp lệ của enum
                 String validValues = Arrays.stream(targetType.getEnumConstants())
-                    .map(Object::toString)
-                    .collect(Collectors.joining(", "));
+                        .map(Object::toString)
+                        .collect(Collectors.joining(", "));
 
-                String errorMsg = String.format(
-                    "Giá trị '%s' không hợp lệ. Các giá trị hợp lệ: %s",
-                    invalidValue, validValues
-                );
+                String errorMsg =
+                        String.format("Giá trị '%s' không hợp lệ. Các giá trị hợp lệ: %s", invalidValue, validValues);
 
                 errors.put(fieldName, errorMsg);
             } else {
@@ -105,8 +104,8 @@ public class GlobalException {
 
         body.put("errors", errors);
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
-}
-    
+    }
+
     @ExceptionHandler(value = AppException.class)
     ResponseEntity<ApiResponse<Void>> handleAppException(AppException appException) {
         ErrorCode errorCode = appException.getErrorCode();
@@ -151,7 +150,7 @@ public class GlobalException {
 
     //     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse);
     // }
-     // Xử lý lỗi do @Valid
+    // Xử lý lỗi do @Valid
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> handleValidationErrors(MethodArgumentNotValidException ex) {
         Map<String, Object> response = new HashMap<>();
@@ -163,7 +162,8 @@ public class GlobalException {
             String message;
             if ("nhomChiPhi".equals(field)) {
                 // Nếu lỗi là enum TrangThaiTaiXe
-                message = "Nhóm chi phí không hợp lệ. Giá trị hợp lệ: NHIEN_LIEU, PHI_DUONG_BO, SINH_HOAT, BAO_DUONG, PHAT_SINH";
+                message =
+                        "Nhóm chi phí không hợp lệ. Giá trị hợp lệ: NHIEN_LIEU, PHI_DUONG_BO, SINH_HOAT, BAO_DUONG, PHAT_SINH";
             } else {
                 // Các lỗi khác vẫn dùng ErrorCode cũ
                 ErrorCode errorCode = Arrays.stream(ErrorCode.values())

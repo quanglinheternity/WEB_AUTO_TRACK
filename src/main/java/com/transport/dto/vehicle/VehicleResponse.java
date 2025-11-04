@@ -3,7 +3,6 @@ package com.transport.dto.vehicle;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

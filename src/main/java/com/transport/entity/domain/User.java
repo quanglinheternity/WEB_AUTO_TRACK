@@ -1,20 +1,22 @@
 package com.transport.entity.domain;
 
-import jakarta.persistence.*;
-import lombok.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import jakarta.persistence.*;
+
 import com.querydsl.core.annotations.QueryEntity;
 import com.transport.entity.base.BaseEntity;
 
+import lombok.*;
+
 @Entity
-@Table(name = "users", indexes = {
-    @Index(name = "idx_username", columnList = "username")
-})
+@Table(
+        name = "users",
+        indexes = {@Index(name = "idx_username", columnList = "username")})
 @Getter
 @Setter
 @NoArgsConstructor
@@ -22,32 +24,32 @@ import com.transport.entity.base.BaseEntity;
 @Builder
 @QueryEntity
 public class User extends BaseEntity {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(name = "username", unique = true, nullable = false)
     private String username;
-    
+
     @Column(name = "password", nullable = false)
     private String password;
-    
+
     @Column(name = "phone")
     private String phone;
-    
+
     @Column(name = "full_name")
     private String fullName;
-    
+
     @Column(name = "id_number")
     private String idNumber;
-    
+
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
-    
+
     @Column(name = "address")
     private String address;
-    
+
     @Column(name = "avatar_url")
     private String avatarUrl;
 
@@ -55,7 +57,6 @@ public class User extends BaseEntity {
     @Column(name = "is_active")
     private Boolean isActive = true;
 
-    
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Driver driver;
 
@@ -69,8 +70,8 @@ public class User extends BaseEntity {
 
     // @ManyToMany(fetch = FetchType.EAGER)
     // @JoinTable(
-    //     name = "user_permissions", 
-    //     joinColumns = @JoinColumn(name = "user_id"), 
+    //     name = "user_permissions",
+    //     joinColumns = @JoinColumn(name = "user_id"),
     //     inverseJoinColumns = @JoinColumn(name = "permission_id")
     // )
     // @Builder.Default
@@ -78,9 +79,8 @@ public class User extends BaseEntity {
     @Builder.Default
     @ManyToMany
     @JoinTable(
-        name = "user_roles", 
-        joinColumns = @JoinColumn(name = "user_id"), 
-        inverseJoinColumns = @JoinColumn(name = "role_name") 
-    )
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_name"))
     private Set<Role> roles = new HashSet<>();
 }

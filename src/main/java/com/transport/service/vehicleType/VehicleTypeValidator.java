@@ -1,12 +1,13 @@
 package com.transport.service.vehicleType;
 
+import org.springframework.stereotype.Component;
+
 import com.transport.dto.vehicleType.VehicleTypeRequest;
 import com.transport.exception.AppException;
 import com.transport.exception.ErrorCode;
 import com.transport.repository.vehicleType.VehicleTypeRepository;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor

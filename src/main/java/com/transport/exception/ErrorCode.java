@@ -3,7 +3,6 @@ package com.transport.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 
-
 import lombok.Getter;
 
 @Getter
@@ -36,7 +35,8 @@ public enum ErrorCode {
     // Vehicle-related Errors (2xxx)
     VEHICLE_LICENSE_PLATE_EMPTY(2001, "Biển số xe không được để trống", HttpStatus.BAD_REQUEST),
     VEHICLE_LICENSE_PLATE_TOO_LONG(2002, "Biển số xe không được vượt quá 15 ký tự", HttpStatus.BAD_REQUEST),
-    VEHICLE_LICENSE_PLATE_INVALID_FORMAT(2003, "Biển số xe chỉ được chứa chữ in hoa, số và dấu '-'", HttpStatus.BAD_REQUEST),
+    VEHICLE_LICENSE_PLATE_INVALID_FORMAT(
+            2003, "Biển số xe chỉ được chứa chữ in hoa, số và dấu '-'", HttpStatus.BAD_REQUEST),
     VEHICLE_TYPE_EMPTY(2004, "Loại xe không được để trống", HttpStatus.BAD_REQUEST),
     VEHICLE_NAME_TOO_LONG(2005, "Tên xe không được vượt quá 50 ký tự", HttpStatus.BAD_REQUEST),
     VEHICLE_MODEL_TOO_LONG(2005, "Tên xe không được vượt quá 50 ký tự", HttpStatus.BAD_REQUEST),
@@ -92,7 +92,8 @@ public enum ErrorCode {
     SCHEDULE_NEW_STATUS_EMPTY(4017, "Trạng thái mới không được để trống", HttpStatus.BAD_REQUEST),
     SCHEDULE_DRIVER_ALREADY_BOOKED(4018, "Tài xế này có lịch trình trong khoảng thời gian này", HttpStatus.BAD_REQUEST),
     CARGO_OVER_WEIGHT(4019, "Trọng lượng hóa quá với trọng lượng tối đa của xe.", HttpStatus.BAD_REQUEST),
-    VEHICLE_PAYLOAD_NOT_CONFIGURED(4020, "Xe không tìm thấy trọng lượng tối đa trọng lượng hóa", HttpStatus.BAD_REQUEST),
+    VEHICLE_PAYLOAD_NOT_CONFIGURED(
+            4020, "Xe không tìm thấy trọng lượng tối đa trọng lượng hóa", HttpStatus.BAD_REQUEST),
     CARGO_WEIGHT_REQUIRED(4021, "Trọng lượng hóa không được để trống", HttpStatus.BAD_REQUEST),
     // Route-related Errors (5xxx)
     ROUTE_NOT_FOUND(5001, "Tuyến đường không tồn tại", HttpStatus.BAD_REQUEST),
@@ -132,15 +133,15 @@ public enum ErrorCode {
 
     EXPENSE_TYPE_ALREADY_EXISTS(7011, "Loại chi phí đã tạo", HttpStatus.BAD_REQUEST),
     EXPENSE_TYPE_NOT_FOUND(7012, "Loại chi phí không tồn tại", HttpStatus.BAD_REQUEST),
-    SCHEDULE_DRIVER_ID_EMPTY(7015,"Tài xế không được để trống", HttpStatus.BAD_REQUEST),
-    SCHEDULE_DEPARTURE_TIME_EMPTY(7016,"Thời gian khởi hành không được để trống", HttpStatus.BAD_REQUEST),
-    SCHEDULE_DEPARTURE_TIME_INVALID(7017,"Thời gian khởi hành phải ở tương lai", HttpStatus.BAD_REQUEST),
-    SCHEDULE_EXPECTED_ARRIVAL_TIME_EMPTY(7016,"Thời gian dự kiến đến không được để trống", HttpStatus.BAD_REQUEST),
-    SCHEDULE_EXPECTED_ARRIVAL_TIME_INVALID(7017,"Thời gian dự kiến đến phải ở tương lai", HttpStatus.BAD_REQUEST),
-    CARGO_DESCRIPTION_TOO_LONG(7018,"Mô tả hàng hóa không được vượt quá 255 ký tự", HttpStatus.BAD_REQUEST),
-    CARGO_WEIGHT_INVALID(7019,"Trọng lượng hàng hóa phải lớn hơn 0", HttpStatus.BAD_REQUEST),
-    TRIP_NOT_FOUND(7020,"Chuyến đi không tồn tại", HttpStatus.BAD_REQUEST),
-    ONLY_NOT_STARTED_TRIP_CAN_BE_UPDATED(7021,"Chỉ được cập nhật chuyến đi chưa bắt đầu.", HttpStatus.BAD_REQUEST),
+    SCHEDULE_DRIVER_ID_EMPTY(7015, "Tài xế không được để trống", HttpStatus.BAD_REQUEST),
+    SCHEDULE_DEPARTURE_TIME_EMPTY(7016, "Thời gian khởi hành không được để trống", HttpStatus.BAD_REQUEST),
+    SCHEDULE_DEPARTURE_TIME_INVALID(7017, "Thời gian khởi hành phải ở tương lai", HttpStatus.BAD_REQUEST),
+    SCHEDULE_EXPECTED_ARRIVAL_TIME_EMPTY(7016, "Thời gian dự kiến đến không được để trống", HttpStatus.BAD_REQUEST),
+    SCHEDULE_EXPECTED_ARRIVAL_TIME_INVALID(7017, "Thời gian dự kiến đến phải ở tương lai", HttpStatus.BAD_REQUEST),
+    CARGO_DESCRIPTION_TOO_LONG(7018, "Mô tả hàng hóa không được vượt quá 255 ký tự", HttpStatus.BAD_REQUEST),
+    CARGO_WEIGHT_INVALID(7019, "Trọng lượng hàng hóa phải lớn hơn 0", HttpStatus.BAD_REQUEST),
+    TRIP_NOT_FOUND(7020, "Chuyến đi không tồn tại", HttpStatus.BAD_REQUEST),
+    ONLY_NOT_STARTED_TRIP_CAN_BE_UPDATED(7021, "Chỉ được cập nhật chuyến đi chưa bắt đầu.", HttpStatus.BAD_REQUEST),
     // Authentication-related Errors (8xxx)
     AUTHENTICATION_REQUIRED(8001, "Vui lòng đăng nhập để tiếp tục", HttpStatus.UNAUTHORIZED),
     TOKEN_EXPIRED(8002, "Phiên đăng nhập đã hết hạn", HttpStatus.UNAUTHORIZED),
@@ -162,7 +163,10 @@ public enum ErrorCode {
     IS_DRIVER_NOT_NULL(8017, "Bạn phải chọn là tài xế hay không", HttpStatus.BAD_REQUEST),
     FILE_EMPTY(4001, "File không được để trống", HttpStatus.BAD_REQUEST),
     FILE_TOO_LARGE(4002, "File quá lớn. Kích thước tối đa: 5MB", HttpStatus.BAD_REQUEST),
-    INVALID_FILE_TYPE(4003, "Loại file không được hỗ trợ. Chỉ chấp nhận: jpg, jpeg, png, pdf, doc, docx, xls, xlsx", HttpStatus.BAD_REQUEST),
+    INVALID_FILE_TYPE(
+            4003,
+            "Loại file không được hỗ trợ. Chỉ chấp nhận: jpg, jpeg, png, pdf, doc, docx, xls, xlsx",
+            HttpStatus.BAD_REQUEST),
     INVALID_FILE_NAME(4004, "Tên file không hợp lệ", HttpStatus.BAD_REQUEST),
     FILE_UPLOAD_FAILED(4005, "Upload file thất bại", HttpStatus.BAD_REQUEST),
     FILE_NOT_FOUND(4006, "Không tìm thấy file", HttpStatus.NOT_FOUND),
@@ -172,7 +176,6 @@ public enum ErrorCode {
     SALARY_ALREADY_CALCULATED(5001, "Đã tính công đã tính cho tài xế tháng đó", HttpStatus.BAD_REQUEST),
     SALARY_MONTH_NOT_ENDED(5002, "Tháng chưa kết thúc", HttpStatus.BAD_REQUEST),
     SALARY_REPORT_NOT_FOUND(5003, "Báo cáo chưa tạo", HttpStatus.BAD_REQUEST),
-
     ;
     private int code;
     private String message;

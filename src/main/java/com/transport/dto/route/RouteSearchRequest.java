@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class RouteSearchRequest {
-    private String keyword;      // tìm theo code, name, origin, destination
-    private Boolean isActive;    // lọc theo trạng thái hoạt động
+    private String keyword; // tìm theo code, name, origin, destination
+    private Boolean isActive; // lọc theo trạng thái hoạt động
 }

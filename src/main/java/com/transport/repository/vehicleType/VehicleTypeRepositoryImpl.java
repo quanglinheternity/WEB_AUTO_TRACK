@@ -17,15 +17,15 @@ import lombok.RequiredArgsConstructor;
 @Repository
 @RequiredArgsConstructor
 public class VehicleTypeRepositoryImpl implements VehicleTypeRepositoryCustom {
-    private final JPAQueryFactory  queryFactory;
+    private final JPAQueryFactory queryFactory;
     private final QVehicleType qVehicleType = QVehicleType.vehicleType;
-   @Override
+
+    @Override
     public boolean existsByNameAndIdNot(String name, Long id) {
         Integer count = queryFactory
                 .selectOne()
                 .from(qVehicleType)
-                .where(qVehicleType.name.eq(name)
-                        .and(qVehicleType.id.ne(id)))
+                .where(qVehicleType.name.eq(name).and(qVehicleType.id.ne(id)))
                 .fetchFirst();
 
         return count != null;
@@ -46,8 +46,7 @@ public class VehicleTypeRepositoryImpl implements VehicleTypeRepositoryCustom {
     public Optional<VehicleType> findByIdAndIsActiveTrue(Long id) {
         VehicleType result = queryFactory
                 .selectFrom(qVehicleType)
-                .where(qVehicleType.id.eq(id)
-                        .and(qVehicleType.isActive.isTrue()))
+                .where(qVehicleType.id.eq(id).and(qVehicleType.isActive.isTrue()))
                 .fetchOne();
 
         return Optional.ofNullable(result);
@@ -59,18 +58,19 @@ public class VehicleTypeRepositoryImpl implements VehicleTypeRepositoryCustom {
 
         if (keyword != null && !keyword.trim().isEmpty()) {
             String likePattern = "%" + keyword.trim().toLowerCase() + "%";
-            predicate = predicate.and(
-                    qVehicleType.code.lower().like(likePattern)
-                            .or(qVehicleType.name.lower().like(likePattern))
-            );
+            predicate = predicate.and(qVehicleType
+                    .code
+                    .lower()
+                    .like(likePattern)
+                    .or(qVehicleType.name.lower().like(likePattern)));
         }
 
         // Count query
         Long total = queryFactory
-                    .select(qVehicleType.id.count())
-                    .from(qVehicleType)
-                    .where(predicate)
-                    .fetchOne();
+                .select(qVehicleType.id.count())
+                .from(qVehicleType)
+                .where(predicate)
+                .fetchOne();
 
         // Data query
         var query = queryFactory
@@ -82,12 +82,13 @@ public class VehicleTypeRepositoryImpl implements VehicleTypeRepositoryCustom {
         // Apply sorting
         if (pageable.getSort().isSorted()) {
             pageable.getSort().forEach(order -> {
-                var path = switch (order.getProperty()) {
-                    case "code" -> qVehicleType.code;
-                    case "name" -> qVehicleType.name;
-                    // case "description" -> qVehicleType.description;
-                    default -> qVehicleType.id;
-                };
+                var path =
+                        switch (order.getProperty()) {
+                            case "code" -> qVehicleType.code;
+                            case "name" -> qVehicleType.name;
+                                // case "description" -> qVehicleType.description;
+                            default -> qVehicleType.id;
+                        };
                 query.orderBy(order.isAscending() ? path.asc() : path.desc());
             });
         } else {

@@ -1,6 +1,5 @@
 package com.transport.mapper;
 
-
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -10,10 +9,12 @@ import com.transport.dto.user.UserDetailResponse;
 import com.transport.dto.user.UserResponse;
 import com.transport.entity.domain.User;
 
-@Mapper(componentModel = "spring", uses = { RoleMapper.class })
+@Mapper(
+        componentModel = "spring",
+        uses = {RoleMapper.class})
 public interface UserMapper {
     UserResponse toResponse(User user);
-    
+
     @Mapping(target = "roles", source = "roles")
     UserDetailResponse toDetailResponse(User user);
 
@@ -34,5 +35,4 @@ public interface UserMapper {
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "roles", ignore = true)
     void updateFromRequest(UserCreateRequest request, @MappingTarget User user);
-
 }

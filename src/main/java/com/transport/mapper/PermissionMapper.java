@@ -1,6 +1,5 @@
 package com.transport.mapper;
 
-
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -16,6 +15,4 @@ public interface PermissionMapper {
     @Mapping(source = "name", target = "permissionName")
     @Mapping(target = "roles", ignore = true)
     Permission toPermission(PermissionRequest permissionRequest);
-
-
 }

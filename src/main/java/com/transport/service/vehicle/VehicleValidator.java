@@ -17,21 +17,20 @@ import lombok.experimental.FieldDefaults;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class VehicleValidator {
-     VehicleRepository vehicleRepository;
+    VehicleRepository vehicleRepository;
 
     public void validateBeforeCreate(VehicleRequest request) {
         if (vehicleRepository.existsByLicensePlate(request.getLicensePlate())) {
             throw new AppException(ErrorCode.VEHICLE_ALREADY_EXISTS);
-        };
-        if(vehicleRepository.existsByVin(request.getVin())){
+        }
+        ;
+        if (vehicleRepository.existsByVin(request.getVin())) {
             throw new AppException(ErrorCode.VIN_ALREADY_EXISTS);
         }
     }
 
-
     public Vehicle validateAndGetExistingVehicle(Long id) {
-        return vehicleRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.VEHICLE_NOT_FOUND));
+        return vehicleRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.VEHICLE_NOT_FOUND));
     }
 
     public Vehicle validateBeforeUpdate(Long id, VehicleUpdateRequest request) {
@@ -47,6 +46,7 @@ public class VehicleValidator {
 
         return vehicle;
     }
+
     public void validateExistence(Long id) {
         if (!vehicleRepository.existsById(id)) {
             throw new AppException(ErrorCode.VEHICLE_NOT_FOUND);

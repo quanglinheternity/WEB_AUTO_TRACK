@@ -15,6 +15,6 @@ import lombok.experimental.FieldDefaults;
 public class FileResponse {
     String fileName;
     String contentType;
-    String url;         // để xem inline
+    String url; // để xem inline
     String downloadUrl; // để tải xuống
 }
