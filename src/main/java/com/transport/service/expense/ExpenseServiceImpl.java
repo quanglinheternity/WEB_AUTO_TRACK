@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.transport.dto.expense.ExpenseApproveRequest;
 import com.transport.dto.expense.ExpenseRequest;
@@ -23,6 +24,7 @@ import com.transport.exception.ErrorCode;
 import com.transport.mapper.ExpenseMapper;
 import com.transport.repository.expense.ExpenseRepository;
 import com.transport.service.authentication.auth.AuthenticationService;
+import com.transport.service.file.FileStorageService;
 import com.transport.util.CodeGenerator;
 
 import jakarta.transaction.Transactional;
@@ -41,6 +43,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     ExpenseMapper expenseMapper;
     ExpenseValidator expenseValidator;
     AuthenticationService authenticationService;
+    FileStorageService fileStorageService;
     public PageResponse<ExpenseResponse> getAll(ExpenseSearchRequest request, Pageable pageable) {
         User currentUser = authenticationService.getCurrentUser();
 
@@ -51,7 +54,7 @@ public class ExpenseServiceImpl implements ExpenseService {
         Page<ExpenseResponse> mappedPage = page.map(expenseMapper::toExpenseResponse);
         return PageResponse.from(mappedPage);
     }
-    public ExpenseResponse create(ExpenseRequest expenseRequest) {
+    public ExpenseResponse create(ExpenseRequest expenseRequest,  MultipartFile file) {
         ExpenseCategory expenseCategory = expenseValidator.validateExpenseCategory(expenseRequest.getCategoryId());
         Trip trip = expenseValidator.validateTrip(expenseRequest.getTripId());
         User user = authenticationService.getCurrentUser();
@@ -62,10 +65,15 @@ public class ExpenseServiceImpl implements ExpenseService {
         expense.setStatus(ExpenseStatus.PENDING);
         expense.setExpenseCode(CodeGenerator.generateCode("YCCP"));
         expense.setDriverBy(user);
+        if (file != null && !file.isEmpty()) {
+            String filePath = fileStorageService.uploadFile(file, "expenses");
+            expense.setAttachmentUrl(filePath);
+            log.info("File uploaded for expense: {}", filePath);
+        }
         expense = expenseRepository.save(expense);
         return expenseMapper.toExpenseResponse(expense);
     }
-    public ExpenseResponse update(Long id, ExpenseUpdateRequest expenseRequest) {
+    public ExpenseResponse update(Long id, ExpenseUpdateRequest expenseRequest, MultipartFile file) {
         Expense expense = expenseValidator.validateExpense(id);
         if (expense.getStatus() != ExpenseStatus.PENDING) {
             throw new AppException(ErrorCode.EXPENSE_NOT_PENDING);
@@ -86,6 +94,19 @@ public class ExpenseServiceImpl implements ExpenseService {
             Trip newTrip = expenseValidator.validateTrip(expenseRequest.getTripId());
             expense.setTrip(newTrip);
         }
+         // Xử lý file mới
+        if (file != null && !file.isEmpty()) {
+            // Xóa file cũ nếu có
+            if (expense.getAttachmentUrl() != null) {
+                log.info("File deleted for expense {}: {}", id, expense.getAttachmentUrl());
+                fileStorageService.deleteFile(expense.getAttachmentUrl());
+            }
+            
+            // Upload file mới
+            String filePath = fileStorageService.uploadFile(file, "expenses");
+            expense.setAttachmentUrl(filePath);
+            log.info("File updated for expense {}: {}", id, filePath);
+        }
         expense.setUpdatedAt(LocalDateTime.now());
         expense = expenseRepository.save(expense);
         return expenseMapper.toExpenseResponse(expense);
@@ -99,6 +120,7 @@ public class ExpenseServiceImpl implements ExpenseService {
         if (expense.getStatus() != ExpenseStatus.PENDING) {
             throw new AppException(ErrorCode.EXPENSE_NOT_PENDING);
         }
+        fileStorageService.deleteFile(expense.getAttachmentUrl());
         expenseRepository.delete(expense);
     }
     public ExpenseResponse expenseApprove(Long id, ExpenseApproveRequest request) {

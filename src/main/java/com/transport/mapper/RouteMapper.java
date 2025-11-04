@@ -22,5 +22,7 @@ public interface RouteMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "code", ignore = true)
     @Mapping(target = "trips", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
     void updateRouteFromRequest(RouteUpdateRequest request, @MappingTarget Route route);
 }

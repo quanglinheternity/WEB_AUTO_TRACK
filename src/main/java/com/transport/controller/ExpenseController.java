@@ -3,6 +3,7 @@ package com.transport.controller;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.transport.dto.ApiResponse;
 import com.transport.dto.expense.ExpenseApproveRequest;
@@ -47,18 +50,25 @@ public class ExpenseController {
                 .data(expenseService.getAll(request, pageable))
                 .build();
     }
-    @PostMapping
-    public ApiResponse<ExpenseResponse> create(@Valid @RequestBody ExpenseRequest request) {
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ApiResponse<ExpenseResponse> create(
+        @Valid @RequestPart("data")ExpenseRequest request,
+        @RequestPart(value = "file", required = false) MultipartFile file    
+    ) {
         return ApiResponse.<ExpenseResponse>builder()
                 .message("Tạo Yêu cầu chi phí thành công")
-                .data(expenseService.create(request))
+                .data(expenseService.create(request, file))
                 .build();
     }
-    @PutMapping("/{id}")
-    public ApiResponse<ExpenseResponse> update(@PathVariable Long id,@Valid @RequestBody ExpenseUpdateRequest request) {
+    @PutMapping(value = "/{id}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ApiResponse<ExpenseResponse> update(
+        @PathVariable Long id,
+        @Valid @RequestPart("data") ExpenseUpdateRequest request,
+        @RequestPart(value = "file", required = false) MultipartFile file
+        ) {
         return ApiResponse.<ExpenseResponse>builder()
                 .message("Cập nhật Yêu cầu chi phí thành công.")
-                .data(expenseService.update(id, request))
+                .data(expenseService.update(id, request , file))
                 .build();
     }
     @GetMapping("/{id}")

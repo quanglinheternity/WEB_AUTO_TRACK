@@ -160,6 +160,16 @@ public enum ErrorCode {
     COST_ID_EMPTY(8015, "Duyệt yêu cầu chi phí không được trống", HttpStatus.BAD_REQUEST),
     ACCESS_DENIED_CREATE_USER(8016, "Không có quyền tạo tài khoản", HttpStatus.BAD_REQUEST),
     IS_DRIVER_NOT_NULL(8017, "Bạn phải chọn là tài xế hay không", HttpStatus.BAD_REQUEST),
+    FILE_EMPTY(4001, "File không được để trống", HttpStatus.BAD_REQUEST),
+    FILE_TOO_LARGE(4002, "File quá lớn. Kích thước tối đa: 5MB", HttpStatus.BAD_REQUEST),
+    INVALID_FILE_TYPE(4003, "Loại file không được hỗ trợ. Chỉ chấp nhận: jpg, jpeg, png, pdf, doc, docx, xls, xlsx", HttpStatus.BAD_REQUEST),
+    INVALID_FILE_NAME(4004, "Tên file không hợp lệ", HttpStatus.BAD_REQUEST),
+    FILE_UPLOAD_FAILED(4005, "Upload file thất bại", HttpStatus.BAD_REQUEST),
+    FILE_NOT_FOUND(4006, "Không tìm thấy file", HttpStatus.NOT_FOUND),
+    FILE_DELETE_FAILED(4007, "Xóa file thất bại", HttpStatus.BAD_REQUEST),
+    FILE_NOT_READABLE(4042, "File không thể đọc được", HttpStatus.BAD_REQUEST),
+    INTERNAL_SERVER_ERROR(5000, "Lỗi hệ thống", HttpStatus.INTERNAL_SERVER_ERROR),
+
     ;
     private int code;
     private String message;
