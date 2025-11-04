@@ -169,6 +169,9 @@ public enum ErrorCode {
     FILE_DELETE_FAILED(4007, "Xóa file thất bại", HttpStatus.BAD_REQUEST),
     FILE_NOT_READABLE(4042, "File không thể đọc được", HttpStatus.BAD_REQUEST),
     INTERNAL_SERVER_ERROR(5000, "Lỗi hệ thống", HttpStatus.INTERNAL_SERVER_ERROR),
+    SALARY_ALREADY_CALCULATED(5001, "Đã tính công đã tính cho tài xế tháng đó", HttpStatus.BAD_REQUEST),
+    SALARY_MONTH_NOT_ENDED(5002, "Tháng chưa kết thúc", HttpStatus.BAD_REQUEST),
+    SALARY_REPORT_NOT_FOUND(5003, "Báo cáo chưa tạo", HttpStatus.BAD_REQUEST),
 
     ;
     private int code;

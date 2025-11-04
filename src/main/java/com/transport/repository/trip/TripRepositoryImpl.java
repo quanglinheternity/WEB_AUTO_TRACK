@@ -1,6 +1,8 @@
 package com.transport.repository.trip;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -13,6 +15,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.transport.dto.trip.TripSearchRequest;
+import com.transport.entity.domain.QRoute;
 import com.transport.entity.domain.QTrip;
 import com.transport.entity.domain.Trip;
 import com.transport.enums.TripStatus;
@@ -136,6 +139,60 @@ public class TripRepositoryImpl implements TripRepositoryCustom {
                 .fetch();
 
         return new PageImpl<>(results, pageable, total);
+    }
+    @Override
+    public long countTripsByDriverAndMonth(Long driverId, YearMonth month) {
+
+        LocalDateTime start = month.atDay(1).atStartOfDay();
+        LocalDateTime end = month.atEndOfMonth().atTime(23, 59, 59);
+
+        Long count = queryFactory.select(trip.count())
+                .from(trip)
+                .where(
+                        trip.driver.id.eq(driverId),
+                        trip.status.ne(TripStatus.ARRIVED),
+                        trip.approvalStatus.eq(true),
+                        trip.departureTime.between(start, end)
+                )
+                .fetchOne();
+
+        return count != null ? count : 0L;
+    }
+
+    @Override
+    public BigDecimal sumDistanceByDriverAndMonth(Long driverId, YearMonth month) {
+        QRoute route = QRoute.route;
+
+        LocalDateTime start = month.atDay(1).atStartOfDay();
+        LocalDateTime end = month.atEndOfMonth().atTime(23, 59, 59);
+
+        BigDecimal total = queryFactory
+                .select(route.distanceKm.sum().coalesce(BigDecimal.ZERO))
+                .from(trip)
+                .leftJoin(trip.route, route)
+                .where(
+                        trip.driver.id.eq(driverId),
+                        trip.departureTime.between(start, end)
+                )
+                .fetchOne();
+
+        return total != null ? total : BigDecimal.ZERO;
+    }
+    @Override
+    public List<Trip> findCompletedTripsByDriverAndMonth(Long driverId, YearMonth month) {
+
+        LocalDateTime start = month.atDay(1).atStartOfDay();
+        LocalDateTime end = month.atEndOfMonth().atTime(23, 59, 59);
+
+        return queryFactory.selectFrom(trip)
+                .where(
+                        trip.driver.id.eq(driverId),
+                        // trip.status.eq(TripStatus.ARRIVED),
+                        // trip.approvalStatus.isTrue(),
+                        trip.departureTime.between(start, end)
+                )
+                .orderBy(trip.departureTime.asc())
+                .fetch();
     }
 
 }

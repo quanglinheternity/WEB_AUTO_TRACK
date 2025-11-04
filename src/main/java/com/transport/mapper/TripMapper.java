@@ -47,6 +47,7 @@ public interface TripMapper {
     @Mapping(target = "note", ignore = true)
     @Mapping(target = "status", ignore = true)
     @Mapping(target = "tripCode", ignore = true)
+    @Mapping(target = "cancelledByUser", ignore = true)
     Trip toCreateTrip(TripCreateRequest request);
 
     @Mapping(target = "id", ignore = true)
@@ -67,5 +68,6 @@ public interface TripMapper {
     @Mapping(target = "note", ignore = true)
     @Mapping(target = "status", ignore = true)
     @Mapping(target = "tripCode", ignore = true)
+    @Mapping(target = "cancelledByUser", ignore = true)
     void updateFromRequest(TripUpdateRequest request, @MappingTarget Trip trip);
 }

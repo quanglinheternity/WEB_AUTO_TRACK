@@ -76,6 +76,10 @@ public class Trip extends BaseEntity {
     @Column(name = "completed_at")
     private LocalDateTime completedAt; // Thời điểm chuyến đi hoàn thành
     
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cancelled_by") //Người người hủy chuyến
+    private User cancelledByUser; 
+
     @Column(name = "cancelled_at")
     private LocalDateTime cancelledAt; // Thời điểm chuyến đi bị hủy
     

@@ -113,6 +113,7 @@ public class TripServiceImpl implements TripService {
                 trip.setNote(request.getNote()); 
             }
             case CANCELLED -> {
+                trip.setCancelledByUser(authenticationService.getCurrentUser());
                 trip.setCancellationReason(request.getNote());
                 trip.setCancelledAt(LocalDateTime.now());
                 trip.setNote(null); 
