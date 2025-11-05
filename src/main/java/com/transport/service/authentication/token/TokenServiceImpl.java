@@ -40,6 +40,7 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public String generateToken(User user) {
+        log.info("signerKey: {} ", SIGNER_KEY);
         try {
             JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
             JWTClaimsSet claims = new JWTClaimsSet.Builder()

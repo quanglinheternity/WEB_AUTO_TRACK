@@ -1,0 +1,4 @@
+
+jwt:  
+  vaild-duration: 7200
+  refresh-duration: 86400
