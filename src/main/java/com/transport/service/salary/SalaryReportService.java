@@ -41,7 +41,7 @@ public class SalaryReportService {
     public SalaryReportDetailResponse getSalaryReportDetail(Long reportId) {
         SalaryReport report = salaryReportRepository
                 .findById(reportId)
-                .orElseThrow(() -> new RuntimeException("Không tìm thấy báo cáo lương"));
+                .orElseThrow(() -> new AppException(ErrorCode.SALARY_REPORT_NOT_FOUND));
 
         // Lấy danh sách chuyến đi trong tháng
         YearMonth month = report.getReportMonth();

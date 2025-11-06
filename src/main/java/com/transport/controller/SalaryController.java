@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.transport.dto.ApiResponse;
@@ -32,6 +33,7 @@ public class SalaryController {
     private final SalaryCalculationService salaryCalculationService;
     private final SalaryReportService salaryReportService;
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'ACCOUNTANT')")
     @PostMapping("/calculate")
     public ResponseEntity<ApiResponse<SalaryCalculationResponse>> calculateSalary(
             @RequestBody SalaryCalculationRequest request) {
@@ -49,6 +51,7 @@ public class SalaryController {
     }
 
     @PostMapping("/calculate-all")
+    @PreAuthorize("hasAnyRole('ADMIN', 'ACCOUNTANT')")
     public ResponseEntity<ApiResponse<List<SalaryCalculationResponse>>> calculateSalaryForAll(
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM") YearMonth month) {
 
@@ -64,6 +67,7 @@ public class SalaryController {
     }
 
     @GetMapping("/report/{reportId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'ACCOUNTANT')")
     public ResponseEntity<ApiResponse<SalaryReportDetailResponse>> getSalaryReportDetail(@PathVariable Long reportId) {
 
         SalaryReportDetailResponse response = salaryReportService.getSalaryReportDetail(reportId);
@@ -76,6 +80,7 @@ public class SalaryController {
     }
 
     @PostMapping("/pay")
+    @PreAuthorize("hasAnyRole('ADMIN', 'ACCOUNTANT')")
     public ResponseEntity<ApiResponse<String>> paySalary(@RequestBody PaySalaryRequest request) {
 
         salaryReportService.paySalaries(request);
@@ -88,6 +93,7 @@ public class SalaryController {
     }
 
     @PutMapping("/report/{reportId}/pay")
+    @PreAuthorize("hasAnyRole('ADMIN', 'ACCOUNTANT')")
     public ResponseEntity<ApiResponse<String>> paySingleSalary(
             @PathVariable Long reportId, @RequestParam(required = false) String note) {
 
@@ -100,6 +106,7 @@ public class SalaryController {
     }
 
     @GetMapping("/statistics")
+    @PreAuthorize("hasAnyRole('ADMIN', 'ACCOUNTANT', 'MANAGER')")
     public ResponseEntity<ApiResponse<?>> getSalaryStatistics(
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM") YearMonth month) {
 
@@ -113,6 +120,7 @@ public class SalaryController {
     }
 
     @GetMapping("/reports")
+    @PreAuthorize("hasAnyRole('ADMIN', 'ACCOUNTANT', 'MANAGER')")
     public ResponseEntity<ApiResponse<PageResponse<SalaryCalculationResponse>>> searchSalaryReports(
             SalaryReportSearchRequest request,
             @PageableDefault(page = 0, size = 10, sort = "expenseDate", direction = Sort.Direction.DESC)

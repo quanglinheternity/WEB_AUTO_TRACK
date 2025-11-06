@@ -75,7 +75,6 @@ public class TripRepositoryImpl implements TripRepositoryCustom {
 
     @Override
     public Page<Trip> searchTrips(TripSearchRequest request, Pageable pageable) {
-        QTrip trip = QTrip.trip;
         BooleanBuilder builder = new BooleanBuilder();
 
         if (request.getKeyword() != null && !request.getKeyword().isBlank()) {

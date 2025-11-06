@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -72,6 +73,7 @@ public class TripController {
                 .build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     @PutMapping("/{id}/phe-duyet")
     public ApiResponse<TripResponse> approve(@PathVariable Long id, @RequestBody @Valid ApproveTripRequest request) {
         return ApiResponse.<TripResponse>builder()
