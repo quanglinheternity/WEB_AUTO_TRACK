@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.transport.dto.page.PageResponse;
 import com.transport.dto.trip.ApproveTripRequest;
 import com.transport.dto.trip.TripCreateRequest;
@@ -26,6 +28,7 @@ import com.transport.exception.ErrorCode;
 import com.transport.mapper.TripMapper;
 import com.transport.repository.trip.TripRepository;
 import com.transport.service.authentication.auth.AuthenticationService;
+import com.transport.service.redis.RedisService;
 import com.transport.util.CodeGenerator;
 
 import lombok.AccessLevel;
@@ -41,17 +44,58 @@ public class TripServiceImpl implements TripService {
     TripMapper tripMapper;
     TripValidator tripValidator;
     AuthenticationService authenticationService;
-
+    RedisService<String, Object, Object> redisService;
+    ObjectMapper objectMapper;
     @Override
     public PageResponse<TripResponse> getAll(TripSearchRequest request, Pageable pageable) {
-        // return nguoiDungRepository.findAll();
         User currentUser = authenticationService.getCurrentUser();
+
+        // Nếu user không có quyền TRIP_READ -> chỉ cho phép xem chuyến của chính mình
         if (!authenticationService.hasPermission("TRIP_READ")) {
             request.setDriverId(currentUser.getId());
         }
-        Page<Trip> page = tripRepository.searchTrips(request, pageable);
 
-        return PageResponse.from(page.map(tripMapper::toTripResponse));
+        // 👉 Tạo cache key duy nhất cho từng request
+        String cacheKey = String.format(
+                "trip:list:%s:%s:%d:%d:%d",
+                safeKey(request.getKeyword()),
+                safeKey(request.getStatus()),
+                request.getDriverId() != null ? request.getDriverId() : -1,
+                pageable.getPageNumber(),
+                pageable.getPageSize()
+        );
+
+        // 👉 Kiểm tra cache
+        try {
+            Object cachedData = redisService.get(cacheKey);
+            if (cachedData != null) {
+                System.out.println("🚀 Lấy danh sách chuyến đi từ Redis cache");
+                // Chuyển JSON thành PageResponse<TripResponse>
+                PageResponse<TripResponse> pageResponse =
+                        objectMapper.convertValue(cachedData, new TypeReference<PageResponse<TripResponse>>() {});
+                return pageResponse;
+            }
+        } catch (Exception e) {
+            System.err.println("⚠️ Lỗi khi đọc Redis cache: " + e.getMessage());
+            redisService.delete(cacheKey);
+        }
+
+        // 👉 Nếu không có cache thì query DB
+        Page<Trip> page = tripRepository.searchTrips(request, pageable);
+        PageResponse<TripResponse> response = PageResponse.from(page.map(tripMapper::toTripResponse));
+
+        // 👉 Lưu cache vào Redis
+        try {
+            redisService.setValue(cacheKey, response);
+            redisService.setTimeToLive(cacheKey, 1);
+        } catch (Exception e) {
+            System.err.println("⚠️ Không thể ghi Redis cache: " + e.getMessage());
+        }
+
+        return response;
+    }
+    private String safeKey(Object value) {
+        return value == null ? "null" : value.toString().replaceAll("\\s+", "_");
     }
 
     @Override

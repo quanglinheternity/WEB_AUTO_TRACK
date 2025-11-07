@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 
 import com.transport.entity.base.BaseEntity;
 import com.transport.enums.TripStatus;
+import com.transport.listener.TripListener;
 
 import lombok.*;
 
@@ -25,6 +26,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@EntityListeners(TripListener.class)
 public class Trip extends BaseEntity {
 
     @Id
