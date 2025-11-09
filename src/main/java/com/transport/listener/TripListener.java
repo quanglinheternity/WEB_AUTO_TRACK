@@ -1,22 +1,22 @@
 package com.transport.listener;
 
 import jakarta.persistence.*;
-import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.transport.service.redis.RedisService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Component
 @Slf4j
 public class TripListener {
 
-    private static RedisService<String, String, Object>  redisService;
+    private static RedisService<String, String, Object> redisService;
 
-    // ⚡ Dùng setter static để Spring inject được bean
     @Autowired
-    public void setRedisService(RedisService<String, String, Object>  redisService) {
+    public void setRedisService(RedisService<String, String, Object> redisService) {
         TripListener.redisService = redisService;
     }
 

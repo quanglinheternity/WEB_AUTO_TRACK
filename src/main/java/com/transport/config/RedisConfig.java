@@ -50,8 +50,7 @@ public class RedisConfig {
         template.setHashKeySerializer(new StringRedisSerializer());
 
         // ✅ Dùng ObjectMapper từ Bean ở trên
-        GenericJackson2JsonRedisSerializer jsonSerializer =
-                new GenericJackson2JsonRedisSerializer(objectMapper);
+        GenericJackson2JsonRedisSerializer jsonSerializer = new GenericJackson2JsonRedisSerializer(objectMapper);
 
         template.setValueSerializer(jsonSerializer);
         template.setHashValueSerializer(jsonSerializer);

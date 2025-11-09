@@ -25,20 +25,24 @@ import com.transport.dto.trip.TripUpdateRequest;
 import com.transport.dto.trip.UpdateTripStatusRequest;
 import com.transport.service.trip.TripService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/lich-trinh")
+@RequestMapping("/api/v1/trips")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
+@Tag(name = "Trip", description = "APIs for managing trips")
 public class TripController {
     TripService tripService;
 
-    @GetMapping
+    @Operation(summary = "Get all trips with pagination")
+    @GetMapping("/list")
     public ApiResponse<PageResponse<TripResponse>> getAll(
             TripSearchRequest request,
             @PageableDefault(page = 0, size = 10, sort = "expenseDate", direction = Sort.Direction.DESC)
@@ -49,7 +53,8 @@ public class TripController {
                 .build();
     }
 
-    @PostMapping
+    @Operation(summary = "Create a new trip")
+    @PostMapping("/create")
     public ApiResponse<TripResponse> create(@RequestBody TripCreateRequest request) {
         return ApiResponse.<TripResponse>builder()
                 .message("Tạo lịch trình thành công")
@@ -57,7 +62,8 @@ public class TripController {
                 .build();
     }
 
-    @PutMapping("/{id}")
+    @Operation(summary = "Update a trip by ID")
+    @PutMapping("/{id}/update")
     public ApiResponse<TripResponse> update(@PathVariable Long id, @RequestBody TripUpdateRequest request) {
         return ApiResponse.<TripResponse>builder()
                 .message("Cập nhật lịch trình thành công")
@@ -65,7 +71,8 @@ public class TripController {
                 .build();
     }
 
-    @PutMapping("/{id}/trang-thai-van-chuyen")
+    @Operation(summary = "Update the status of a trip")
+    @PutMapping("/{id}/update-status")
     public ApiResponse<TripResponse> updateTripStatus(
             @PathVariable Long id, @Valid @RequestBody UpdateTripStatusRequest request) {
         return ApiResponse.<TripResponse>builder()
@@ -73,15 +80,17 @@ public class TripController {
                 .build();
     }
 
+    @Operation(summary = "Approve a trip by ID")
     @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
-    @PutMapping("/{id}/phe-duyet")
+    @PutMapping("/{id}/approve")
     public ApiResponse<TripResponse> approve(@PathVariable Long id, @RequestBody @Valid ApproveTripRequest request) {
         return ApiResponse.<TripResponse>builder()
                 .data(tripService.approveTrip(id, request))
                 .build();
     }
 
-    @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a trip by ID")
+    @DeleteMapping("/{id}/delete")
     public ApiResponse<Void> delete(@PathVariable Long id) {
         tripService.delete(id);
         return ApiResponse.<Void>builder().message("Xóa lịch trình thành công").build();

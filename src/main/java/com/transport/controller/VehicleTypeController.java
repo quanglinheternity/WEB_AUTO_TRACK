@@ -21,17 +21,31 @@ import com.transport.dto.vehicleType.VehicleTypeRequest;
 import com.transport.dto.vehicleType.VehicleTypeResponse;
 import com.transport.service.vehicleType.VehicleTypeService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/loai-xe")
+@RequestMapping("/api/v1/vehicle-types")
 @RequiredArgsConstructor
 @PreAuthorize("hasAuthority('VEHICLE_TYPE')")
+@Tag(name = "VehicleType", description = "APIs for managing vehicle types")
 public class VehicleTypeController {
 
     private final VehicleTypeService service;
 
-    @PostMapping
+    @Operation(summary = "Search vehicle types with optional keyword and pagination")
+    @GetMapping("/search")
+    public ApiResponse<Page<VehicleTypeResponse>> search(
+            @RequestParam(required = false) String keyword, Pageable pageable) {
+        return ApiResponse.<Page<VehicleTypeResponse>>builder()
+                .message("Lấy danh sách thành cônng")
+                .data(service.search(keyword, pageable))
+                .build();
+    }
+
+    @Operation(summary = "Create a new vehicle type")
+    @PostMapping("/create")
     public ApiResponse<VehicleTypeResponse> create(@Valid @RequestBody VehicleTypeRequest request) {
         return ApiResponse.<VehicleTypeResponse>builder()
                 .message("Tạo loại xe thành công")
@@ -39,7 +53,8 @@ public class VehicleTypeController {
                 .build();
     }
 
-    @PutMapping("/{id}")
+    @Operation(summary = "Update a vehicle type by ID")
+    @PutMapping("/{id}/update")
     public ApiResponse<VehicleTypeResponse> update(
             @PathVariable Long id, @Valid @RequestBody VehicleTypeRequest request) {
         return ApiResponse.<VehicleTypeResponse>builder()
@@ -48,23 +63,16 @@ public class VehicleTypeController {
                 .build();
     }
 
-    @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a vehicle type by ID")
+    @DeleteMapping("/{id}/delete")
     public ApiResponse<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ApiResponse.<Void>builder().message("Xóa loại xe thành công").build();
     }
 
-    @GetMapping("/{id}")
+    @Operation(summary = "Get vehicle type details by ID")
+    @GetMapping("/{id}/detail")
     public ResponseEntity<VehicleTypeResponse> get(@PathVariable Long id) {
         return ResponseEntity.ok(service.getById(id));
-    }
-
-    @GetMapping
-    public ApiResponse<Page<VehicleTypeResponse>> search(
-            @RequestParam(required = false) String keyword, Pageable pageable) {
-        return ApiResponse.<Page<VehicleTypeResponse>>builder()
-                .message("Lấy danh sách thành cônng")
-                .data(service.search(keyword, pageable))
-                .build();
     }
 }

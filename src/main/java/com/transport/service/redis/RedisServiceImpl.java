@@ -90,6 +90,7 @@ public class RedisServiceImpl<K, F, V> implements RedisService<K, F, V> {
             hashOperations.delete(key, field);
         }
     }
+
     @Override
     public void deleteByPattern(K pattern) {
         Set<K> keys = redisTemplate.keys(pattern);

@@ -23,21 +23,25 @@ import com.transport.dto.user.UserResponse;
 import com.transport.dto.user.UserSearchRequest;
 import com.transport.service.user.UserService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/nguoi-dung")
+@RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
+@Tag(name = "User", description = "APIs for managing users")
 public class UserController {
     UserService userService;
 
+    @Operation(summary = "Get all users with pagination")
     @PreAuthorize("hasAuthority('USER_READ')")
-    @GetMapping
+    @GetMapping("/list")
     public ApiResponse<PageResponse<UserResponse>> getAll(
             UserSearchRequest request,
             @PageableDefault(page = 0, size = 10, sort = "expenseDate", direction = Sort.Direction.DESC)
@@ -48,15 +52,18 @@ public class UserController {
                 .build();
     }
 
-    @GetMapping("/{id}")
+    @Operation(summary = "Get user details by ID")
+    @GetMapping("/{id}/detail")
     public ApiResponse<UserDetailResponse> getById(@PathVariable Long id) {
         return ApiResponse.<UserDetailResponse>builder()
                 .message("Lấy chi tiết thành công")
                 .data(userService.getById(id))
                 .build();
     }
+
+    @Operation(summary = "Create a new user")
     // @PreAuthorize("hasAuthority('USER_CREATE')")
-    @PostMapping
+    @PostMapping("/create")
     public ApiResponse<UserDetailResponse> create(@RequestBody @Valid UserCreateRequest request) {
         return ApiResponse.<UserDetailResponse>builder()
                 .message("Tạo người dùng thành công")
@@ -64,8 +71,9 @@ public class UserController {
                 .build();
     }
 
+    @Operation(summary = "Update a user by ID")
     @PreAuthorize("hasAuthority('USER_UPDATE')")
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/update")
     public ApiResponse<UserDetailResponse> update(
             @PathVariable Long id, @RequestBody @Valid UserCreateRequest request) {
         return ApiResponse.<UserDetailResponse>builder()
@@ -74,8 +82,9 @@ public class UserController {
                 .build();
     }
 
+    @Operation(summary = "Delete a user by ID")
     @PreAuthorize("hasAuthority('USER_DELETE')")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/delete")
     public ApiResponse<Void> delete(@PathVariable Long id) {
         userService.delete(id);
         return ApiResponse.<Void>builder().message("Xóa người dùng thành công").build();

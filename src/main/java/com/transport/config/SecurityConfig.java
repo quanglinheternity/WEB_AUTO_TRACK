@@ -21,13 +21,13 @@ import org.springframework.web.filter.CorsFilter;
 @EnableMethodSecurity
 public class SecurityConfig {
     private final String[] PUBLIC_ENDPOINTS_POST = {
-        "/nguoi-dung",
-        "/auth/login",
-        "/auth/introspect",
-        "/auth/logout",
-        "/auth/refresh",
-        "/auth/{userId}/verify",
-        "/auth/{userId}/resend"
+        "/api/v1/users",
+        "/api/v1/auth/login",
+        "/api/v1/auth/introspect",
+        "/api/v1/auth/logout",
+        "/api/v1/auth/refresh",
+        "/api/v1/auth/{userId}/verify",
+        "/api/v1/auth/{userId}/resend"
     };
 
     @Autowired

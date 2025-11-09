@@ -30,4 +30,6 @@ public interface TripRepositoryCustom {
     BigDecimal sumDistanceByDriverAndMonth(Long driverId, YearMonth month);
 
     List<Trip> findCompletedTripsByDriverAndMonth(Long driverId, YearMonth month);
+    
+    boolean isVehicleUsedInTrip(Long vehicleId);
 }

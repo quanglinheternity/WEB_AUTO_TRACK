@@ -148,4 +148,9 @@ public class TripValidator {
             }
         }
     }
+    public void validateVehicleCanBeDeleted(Long vehicleId) {
+        if(tripRepository.isVehicleUsedInTrip(vehicleId)) {
+            throw new AppException(ErrorCode.VEHICLE_IN_USE);
+        }
+    }
 }

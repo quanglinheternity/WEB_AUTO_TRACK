@@ -17,19 +17,23 @@ import com.transport.dto.authentication.logout.LogoutRequest;
 import com.transport.dto.authentication.refresh.RefreshRequest;
 import com.transport.service.authentication.auth.AuthenticationService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
+@Tag(name = "Authentication", description = "APIs for managing authentication")
 public class AuthenticationController {
     AuthenticationService authenticationService;
 
+    @Operation(summary = "User login")
     @PostMapping("/login")
     public ApiResponse<AuthenticationResponse> login(@RequestBody AuthenticationRequest request) {
         AuthenticationResponse result = authenticationService.authenticate(request);
@@ -39,6 +43,7 @@ public class AuthenticationController {
                 .build();
     }
 
+    @Operation(summary = "Introspect access token")
     @PostMapping("/introspect")
     ApiResponse<IntrospectResponse> authticated(@RequestBody IntrospectRequest request)
             throws ParseException, JOSEException {
@@ -49,6 +54,7 @@ public class AuthenticationController {
                 .build();
     }
 
+    @Operation(summary = "Refresh access token")
     @PostMapping("/refresh")
     ApiResponse<AuthenticationResponse> authticated(@RequestBody RefreshRequest request)
             throws ParseException, JOSEException {
@@ -59,6 +65,7 @@ public class AuthenticationController {
                 .build();
     }
 
+    @Operation(summary = "Logout user")
     @PostMapping("/logout")
     ApiResponse<Void> logout(@RequestBody LogoutRequest request) throws ParseException, JOSEException {
         authenticationService.logout(request);

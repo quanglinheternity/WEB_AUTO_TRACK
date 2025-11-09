@@ -21,18 +21,22 @@ import com.transport.dto.salary.SalaryReportSearchRequest;
 import com.transport.service.salary.SalaryCalculationService;
 import com.transport.service.salary.SalaryReportService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/salary")
+@RequestMapping("/api/v1/salary")
 @RequiredArgsConstructor
 @Slf4j
+@Tag(name = "Salary", description = "APIs for managing driver salaries")
 public class SalaryController {
 
     private final SalaryCalculationService salaryCalculationService;
     private final SalaryReportService salaryReportService;
 
+    @Operation(summary = "Calculate salary for a specific driver")
     @PreAuthorize("hasAnyRole('ADMIN', 'ACCOUNTANT')")
     @PostMapping("/calculate")
     public ResponseEntity<ApiResponse<SalaryCalculationResponse>> calculateSalary(
@@ -50,6 +54,7 @@ public class SalaryController {
                 .build());
     }
 
+    @Operation(summary = "Calculate salary for all drivers in a specific month")
     @PostMapping("/calculate-all")
     @PreAuthorize("hasAnyRole('ADMIN', 'ACCOUNTANT')")
     public ResponseEntity<ApiResponse<List<SalaryCalculationResponse>>> calculateSalaryForAll(
@@ -66,6 +71,7 @@ public class SalaryController {
                 .build());
     }
 
+    @Operation(summary = "Get salary report details by report ID")
     @GetMapping("/report/{reportId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'ACCOUNTANT')")
     public ResponseEntity<ApiResponse<SalaryReportDetailResponse>> getSalaryReportDetail(@PathVariable Long reportId) {
@@ -79,6 +85,7 @@ public class SalaryController {
                 .build());
     }
 
+    @Operation(summary = "Pay salaries based on salary report IDs")
     @PostMapping("/pay")
     @PreAuthorize("hasAnyRole('ADMIN', 'ACCOUNTANT')")
     public ResponseEntity<ApiResponse<String>> paySalary(@RequestBody PaySalaryRequest request) {
@@ -92,6 +99,7 @@ public class SalaryController {
                 .build());
     }
 
+    @Operation(summary = "Mark a single salary report as paid")
     @PutMapping("/report/{reportId}/pay")
     @PreAuthorize("hasAnyRole('ADMIN', 'ACCOUNTANT')")
     public ResponseEntity<ApiResponse<String>> paySingleSalary(
@@ -105,6 +113,7 @@ public class SalaryController {
                 .build());
     }
 
+    @Operation(summary = "Get salary statistics, optionally filtered by month")
     @GetMapping("/statistics")
     @PreAuthorize("hasAnyRole('ADMIN', 'ACCOUNTANT', 'MANAGER')")
     public ResponseEntity<ApiResponse<?>> getSalaryStatistics(
@@ -119,6 +128,7 @@ public class SalaryController {
                 .build());
     }
 
+    @Operation(summary = "Search salary reports with pagination")
     @GetMapping("/reports")
     @PreAuthorize("hasAnyRole('ADMIN', 'ACCOUNTANT', 'MANAGER')")
     public ResponseEntity<ApiResponse<PageResponse<SalaryCalculationResponse>>> searchSalaryReports(

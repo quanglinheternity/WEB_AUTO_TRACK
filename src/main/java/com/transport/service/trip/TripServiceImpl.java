@@ -46,6 +46,7 @@ public class TripServiceImpl implements TripService {
     AuthenticationService authenticationService;
     RedisService<String, Object, Object> redisService;
     ObjectMapper objectMapper;
+
     @Override
     public PageResponse<TripResponse> getAll(TripSearchRequest request, Pageable pageable) {
         User currentUser = authenticationService.getCurrentUser();
@@ -62,8 +63,7 @@ public class TripServiceImpl implements TripService {
                 safeKey(request.getStatus()),
                 request.getDriverId() != null ? request.getDriverId() : -1,
                 pageable.getPageNumber(),
-                pageable.getPageSize()
-        );
+                pageable.getPageSize());
 
         // 👉 Kiểm tra cache
         try {
@@ -94,6 +94,7 @@ public class TripServiceImpl implements TripService {
 
         return response;
     }
+
     private String safeKey(Object value) {
         return value == null ? "null" : value.toString().replaceAll("\\s+", "_");
     }

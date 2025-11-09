@@ -26,20 +26,24 @@ import com.transport.dto.expense.ExpenseUpdateRequest;
 import com.transport.dto.page.PageResponse;
 import com.transport.service.expense.ExpenseService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/yeu-cau-chi-phi")
+@RequestMapping("/api/v1/expenses")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
+@Tag(name = "Expense", description = "APIs for managing Expense")
 public class ExpenseController {
     ExpenseService expenseService;
 
-    @GetMapping
+    @Operation(summary = "Get list of expenses")
+    @GetMapping("/list")
     public ApiResponse<PageResponse<ExpenseResponse>> getAllExpenses(
             ExpenseSearchRequest request,
             @PageableDefault(page = 0, size = 10, sort = "expenseDate", direction = Sort.Direction.DESC)
@@ -50,8 +54,9 @@ public class ExpenseController {
                 .build();
     }
 
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ApiResponse<ExpenseResponse> create(
+    @Operation(summary = "Create a new expense request")
+    @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ApiResponse<ExpenseResponse> createExpense(
             @Valid @RequestPart("data") ExpenseRequest request,
             @RequestPart(value = "file", required = false) MultipartFile file) {
         return ApiResponse.<ExpenseResponse>builder()
@@ -60,8 +65,9 @@ public class ExpenseController {
                 .build();
     }
 
-    @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ApiResponse<ExpenseResponse> update(
+    @Operation(summary = "Update an existing expense request")
+    @PutMapping(value = "/{id}/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ApiResponse<ExpenseResponse> updateExpense(
             @PathVariable Long id,
             @Valid @RequestPart("data") ExpenseUpdateRequest request,
             @RequestPart(value = "file", required = false) MultipartFile file) {
@@ -71,24 +77,27 @@ public class ExpenseController {
                 .build();
     }
 
-    @GetMapping("/{id}")
-    public ApiResponse<ExpenseResponse> get(@PathVariable Long id) {
+    @Operation(summary = "Get expense details by ID")
+    @GetMapping("/{id}/detail")
+    public ApiResponse<ExpenseResponse> getExpenseById(@PathVariable Long id) {
         return ApiResponse.<ExpenseResponse>builder()
                 .message("Lấy chi tiết Yêu cầu chi phí thành công.")
                 .data(expenseService.getById(id))
                 .build();
     }
 
-    @DeleteMapping("/{id}")
-    public ApiResponse<Void> delete(@PathVariable Long id) {
+    @Operation(summary = "Delete expense by ID")
+    @DeleteMapping("/{id}/delete")
+    public ApiResponse<Void> deleteExpenseById(@PathVariable Long id) {
         expenseService.delete(id);
         return ApiResponse.<Void>builder()
                 .message("Xóa Yêu cầu chi phí thành công.")
                 .build();
     }
 
-    @PutMapping("/{id}/trang-thai")
-    public ApiResponse<ExpenseResponse> updateByTrangThai(
+    @Operation(summary = "Update expense approval status")
+    @PutMapping("/{id}/status")
+    public ApiResponse<ExpenseResponse> updateByStatus(
             @PathVariable Long id, @RequestBody ExpenseApproveRequest request) {
         ExpenseResponse response = expenseService.expenseApprove(id, request);
         String message =

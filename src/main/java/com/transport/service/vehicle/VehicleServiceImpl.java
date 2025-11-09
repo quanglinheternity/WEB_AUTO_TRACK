@@ -20,6 +20,7 @@ import com.transport.exception.ErrorCode;
 import com.transport.mapper.VehicleMapper;
 import com.transport.repository.vehicle.VehicleRepository;
 import com.transport.repository.vehicleType.VehicleTypeRepository;
+import com.transport.service.trip.TripValidator;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,7 @@ public class VehicleServiceImpl implements VehicleService {
     VehicleTypeRepository vehicleTypeRepository;
     VehicleMapper vehicleMapper;
     VehicleValidator vehicleValidator;
+    TripValidator tripValidator;
 
     @Override
     public PageResponse<VehicleResponse> getAll(VehicleSearchRequest request, Pageable pageable) {
@@ -75,6 +77,7 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public void delete(Long id) {
         vehicleValidator.validateExistence(id);
+        tripValidator.validateVehicleCanBeDeleted(id);
         vehicleRepository.deleteById(id);
     }
 

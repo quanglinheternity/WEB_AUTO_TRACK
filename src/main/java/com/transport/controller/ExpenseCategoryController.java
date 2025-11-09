@@ -22,16 +22,20 @@ import com.transport.dto.expenseCategory.ExpenseCategorySearchRequest;
 import com.transport.dto.page.PageResponse;
 import com.transport.service.expenseCategory.ExpenseCategoryService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/loai-chi-phi")
+@RequestMapping("/api/v1/expense-category")
 @RequiredArgsConstructor
 @PreAuthorize("hasAuthority('EXPENSE_CATEGORY')")
+@Tag(name = "Expense Category", description = "APIs for managing Expense Category")
 public class ExpenseCategoryController {
     private final ExpenseCategoryService service;
 
-    @GetMapping
+    @Operation(summary = "Get list of expense categories")
+    @GetMapping("/list")
     public ApiResponse<PageResponse<ExpenseCategoryResponse>> search(
             ExpenseCategorySearchRequest request,
             @PageableDefault(page = 0, size = 10, sort = "expenseDate", direction = Sort.Direction.DESC)
@@ -42,7 +46,8 @@ public class ExpenseCategoryController {
                 .build();
     }
 
-    @PostMapping
+    @Operation(summary = "Create a new expense category")
+    @PostMapping("/create")
     public ApiResponse<ExpenseCategoryResponse> create(@Valid @RequestBody ExpenseCategoryRequest request) {
         return ApiResponse.<ExpenseCategoryResponse>builder()
                 .message("Tạo loại chi phí thành công")
@@ -50,7 +55,8 @@ public class ExpenseCategoryController {
                 .build();
     }
 
-    @PutMapping("/{id}")
+    @Operation(summary = "Update an existing expense category")
+    @PutMapping("/{id}/update")
     public ApiResponse<ExpenseCategoryResponse> update(
             @PathVariable Long id, @Valid @RequestBody ExpenseCategoryRequest request) {
         return ApiResponse.<ExpenseCategoryResponse>builder()
@@ -59,7 +65,8 @@ public class ExpenseCategoryController {
                 .build();
     }
 
-    @DeleteMapping("/{id}")
+    @Operation(summary = "Delete an expense category")
+    @DeleteMapping("/{id}/delete")
     public ApiResponse<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ApiResponse.<Void>builder()
@@ -67,7 +74,8 @@ public class ExpenseCategoryController {
                 .build();
     }
 
-    @GetMapping("/{id}")
+    @Operation(summary = "Get expense category details")
+    @GetMapping("/{id}/detail")
     public ApiResponse<ExpenseCategoryResponse> get(@PathVariable Long id) {
         return ApiResponse.<ExpenseCategoryResponse>builder()
                 .message("Lấy chi tiết loại chi phí thành công")

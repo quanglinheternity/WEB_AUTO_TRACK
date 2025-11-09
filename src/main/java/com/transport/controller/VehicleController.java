@@ -24,21 +24,25 @@ import com.transport.dto.vehicle.VehicleSearchRequest;
 import com.transport.dto.vehicle.VehicleUpdateRequest;
 import com.transport.service.vehicle.VehicleService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/xes")
+@RequestMapping("/api/v1/vehicles")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
+@Tag(name = "Vehicle", description = "APIs for managing vehicles")
 public class VehicleController {
     VehicleService vehicleService;
 
+    @Operation(summary = "Get all vehicles with pagination")
     @PreAuthorize("hasAuthority('VEHICLE_READ')")
-    @GetMapping
+    @GetMapping("/list")
     public ApiResponse<PageResponse<VehicleResponse>> getAll(
             VehicleSearchRequest request,
             @PageableDefault(page = 0, size = 10, sort = "expenseDate", direction = Sort.Direction.DESC)
@@ -49,7 +53,8 @@ public class VehicleController {
                 .build();
     }
 
-    @GetMapping("/{id}")
+    @Operation(summary = "Get vehicle details by ID, including trips")
+    @GetMapping("/{id}/detail")
     public ApiResponse<VehicleAndTripResponse> getById(@PathVariable Long id) {
         return ApiResponse.<VehicleAndTripResponse>builder()
                 .message("Lấy chi tiết thành công")
@@ -57,8 +62,9 @@ public class VehicleController {
                 .build();
     }
 
+    @Operation(summary = "Create a new vehicle")
     @PreAuthorize("hasAuthority('VEHICLE_CREATE')")
-    @PostMapping
+    @PostMapping("/create")
     public ApiResponse<VehicleResponse> create(@RequestBody @Valid VehicleRequest request) {
         return ApiResponse.<VehicleResponse>builder()
                 .message("Tạo xe thành công")
@@ -66,8 +72,9 @@ public class VehicleController {
                 .build();
     }
 
+    @Operation(summary = "Update a vehicle by ID")
     @PreAuthorize("hasAuthority('VEHICLE_UPDATE')")
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/update")
     public ApiResponse<VehicleResponse> update(
             @PathVariable Long id, @RequestBody @Valid VehicleUpdateRequest request) {
         return ApiResponse.<VehicleResponse>builder()
@@ -76,15 +83,17 @@ public class VehicleController {
                 .build();
     }
 
+    @Operation(summary = "Delete a vehicle by ID")
     @PreAuthorize("hasAuthority('VEHICLE_DELETE')")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/delete")
     public ApiResponse<Void> delete(@PathVariable Long id) {
         vehicleService.delete(id);
         return ApiResponse.<Void>builder().message("Xóa xe thành công").build();
     }
 
-    @PutMapping("/{id}/trang-thai")
-    public ApiResponse<VehicleResponse> updateByTrangThai(@PathVariable Long id) {
+    @Operation(summary = "Toggle vehicle active status by ID")
+    @PutMapping("/{id}/status")
+    public ApiResponse<VehicleResponse> toggleActiveStatus(@PathVariable Long id) {
 
         return ApiResponse.<VehicleResponse>builder()
                 .code(1000)

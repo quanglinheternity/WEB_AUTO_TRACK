@@ -18,21 +18,25 @@ import com.transport.dto.permission.PermissionRequest;
 import com.transport.dto.permission.PermissionResponse;
 import com.transport.service.permission.PermissionService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/quyen")
+@RequestMapping("/api/v1/permission")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
 @PreAuthorize("hasAuthority('PERMISSION')")
+@Tag(name = "Permission Management", description = "APIs for managing user permissions")
 public class PermissionController {
     PermissionService permissionService;
 
-    @GetMapping
+    @Operation(summary = "Get list of all permissions")
+    @GetMapping("/list")
     public ApiResponse<List<PermissionResponse>> getAll() {
         return ApiResponse.<List<PermissionResponse>>builder()
                 .message("Lấy danh sách thành công")
@@ -40,7 +44,8 @@ public class PermissionController {
                 .build();
     }
 
-    @PostMapping
+    @Operation(summary = "Create a new permission")
+    @PostMapping("/create")
     public ApiResponse<PermissionResponse> create(@RequestBody @Valid PermissionRequest request) {
         return ApiResponse.<PermissionResponse>builder()
                 .message("Tạo quyền thành công")
@@ -48,7 +53,8 @@ public class PermissionController {
                 .build();
     }
 
-    @DeleteMapping("/{permissionName}")
+    @Operation(summary = "Delete a permission by name")
+    @DeleteMapping("/{permissionName}/delete")
     public ApiResponse<Void> delete(@PathVariable String permissionName) {
         permissionService.deletePermission(permissionName);
         return ApiResponse.<Void>builder().message("Xóa quyền thành công").build();

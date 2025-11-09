@@ -176,6 +176,7 @@ public enum ErrorCode {
     SALARY_ALREADY_CALCULATED(5001, "Đã tính công đã tính cho tài xế tháng đó", HttpStatus.BAD_REQUEST),
     SALARY_MONTH_NOT_ENDED(5002, "Tháng chưa kết thúc", HttpStatus.BAD_REQUEST),
     SALARY_REPORT_NOT_FOUND(5003, "Báo cáo chưa tạo", HttpStatus.BAD_REQUEST),
+    VEHICLE_IN_USE(5004, "Xe đang trong chuyến đi", HttpStatus.BAD_REQUEST),
     ;
     private int code;
     private String message;

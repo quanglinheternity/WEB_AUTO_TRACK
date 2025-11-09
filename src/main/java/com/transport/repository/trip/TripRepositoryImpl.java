@@ -187,4 +187,15 @@ public class TripRepositoryImpl implements TripRepositoryCustom {
                 .orderBy(trip.departureTime.asc())
                 .fetch();
     }
+    @Override
+    public boolean isVehicleUsedInTrip(Long vehicleId) {
+
+        Long count = queryFactory
+                .select(trip.id.count())
+                .from(trip)
+                .where(trip.vehicle.id.eq(vehicleId))
+                .fetchOne();
+
+        return count != null && count > 0;
+    }
 }
