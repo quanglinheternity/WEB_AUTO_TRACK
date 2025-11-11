@@ -133,7 +133,7 @@ public class SalaryController {
     @PreAuthorize("hasAnyRole('ADMIN', 'ACCOUNTANT', 'MANAGER')")
     public ResponseEntity<ApiResponse<PageResponse<SalaryCalculationResponse>>> searchSalaryReports(
             SalaryReportSearchRequest request,
-            @PageableDefault(page = 0, size = 10, sort = "expenseDate", direction = Sort.Direction.DESC)
+            @PageableDefault(page = 0, size = 10, sort = "createdAt", direction = Sort.Direction.DESC)
                     Pageable pageable) {
 
         PageResponse<SalaryCalculationResponse> page = salaryReportService.searchSalaryReports(request, pageable);

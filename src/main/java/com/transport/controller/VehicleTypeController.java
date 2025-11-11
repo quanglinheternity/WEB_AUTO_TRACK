@@ -35,7 +35,7 @@ public class VehicleTypeController {
     private final VehicleTypeService service;
 
     @Operation(summary = "Search vehicle types with optional keyword and pagination")
-    @GetMapping("/search")
+    @GetMapping("/list")
     public ApiResponse<Page<VehicleTypeResponse>> search(
             @RequestParam(required = false) String keyword, Pageable pageable) {
         return ApiResponse.<Page<VehicleTypeResponse>>builder()

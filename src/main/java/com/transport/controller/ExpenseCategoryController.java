@@ -38,7 +38,7 @@ public class ExpenseCategoryController {
     @GetMapping("/list")
     public ApiResponse<PageResponse<ExpenseCategoryResponse>> search(
             ExpenseCategorySearchRequest request,
-            @PageableDefault(page = 0, size = 10, sort = "expenseDate", direction = Sort.Direction.DESC)
+            @PageableDefault(page = 0, size = 10, sort = "createdAt", direction = Sort.Direction.DESC)
                     Pageable pageable) {
         return ApiResponse.<PageResponse<ExpenseCategoryResponse>>builder()
                 .message("Lấy danh sách thành cônng")

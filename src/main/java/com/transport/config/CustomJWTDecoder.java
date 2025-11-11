@@ -4,6 +4,7 @@ import java.text.ParseException;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
@@ -26,7 +27,7 @@ public class CustomJWTDecoder implements JwtDecoder {
     @Value("${jwt.signerKey}")
     private String signerKey;
 
-    private final AuthenticationService authenticationService;
+    private final @Lazy AuthenticationService authenticationService;
 
     private NimbusJwtDecoder nimbusJwtDecoder;
 

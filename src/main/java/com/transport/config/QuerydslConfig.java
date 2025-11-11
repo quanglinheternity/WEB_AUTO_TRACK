@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -11,7 +12,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 public class QuerydslConfig {
 
     @Bean
-    public JPAQueryFactory jpaQueryFactory(EntityManager entityManager) {
+    public JPAQueryFactory jpaQueryFactory(@Lazy EntityManager entityManager) {
         return new JPAQueryFactory(entityManager);
     }
 }

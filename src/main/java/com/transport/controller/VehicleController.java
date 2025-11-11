@@ -45,7 +45,7 @@ public class VehicleController {
     @GetMapping("/list")
     public ApiResponse<PageResponse<VehicleResponse>> getAll(
             VehicleSearchRequest request,
-            @PageableDefault(page = 0, size = 10, sort = "expenseDate", direction = Sort.Direction.DESC)
+            @PageableDefault(page = 0, size = 10, sort = "createdAt", direction = Sort.Direction.DESC)
                     Pageable pageable) {
         return ApiResponse.<PageResponse<VehicleResponse>>builder()
                 .message("Lấy danh sách thành công")

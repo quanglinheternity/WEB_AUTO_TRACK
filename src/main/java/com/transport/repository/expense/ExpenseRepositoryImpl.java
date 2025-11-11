@@ -1,5 +1,6 @@
 package com.transport.repository.expense;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -8,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.transport.dto.expense.ExpenseSearchRequest;
 import com.transport.entity.domain.Expense;
@@ -57,13 +60,28 @@ public class ExpenseRepositoryImpl implements ExpenseRepositoryCustom {
         }
 
         // ⚙️ Truy vấn dữ liệu
-        List<Expense> results = queryFactory
+        JPAQuery<Expense> query = queryFactory
                 .selectFrom(expense)
                 .where(builder)
-                .orderBy(expense.expenseDate.desc(), expense.id.desc())
                 .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .fetch();
+                .limit(pageable.getPageSize());
+
+        // ⚙️ Sắp xếp động từ pageable
+        if (pageable.getSort().isSorted()) {
+            List<OrderSpecifier<?>> orderSpecifiers = new ArrayList<>();
+            pageable.getSort().forEach(order -> {
+                switch (order.getProperty()) {
+                    case "id" -> orderSpecifiers.add(order.isAscending() ? expense.id.asc() : expense.id.desc());
+                    case "status" -> orderSpecifiers.add(order.isAscending() ? expense.status.asc() : expense.status.desc());
+                    case "createdAt" -> orderSpecifiers.add(order.isAscending() ? expense.createdAt.asc() : expense.createdAt.desc());
+                    default -> orderSpecifiers.add(expense.createdAt.desc());
+                }
+            });
+            query.orderBy(orderSpecifiers.toArray(new OrderSpecifier[0]));
+        } else {
+            // fallback mặc định
+            query.orderBy(expense.createdAt.desc());
+        }
 
         // ⚙️ Đếm tổng số bản ghi
         long total = queryFactory
@@ -72,6 +90,6 @@ public class ExpenseRepositoryImpl implements ExpenseRepositoryCustom {
                 .where(builder)
                 .fetchOne();
 
-        return new PageImpl<>(results, pageable, total);
+        return new PageImpl<>(query.fetch(), pageable, total);
     }
 }

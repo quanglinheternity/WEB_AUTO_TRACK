@@ -44,7 +44,7 @@ public class UserController {
     @GetMapping("/list")
     public ApiResponse<PageResponse<UserResponse>> getAll(
             UserSearchRequest request,
-            @PageableDefault(page = 0, size = 10, sort = "expenseDate", direction = Sort.Direction.DESC)
+            @PageableDefault(page = 0, size = 10, sort = "createdAt", direction = Sort.Direction.DESC)
                     Pageable pageable) {
         return ApiResponse.<PageResponse<UserResponse>>builder()
                 .message("Lấy danh sách thành công")

@@ -45,7 +45,7 @@ public class TripController {
     @GetMapping("/list")
     public ApiResponse<PageResponse<TripResponse>> getAll(
             TripSearchRequest request,
-            @PageableDefault(page = 0, size = 10, sort = "expenseDate", direction = Sort.Direction.DESC)
+            @PageableDefault(page = 0, size = 10, sort = "createdAt", direction = Sort.Direction.DESC)
                     Pageable pageable) {
         return ApiResponse.<PageResponse<TripResponse>>builder()
                 .message("Lấy danh sách thành công")

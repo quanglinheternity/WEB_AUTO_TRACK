@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserService {
         user = userRepository.save(user);
 
         // Nếu là tài xế → tạo thông tin tài xế
-        if (Boolean.TRUE.equals(request.getIsDriver()) && request.getDriver() == null) {
+        if (Boolean.TRUE.equals(request.getIsDriver()) && request.getDriver() != null) {
             if (driverRepository.existsBylicenseNumber(request.getDriver().getLicenseNumber())) {
                 throw new AppException(ErrorCode.DRIVER_ALREADY_LICENSE_EXISTS);
             }

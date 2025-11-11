@@ -46,7 +46,7 @@ public class ExpenseController {
     @GetMapping("/list")
     public ApiResponse<PageResponse<ExpenseResponse>> getAllExpenses(
             ExpenseSearchRequest request,
-            @PageableDefault(page = 0, size = 10, sort = "expenseDate", direction = Sort.Direction.DESC)
+            @PageableDefault(page = 0, size = 10, sort = "createdAt", direction = Sort.Direction.DESC)
                     Pageable pageable) {
         return ApiResponse.<PageResponse<ExpenseResponse>>builder()
                 .message("Lấy dang sách thành công")

@@ -4,7 +4,7 @@ server:
   #   context-path: /vanChuyen
 spring:
   datasource:
-    url: ${DB_URL:jdbc:mysql://localhost:3306/transport}
+    url: ${DB_URL:jdbc:mysql://localhost:3306/transport?createDatabaseIfNotExist=true}
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: ${DB_USERNAME:root}
     password: ${DB_PASSWORD:}
@@ -16,7 +16,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
     # database-platform: org.hibernate.dialect.MySQL8Dialect
-    defer-datasource-initialization: true
+    # defer-datasource-initialization: true
   # sql:
   #   init:
   #     mode: always  # Luôn chạy file data.sql
@@ -27,6 +27,15 @@ spring:
       max-file-size: 5MB
       max-request-size: 10MB
       file-size-threshold: 2KB
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    validate-on-migrate: true
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port:  ${REDIS_PORT:6379}
 jwt:  
   signerKey: bvkfSG5tgcc6kHcMWz6VpgyEjCmg16w8EzZv5mPs3KT4Tt1lS3AhkkOBE3oabTJ8
   vaild-duration: 18000
