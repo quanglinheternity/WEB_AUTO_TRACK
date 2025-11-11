@@ -1,6 +1,8 @@
 package com.transport.service.trip;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import jakarta.transaction.Transactional;
 
@@ -211,5 +213,10 @@ public class TripServiceImpl implements TripService {
             throw new AppException(ErrorCode.ONLY_NOT_STARTED_TRIP_CAN_BE_DELETED);
         }
         tripRepository.delete(trip);
+    }
+
+    @Override
+    public List<TripResponse> listAll() {
+        return tripRepository.findAll().stream().map(tripMapper::toTripResponse).collect(Collectors.toList());
     }
 }

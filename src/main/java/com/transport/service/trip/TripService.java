@@ -1,5 +1,7 @@
 package com.transport.service.trip;
 
+import java.util.List;
+
 import org.springframework.data.domain.Pageable;
 
 import com.transport.dto.page.PageResponse;
@@ -22,4 +24,6 @@ public interface TripService {
     TripResponse approveTrip(Long id, ApproveTripRequest request);
 
     void delete(Long id);
+
+    List<TripResponse> listAll();
 }

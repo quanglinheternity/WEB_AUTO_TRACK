@@ -138,44 +138,32 @@ public class ExpenseServiceImpl implements ExpenseService {
                 // Bước 1: Quản lý duyệt
                 authenticationService.requirePermission("EXPENSE_APPROVE_MANAGER");
                 // log.info("Quản lý duyệt" + request );
-                if (Boolean.FALSE.equals(request.getIsApproved())) {
-                    if (request.getReason() == null || request.getReason().isBlank()) {
-                        throw new AppException(ErrorCode.CANCELLATION_REASON_REQUIRED);
-                    }
-
-                    expense.setManagerApprovedBy(approver);
-                    expense.setManagerApprovedAt(LocalDateTime.now());
-                    expense.setManagerNote(request.getReason());
-                    expense.setStatus(ExpenseStatus.REJECTED);
-                    break;
+                boolean isApproved = Boolean.FALSE.equals(request.getIsApproved());
+                if (isApproved
+                        && (request.getReason() == null || request.getReason().isBlank())) {
+                    throw new AppException(ErrorCode.CANCELLATION_REASON_REQUIRED);
                 }
 
                 expense.setManagerApprovedBy(approver);
                 expense.setManagerApprovedAt(LocalDateTime.now());
                 expense.setManagerNote(request.getReason());
-                expense.setStatus(ExpenseStatus.MANAGER_APPROVED);
+                expense.setStatus(isApproved ? ExpenseStatus.REJECTED : ExpenseStatus.MANAGER_APPROVED);
             }
 
             case MANAGER_APPROVED -> {
                 // Bước 2: Kế toán duyệt
                 authenticationService.requirePermission("EXPENSE_APPROVE_ACCOUNTANT");
+                boolean isApproved = Boolean.FALSE.equals(request.getIsApproved());
 
-                if (Boolean.FALSE.equals(request.getIsApproved())) {
-                    if (request.getReason() == null || request.getReason().isBlank()) {
-                        throw new AppException(ErrorCode.CANCELLATION_REASON_REQUIRED);
-                    }
-
-                    expense.setAccountantApprovedBy(approver);
-                    expense.setAccountantApprovedAt(LocalDateTime.now());
-                    expense.setAccountantNote(request.getReason());
-                    expense.setStatus(ExpenseStatus.REJECTED);
-                    break;
+                if (isApproved
+                        && (request.getReason() == null || request.getReason().isBlank())) {
+                    throw new AppException(ErrorCode.CANCELLATION_REASON_REQUIRED);
                 }
 
                 expense.setAccountantApprovedBy(approver);
                 expense.setAccountantApprovedAt(LocalDateTime.now());
                 expense.setAccountantNote(request.getReason());
-                expense.setStatus(ExpenseStatus.ACCOUNTANT_APPROVED);
+                expense.setStatus(isApproved ? ExpenseStatus.REJECTED : ExpenseStatus.MANAGER_APPROVED);
             }
 
             case ACCOUNTANT_APPROVED -> {

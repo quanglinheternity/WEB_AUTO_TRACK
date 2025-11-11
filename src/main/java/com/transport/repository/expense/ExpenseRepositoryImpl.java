@@ -72,8 +72,10 @@ public class ExpenseRepositoryImpl implements ExpenseRepositoryCustom {
             pageable.getSort().forEach(order -> {
                 switch (order.getProperty()) {
                     case "id" -> orderSpecifiers.add(order.isAscending() ? expense.id.asc() : expense.id.desc());
-                    case "status" -> orderSpecifiers.add(order.isAscending() ? expense.status.asc() : expense.status.desc());
-                    case "createdAt" -> orderSpecifiers.add(order.isAscending() ? expense.createdAt.asc() : expense.createdAt.desc());
+                    case "status" -> orderSpecifiers.add(
+                            order.isAscending() ? expense.status.asc() : expense.status.desc());
+                    case "createdAt" -> orderSpecifiers.add(
+                            order.isAscending() ? expense.createdAt.asc() : expense.createdAt.desc());
                     default -> orderSpecifiers.add(expense.createdAt.desc());
                 }
             });

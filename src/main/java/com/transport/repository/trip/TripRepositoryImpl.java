@@ -187,6 +187,7 @@ public class TripRepositoryImpl implements TripRepositoryCustom {
                 .orderBy(trip.departureTime.asc())
                 .fetch();
     }
+
     @Override
     public boolean isVehicleUsedInTrip(Long vehicleId) {
 

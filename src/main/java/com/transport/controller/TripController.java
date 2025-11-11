@@ -1,5 +1,9 @@
 package com.transport.controller;
 
+import java.io.IOException;
+import java.util.List;
+
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 import org.springframework.data.domain.Pageable;
@@ -24,6 +28,7 @@ import com.transport.dto.trip.TripSearchRequest;
 import com.transport.dto.trip.TripUpdateRequest;
 import com.transport.dto.trip.UpdateTripStatusRequest;
 import com.transport.service.trip.TripService;
+import com.transport.util.excel.BaseExport;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -94,5 +99,55 @@ public class TripController {
     public ApiResponse<Void> delete(@PathVariable Long id) {
         tripService.delete(id);
         return ApiResponse.<Void>builder().message("Xóa lịch trình thành công").build();
+    }
+
+    @GetMapping("/export/excel")
+    public void exportToExcel(HttpServletResponse response) throws IOException {
+
+        List<TripResponse> listUsers = tripService.listAll();
+        String[] headers = new String[] {
+            "ID",
+            "Mã chuyến",
+            "Tuyến",
+            "Biển số xe",
+            "Tên tài xế",
+            "Thời gian khởi hành",
+            "Thời gian dự kiến đến",
+            "Thời gian thực tế đến",
+            "Trạng thái",
+            "Mô tả hàng hóa",
+            "Khối lượng hàng",
+            "Người tạo",
+            "Thời gian duyệt",
+            "Người duyệt",
+            "Thời gian hoàn thành",
+            "Thời gian hủy",
+            "Lý do hủy",
+            "Ghi chú"
+        };
+        String[] fields = new String[] {
+            "id",
+            "tripCode",
+            "routeName",
+            "vehiclePlateNumber",
+            "driverName",
+            "departureTime",
+            "estimatedArrivalTime",
+            "actualArrivalTime",
+            "status",
+            "cargoDescription",
+            "cargoWeight",
+            "createdBy",
+            "approvedAt",
+            "approvedBy",
+            "completedAt",
+            "cancelledAt",
+            "cancellationReason",
+            "note"
+        };
+        new BaseExport<>(listUsers)
+                .writeHeaderLine(headers, "Danh sách Chuyến đi")
+                .writeDataLines(fields, TripResponse.class)
+                .export(response, "Danh_sach_chuyen_di");
     }
 }

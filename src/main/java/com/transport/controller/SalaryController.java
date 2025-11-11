@@ -1,7 +1,11 @@
 package com.transport.controller;
 
+import java.io.IOException;
 import java.time.YearMonth;
 import java.util.List;
+import java.util.Map;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -20,6 +24,7 @@ import com.transport.dto.salary.SalaryReportDetailResponse;
 import com.transport.dto.salary.SalaryReportSearchRequest;
 import com.transport.service.salary.SalaryCalculationService;
 import com.transport.service.salary.SalaryReportService;
+import com.transport.util.excel.BaseExportMap;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -126,6 +131,52 @@ public class SalaryController {
                 .message("Lấy thống kê lương thành công")
                 .data(statistics)
                 .build());
+    }
+
+    @Operation(summary = "Export salary statistics to Excel, optionally filtered by month")
+    @PreAuthorize("hasAnyRole('ADMIN', 'ACCOUNTANT', 'MANAGER')")
+    @GetMapping("/statistics/export/excel")
+    public void exportSalaryStatistics(@RequestParam(required = false) String month, HttpServletResponse response)
+            throws IOException {
+
+        YearMonth reportMonth = (month != null) ? YearMonth.parse(month) : YearMonth.now();
+        if (reportMonth.isAfter(YearMonth.now())) {
+            reportMonth = YearMonth.now();
+        }
+
+        Map<String, Object> stats = salaryReportService.getSalaryStatistics(reportMonth);
+        List<Map<String, Object>> data = List.of(stats); // 1 dòng thống kê
+
+        String[] headers = {
+            "Tháng",
+            "Tổng tài xế",
+            "Đã thanh toán",
+            "Chưa thanh toán",
+            "Tổng lương",
+            "Đã trả",
+            "Chưa trả",
+            "Tổng chuyến",
+            "Tổng km",
+            "Lương trung bình"
+        };
+
+        String[] keys = {
+            "month",
+            "totalDrivers",
+            "paidDrivers",
+            "unpaidDrivers",
+            "totalSalary",
+            "paidSalary",
+            "unpaidSalary",
+            "totalTrips",
+            "totalDistance",
+            "averageSalary"
+        };
+
+        new BaseExportMap(data)
+                .writeHeaderLine(headers, "Thống kê lương tài xế")
+                .writeDataLines(keys)
+                .export(response, "Thong_ke_luong_tai_xe");
     }
 
     @Operation(summary = "Search salary reports with pagination")
