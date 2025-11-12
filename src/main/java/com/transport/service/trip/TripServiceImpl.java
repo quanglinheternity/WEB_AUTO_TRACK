@@ -1,6 +1,7 @@
 package com.transport.service.trip;
 
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,9 +13,11 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.transport.dto.expense.ExpenseReportResponse;
 import com.transport.dto.page.PageResponse;
 import com.transport.dto.trip.ApproveTripRequest;
 import com.transport.dto.trip.TripCreateRequest;
+import com.transport.dto.trip.TripReport;
 import com.transport.dto.trip.TripResponse;
 import com.transport.dto.trip.TripSearchRequest;
 import com.transport.dto.trip.TripUpdateRequest;
@@ -218,5 +221,15 @@ public class TripServiceImpl implements TripService {
     @Override
     public List<TripResponse> listAll() {
         return tripRepository.findAll().stream().map(tripMapper::toTripResponse).collect(Collectors.toList());
+    }
+
+    @Override
+    public TripReport findReportTripByVehicle(Long vehicleId, YearMonth month) {
+        return tripRepository.findReportTripByVehicle(vehicleId, month);
+    }
+
+    @Override
+    public ExpenseReportResponse findTripReportByExpense(YearMonth month) {
+        return tripRepository.findTripReportByExpense(month);
     }
 }

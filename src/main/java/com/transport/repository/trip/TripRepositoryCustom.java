@@ -8,6 +8,8 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.transport.dto.expense.ExpenseReportResponse;
+import com.transport.dto.trip.TripReport;
 import com.transport.dto.trip.TripSearchRequest;
 import com.transport.entity.domain.Trip;
 
@@ -32,4 +34,8 @@ public interface TripRepositoryCustom {
     List<Trip> findCompletedTripsByDriverAndMonth(Long driverId, YearMonth month);
 
     boolean isVehicleUsedInTrip(Long vehicleId);
+
+    TripReport findReportTripByVehicle(Long vehicleId, YearMonth month);
+
+    ExpenseReportResponse findTripReportByExpense(YearMonth month);
 }

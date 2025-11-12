@@ -106,7 +106,7 @@ public class SalaryReportService {
             }
         }
 
-        // 3️⃣ Lưu toàn bộ
+        // 3 Lưu toàn bộ
         salaryReportRepository.saveAll(reports);
     }
 

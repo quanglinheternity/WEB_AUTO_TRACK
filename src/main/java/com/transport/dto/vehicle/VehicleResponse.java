@@ -29,6 +29,7 @@ public class VehicleResponse {
     LocalDate insuranceExpiryDate;
     Integer manufactureYear;
     String status;
+    Long totalTrip;
     String note;
     LocalDateTime createdAt;
     LocalDateTime updatedAt;

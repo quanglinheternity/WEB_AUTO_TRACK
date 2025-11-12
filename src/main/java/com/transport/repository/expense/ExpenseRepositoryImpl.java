@@ -94,4 +94,28 @@ public class ExpenseRepositoryImpl implements ExpenseRepositoryCustom {
 
         return new PageImpl<>(query.fetch(), pageable, total);
     }
+    // public ExpenseReportResponse findExpenseReport(YearMonth month) {
+    //     BooleanBuilder builder = new BooleanBuilder();
+    //     if(month != null){
+    //         LocalDate startOfMonth = month.atDay(1);
+    //         LocalDate endOfMonth = month.atEndOfMonth();
+    //         builder.and(expense.expenseDate.between(startOfMonth, endOfMonth));
+    //     }
+    //     List<Tuple> expenses = queryFactory
+    //             .select(
+    //                 expense.trip.driver.driverCode,
+    //                 expense.trip.driver.user.fullName,
+    //                 expense.trip.vehicle.licensePlate,
+    //                 expense.trip.vehicle.model,
+    //                 expense.trip.route.origin,
+    //                 expense.
+
+    //                 expense.amount
+    //                 )
+    //             .from(expense)
+    //             .where(builder)
+    //             .fetch();
+    //     ExpenseReportResponse report = new ExpenseReportResponse();
+    //     report.setExpenses(expenses);
+    // }
 }

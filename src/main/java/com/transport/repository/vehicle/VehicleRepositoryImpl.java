@@ -9,10 +9,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.transport.dto.vehicle.VehicleResponse;
 import com.transport.dto.vehicle.VehicleSearchRequest;
+import com.transport.entity.domain.QTrip;
 import com.transport.entity.domain.QVehicle;
 import com.transport.entity.domain.Vehicle;
 import com.transport.mapper.VehicleMapper;
@@ -28,6 +30,7 @@ public class VehicleRepositoryImpl implements VehicleRepositoryCustom {
     private static final QVehicle vehicle = QVehicle.vehicle;
 
     private final VehicleMapper vehicleMapper;
+    private final QTrip trip = QTrip.trip;
 
     @Override
     public boolean existsByLicensePlate(String licensePlate) {
@@ -113,9 +116,13 @@ public class VehicleRepositoryImpl implements VehicleRepositoryCustom {
         }
 
         // ⚙️ Tạo truy vấn chính
-        JPAQuery<Vehicle> query = queryFactory
-                .selectFrom(vehicle)
+        JPAQuery<Tuple> query = queryFactory
+                .select(vehicle, trip.count())
+                .from(vehicle)
+                .leftJoin(trip)
+                .on(trip.vehicle.id.eq(vehicle.id))
                 .where(builder)
+                .groupBy(vehicle.id)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize());
 
@@ -137,7 +144,7 @@ public class VehicleRepositoryImpl implements VehicleRepositoryCustom {
         }
 
         // ⚙️ Lấy kết quả
-        List<Vehicle> vehicles = query.fetch();
+        List<Tuple> vehicles = query.fetch();
 
         // ⚙️ Đếm tổng số bản ghi
         Long total = queryFactory
@@ -149,8 +156,15 @@ public class VehicleRepositoryImpl implements VehicleRepositoryCustom {
         long totalCount = (total != null) ? total : 0L;
 
         // ✅ Map sang DTO phản hồi
-        List<VehicleResponse> responses =
-                vehicles.stream().map(vehicleMapper::toVehicleResponse).toList();
+        List<VehicleResponse> responses = vehicles.stream()
+                .map(veh -> {
+                    Vehicle v = veh.get(vehicle);
+                    Long tripCount = veh.get(trip.count());
+                    VehicleResponse res = vehicleMapper.toVehicleResponse(v);
+                    res.setTotalTrip(tripCount != null ? tripCount : 0L);
+                    return res;
+                })
+                .toList();
 
         return new PageImpl<>(responses, pageable, totalCount);
     }

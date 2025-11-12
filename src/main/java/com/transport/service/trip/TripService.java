@@ -1,12 +1,15 @@
 package com.transport.service.trip;
 
+import java.time.YearMonth;
 import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 
+import com.transport.dto.expense.ExpenseReportResponse;
 import com.transport.dto.page.PageResponse;
 import com.transport.dto.trip.ApproveTripRequest;
 import com.transport.dto.trip.TripCreateRequest;
+import com.transport.dto.trip.TripReport;
 import com.transport.dto.trip.TripResponse;
 import com.transport.dto.trip.TripSearchRequest;
 import com.transport.dto.trip.TripUpdateRequest;
@@ -26,4 +29,8 @@ public interface TripService {
     void delete(Long id);
 
     List<TripResponse> listAll();
+
+    TripReport findReportTripByVehicle(Long vehicleId, YearMonth month);
+
+    ExpenseReportResponse findTripReportByExpense(YearMonth month);
 }

@@ -1,6 +1,7 @@
 package com.transport.controller;
 
 import java.io.IOException;
+import java.time.YearMonth;
 import java.util.List;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,12 +18,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.transport.dto.ApiResponse;
+import com.transport.dto.expense.ExpenseReportResponse;
 import com.transport.dto.page.PageResponse;
 import com.transport.dto.trip.ApproveTripRequest;
 import com.transport.dto.trip.TripCreateRequest;
+import com.transport.dto.trip.TripReport;
 import com.transport.dto.trip.TripResponse;
 import com.transport.dto.trip.TripSearchRequest;
 import com.transport.dto.trip.TripUpdateRequest;
@@ -149,5 +153,24 @@ public class TripController {
                 .writeHeaderLine(headers, "Danh sách Chuyến đi")
                 .writeDataLines(fields, TripResponse.class)
                 .export(response, "Danh_sach_chuyen_di");
+    }
+
+    @Operation(summary = "Get report trip by vehicle")
+    @GetMapping("/report/trip-by-vehicle")
+    public ApiResponse<TripReport> getReportTripByVehicle(
+            @RequestParam(required = false) Long vehicleId, @RequestParam(required = false) YearMonth month) {
+        return ApiResponse.<TripReport>builder()
+                .message("Lấy báo cáo chuyến đi theo xe")
+                .data(tripService.findReportTripByVehicle(vehicleId, month))
+                .build();
+    }
+
+    @Operation(summary = "Get report trip by expense")
+    @GetMapping("/report/trip-by-expense")
+    public ApiResponse<ExpenseReportResponse> getReportTripByexpense(@RequestParam(required = false) YearMonth month) {
+        return ApiResponse.<ExpenseReportResponse>builder()
+                .message("Lấy báo cáo chuyến đi theo chi phí")
+                .data(tripService.findTripReportByExpense(month))
+                .build();
     }
 }
