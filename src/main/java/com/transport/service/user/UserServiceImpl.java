@@ -182,4 +182,11 @@ public class UserServiceImpl implements UserService {
         }
         userRepository.deleteById(id);
     }
+    public User findByUsername(String username){
+        User user = userRepository.findByUsername(username);
+        if(user == null){
+           throw new AppException(ErrorCode.USER_NOT_FOUND);
+        }
+        return user;
+    }
 }

@@ -7,6 +7,7 @@ import com.transport.dto.user.UserCreateRequest;
 import com.transport.dto.user.UserDetailResponse;
 import com.transport.dto.user.UserResponse;
 import com.transport.dto.user.UserSearchRequest;
+import com.transport.entity.domain.User;
 
 public interface UserService {
     PageResponse<UserResponse> getAll(UserSearchRequest request, Pageable pageable);
@@ -18,4 +19,6 @@ public interface UserService {
     UserDetailResponse update(Long id, UserCreateRequest request);
 
     void delete(Long id);
+    
+    User findByUsername(String username);
 }

@@ -116,4 +116,8 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
 
         return new PageImpl<>(responses, pageable, totalCount);
     }
+    @Override
+    public User findByUsername(String username) {
+        return queryFactory.selectFrom(user).where(user.username.eq(username)).fetchOne();
+    }
 }

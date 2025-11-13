@@ -4,12 +4,15 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.YearMonth;
 import java.util.List;
+import java.util.Map;
 
 import jakarta.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.transport.dto.route.RouteBySalary;
 import com.transport.dto.salary.SalaryCalculationResponse;
+import com.transport.dto.salary.SalaryReportDetailResponse1;
 import com.transport.entity.domain.Driver;
 import com.transport.entity.domain.SalaryReport;
 import com.transport.entity.domain.Trip;
@@ -17,6 +20,7 @@ import com.transport.enums.TripStatus;
 import com.transport.exception.AppException;
 import com.transport.exception.ErrorCode;
 import com.transport.repository.driver.DriverRepository;
+import com.transport.repository.route.RouteRepository;
 import com.transport.repository.salary.SalaryReportRepository;
 import com.transport.repository.trip.TripRepository;
 
@@ -32,12 +36,78 @@ public class SalaryCalculationServiceImpl implements SalaryCalculationService {
     SalaryReportRepository salaryReportRepository;
     TripRepository tripRepository;
     DriverRepository driverRepository;
+    RouteRepository routeRepository;
     static BigDecimal DEFAULT_TRIP_RATE = new BigDecimal("300000"); // 300k/chuyến
     static BigDecimal DEFAULT_DISTANCE_RATE = new BigDecimal("2000"); // 2k/km
     static BigDecimal RESPONSIBILITY_ALLOWANCE = new BigDecimal("500000"); // 500k
     static BigDecimal SAFETY_BONUS = new BigDecimal("1000000"); // 1 triệu
     static BigDecimal INSURANCE_RATE = new BigDecimal("0.105"); // 10.5%
+    static BigDecimal UNION_FEE = new BigDecimal("0.01"); // 1%
+    public SalaryReportDetailResponse1 calculateSalaryDetail(Long reportId) {
+        SalaryReport report = salaryReportRepository
+                .findById(reportId)
+                .orElseThrow(() -> new AppException(ErrorCode.SALARY_REPORT_NOT_FOUND));
+        Long driverId = report.getDriver().getId();
+        Driver driver = driverRepository.findById(driverId)
+                .orElseThrow(() -> new IllegalArgumentException("Driver not found"));
+        YearMonth month = report.getReportMonth();
+        List<RouteBySalary> baseRoutes = routeRepository.findRoutesByDriverAndMonth(driverId, month);
+        List<RouteBySalary> routes = baseRoutes.stream()
+            .map(route -> {
+                BigDecimal calculatedSalary = calculateTripBonus(
+                        route.totalTrips(),
+                        route.totalDistance(),
+                        driver
+                );
+                return new RouteBySalary(
+                        route.name(),
+                        route.totalTrips(),
+                        route.totalDistance(),
+                        calculatedSalary
+                );
+            })
+            .toList();
+        Map<String, BigDecimal> incomes = Map.of(
+                "Base Salary", driver.getBaseSalary(),
+                "Job Allowance", report.getDeduction() != null ? report.getDeduction()  : BigDecimal.ZERO
+        );
+        BigDecimal routeIncome = routes.stream()
+                .map(RouteBySalary::totalSalary)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
 
+        BigDecimal otherIncome = incomes.values().stream()
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        BigDecimal totalIncome = routeIncome.add(otherIncome);
+        BigDecimal insuranceDeduction = driver.getBaseSalary().multiply(INSURANCE_RATE).setScale(0, RoundingMode.HALF_UP);
+        BigDecimal unionFeeDeduction = driver.getBaseSalary().multiply(UNION_FEE).setScale(0, RoundingMode.HALF_UP);
+
+         Map<String, BigDecimal> deductions = Map.of(
+                "Insurance", insuranceDeduction,
+                "Union Fee", unionFeeDeduction
+        );
+        BigDecimal totalDeductions = deductions.values().stream()
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal netSalary = totalIncome.subtract(totalDeductions);
+        return SalaryReportDetailResponse1.builder()
+                .reportId(report.getId())
+                .driverId(driver.getId())
+                .driverName(driver.getUser().getFullName())
+                .driverCode(driver.getDriverCode())
+                .month(month)
+                .totalTrips(routes.stream().mapToInt(r -> r.totalTrips().intValue()).sum())
+                .totalIncome(totalIncome)
+                .totalDeductions(totalDeductions)
+                .netSalary(netSalary)
+                .incomes(incomes)
+                .salaryByroutes(routes)
+                .deductions(deductions)
+                .isPaid(report.getIsPaid())
+                .paidAt(report.getPaidAt())
+                .note(report.getNote())
+                .build();
+    }
+        
     public SalaryCalculationResponse calculateSalary(Long driverId, YearMonth month) {
         if (!month.isBefore(month.plusMonths(1))) {
             throw new AppException(ErrorCode.SALARY_MONTH_NOT_ENDED);

@@ -40,7 +40,7 @@ public class UserController {
     UserService userService;
 
     @Operation(summary = "Get all users with pagination")
-    @PreAuthorize("hasAuthority('USER_READ')")
+    // @PreAuthorize("hasAuthority('USER_READ')")
     @GetMapping("/list")
     public ApiResponse<PageResponse<UserResponse>> getAll(
             UserSearchRequest request,

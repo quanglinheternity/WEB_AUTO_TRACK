@@ -27,7 +27,7 @@ public class SecurityConfig {
         "/api/v1/auth/logout",
         "/api/v1/auth/refresh",
         "/api/v1/auth/{userId}/verify",
-        "/api/v1/auth/{userId}/resend"
+        "/api/v1/auth/{userId}/resend",
     };
 
     @Autowired
@@ -36,8 +36,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .authorizeHttpRequests(request -> request.requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS_POST)
-                        .permitAll()
+                .authorizeHttpRequests(request -> request
+                        .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS_POST).permitAll()
                         // .requestMatchers(HttpMethod.GET, "/user").hasAnyAuthority(Role.ADMIN.name())
                         // .requestMatchers(HttpMethod.PUT, "/user/{userId}").permitAll()
                         .anyRequest()
@@ -57,7 +57,8 @@ public class SecurityConfig {
     public CorsFilter corsFilter() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
 
-        corsConfiguration.addAllowedOriginPattern("http://localhost:3000");
+        corsConfiguration.addAllowedOriginPattern("http://localhost:8080");
+        corsConfiguration.addAllowedOriginPattern("http://127.0.0.1:5500");
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.addAllowedMethod("*");
         corsConfiguration.setAllowCredentials(true);
@@ -81,9 +82,4 @@ public class SecurityConfig {
         });
         return jwtAuthenticationConverter;
     }
-
-    // @Bean
-    // PasswordEncoder passwordEncoder() {
-    //     return new BCryptPasswordEncoder(10);
-    // }
 }

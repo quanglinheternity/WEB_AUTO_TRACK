@@ -20,7 +20,7 @@ import com.transport.dto.page.PageResponse;
 import com.transport.dto.salary.PaySalaryRequest;
 import com.transport.dto.salary.SalaryCalculationRequest;
 import com.transport.dto.salary.SalaryCalculationResponse;
-import com.transport.dto.salary.SalaryReportDetailResponse;
+import com.transport.dto.salary.SalaryCalculationDetailResponse;
 import com.transport.dto.salary.SalaryReportSearchRequest;
 import com.transport.service.salary.SalaryCalculationService;
 import com.transport.service.salary.SalaryReportService;
@@ -79,11 +79,11 @@ public class SalaryController {
     @Operation(summary = "Get salary report details by report ID")
     @GetMapping("/report/{reportId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'ACCOUNTANT')")
-    public ResponseEntity<ApiResponse<SalaryReportDetailResponse>> getSalaryReportDetail(@PathVariable Long reportId) {
+    public ResponseEntity<ApiResponse<SalaryCalculationDetailResponse>> getSalaryReportDetail(@PathVariable Long reportId) {
 
-        SalaryReportDetailResponse response = salaryReportService.getSalaryReportDetail(reportId);
+        SalaryCalculationDetailResponse response = salaryCalculationService.calculateSalaryDetail(reportId);
 
-        return ResponseEntity.ok(ApiResponse.<SalaryReportDetailResponse>builder()
+        return ResponseEntity.ok(ApiResponse.<SalaryCalculationDetailResponse>builder()
                 .code(200)
                 .message("Lấy chi tiết báo cáo lương thành công")
                 .data(response)
