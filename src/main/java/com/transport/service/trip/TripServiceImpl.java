@@ -61,7 +61,7 @@ public class TripServiceImpl implements TripService {
             request.setDriverId(currentUser.getId());
         }
 
-        // 👉 Tạo cache key duy nhất cho từng request
+        //  Tạo cache key duy nhất cho từng request
         String cacheKey = String.format(
                 "trip:list:%s:%s:%d:%d:%d",
                 safeKey(request.getKeyword()),
@@ -70,7 +70,7 @@ public class TripServiceImpl implements TripService {
                 pageable.getPageNumber(),
                 pageable.getPageSize());
 
-        // 👉 Kiểm tra cache
+        //Kiểm tra cache
         try {
             Object cachedData = redisService.get(cacheKey);
             if (cachedData != null) {
@@ -85,11 +85,11 @@ public class TripServiceImpl implements TripService {
             redisService.delete(cacheKey);
         }
 
-        // 👉 Nếu không có cache thì query DB
+        //  Nếu không có cache thì query DB
         Page<Trip> page = tripRepository.searchTrips(request, pageable);
         PageResponse<TripResponse> response = PageResponse.from(page.map(tripMapper::toTripResponse));
 
-        // 👉 Lưu cache vào Redis
+        //  Lưu cache vào Redis
         try {
             redisService.setValue(cacheKey, response);
             redisService.setTimeToLive(cacheKey, 1);

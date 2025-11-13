@@ -2,10 +2,12 @@ package com.transport.service.expenseCategory;
 
 import jakarta.transaction.Transactional;
 
+import java.time.YearMonth;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.transport.dto.expenseCategory.ExpenseByExpenseCategory;
 import com.transport.dto.expenseCategory.ExpenseCategoryRequest;
 import com.transport.dto.expenseCategory.ExpenseCategoryResponse;
 import com.transport.dto.expenseCategory.ExpenseCategorySearchRequest;
@@ -14,6 +16,7 @@ import com.transport.entity.domain.ExpenseCategory;
 import com.transport.exception.AppException;
 import com.transport.exception.ErrorCode;
 import com.transport.mapper.ExpenseCategoryMapper;
+import com.transport.repository.driver.DriverRepository;
 import com.transport.repository.expenseCategory.ExpenseCategoryRepository;
 import com.transport.util.CodeGenerator;
 
@@ -29,6 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ExpenseCategoryServiceImpl implements ExpenseCategoryService {
     ExpenseCategoryRepository expenseCategoryRepository;
+    DriverRepository driverRepository;
     ExpenseCategoryMapper expenseCategoryMapper;
     ExpenseCategoryValidator expenseCategoryValidator;
 
@@ -75,5 +79,10 @@ public class ExpenseCategoryServiceImpl implements ExpenseCategoryService {
         ExpenseCategory expenseCategory = expenseCategoryValidator.getExpenseCategory(id);
 
         expenseCategoryRepository.delete(expenseCategory);
+    }
+    @Override
+    public ExpenseByExpenseCategory getExpenseByExpenseCategory(Long driverId, YearMonth month){
+        driverRepository.findById(driverId).orElseThrow(() -> new AppException(ErrorCode.DRIVER_NOT_FOUND));
+        return driverRepository.getExpenseByExpenseCategory(driverId, month);
     }
 }

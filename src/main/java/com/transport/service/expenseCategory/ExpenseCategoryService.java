@@ -1,7 +1,10 @@
 package com.transport.service.expenseCategory;
 
+import java.time.YearMonth;
+
 import org.springframework.data.domain.Pageable;
 
+import com.transport.dto.expenseCategory.ExpenseByExpenseCategory;
 import com.transport.dto.expenseCategory.ExpenseCategoryRequest;
 import com.transport.dto.expenseCategory.ExpenseCategoryResponse;
 import com.transport.dto.expenseCategory.ExpenseCategorySearchRequest;
@@ -17,4 +20,5 @@ public interface ExpenseCategoryService {
     void delete(Long id);
 
     ExpenseCategoryResponse getById(Long id);
+    ExpenseByExpenseCategory getExpenseByExpenseCategory(Long driverId, YearMonth month);
 }

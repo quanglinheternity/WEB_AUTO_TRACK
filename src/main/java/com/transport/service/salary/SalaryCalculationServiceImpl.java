@@ -10,9 +10,10 @@ import jakarta.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.transport.dto.route.RouteBySalary;
 import com.transport.dto.salary.SalaryCalculationResponse;
-import com.transport.dto.salary.SalaryReportDetailResponse1;
+import com.transport.dto.salary.SalaryCalculationDetailResponse;
 import com.transport.entity.domain.Driver;
 import com.transport.entity.domain.SalaryReport;
 import com.transport.entity.domain.Trip;
@@ -23,6 +24,7 @@ import com.transport.repository.driver.DriverRepository;
 import com.transport.repository.route.RouteRepository;
 import com.transport.repository.salary.SalaryReportRepository;
 import com.transport.repository.trip.TripRepository;
+import com.transport.service.redis.RedisService;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -37,13 +39,30 @@ public class SalaryCalculationServiceImpl implements SalaryCalculationService {
     TripRepository tripRepository;
     DriverRepository driverRepository;
     RouteRepository routeRepository;
+    RedisService<String, Object, Object> redisService;
+    ObjectMapper objectMapper;
+
+
     static BigDecimal DEFAULT_TRIP_RATE = new BigDecimal("300000"); // 300k/chuyến
     static BigDecimal DEFAULT_DISTANCE_RATE = new BigDecimal("2000"); // 2k/km
     static BigDecimal RESPONSIBILITY_ALLOWANCE = new BigDecimal("500000"); // 500k
     static BigDecimal SAFETY_BONUS = new BigDecimal("1000000"); // 1 triệu
     static BigDecimal INSURANCE_RATE = new BigDecimal("0.105"); // 10.5%
     static BigDecimal UNION_FEE = new BigDecimal("0.01"); // 1%
-    public SalaryReportDetailResponse1 calculateSalaryDetail(Long reportId) {
+    public SalaryCalculationDetailResponse calculateSalaryDetail(Long reportId) {
+         String cacheKey = "salary:detail:" + reportId;
+
+            // 1. Kiểm tra cache
+            try {
+                Object cachedData =  redisService.get(cacheKey);
+                if (cachedData != null) {
+                    System.out.println("🚀 Lấy chi tiết lương từ Redis cache");
+                    return objectMapper.convertValue(cachedData, SalaryCalculationDetailResponse.class);
+                }
+            } catch (Exception e) {
+                System.err.println("⚠️ Lỗi khi đọc Redis cache: " + e.getMessage());
+                redisService.delete(cacheKey);
+            }
         SalaryReport report = salaryReportRepository
                 .findById(reportId)
                 .orElseThrow(() -> new AppException(ErrorCode.SALARY_REPORT_NOT_FOUND));
@@ -89,23 +108,31 @@ public class SalaryCalculationServiceImpl implements SalaryCalculationService {
         BigDecimal totalDeductions = deductions.values().stream()
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
         BigDecimal netSalary = totalIncome.subtract(totalDeductions);
-        return SalaryReportDetailResponse1.builder()
-                .reportId(report.getId())
-                .driverId(driver.getId())
-                .driverName(driver.getUser().getFullName())
-                .driverCode(driver.getDriverCode())
-                .month(month)
-                .totalTrips(routes.stream().mapToInt(r -> r.totalTrips().intValue()).sum())
-                .totalIncome(totalIncome)
-                .totalDeductions(totalDeductions)
-                .netSalary(netSalary)
-                .incomes(incomes)
-                .salaryByroutes(routes)
-                .deductions(deductions)
-                .isPaid(report.getIsPaid())
-                .paidAt(report.getPaidAt())
-                .note(report.getNote())
-                .build();
+        SalaryCalculationDetailResponse response = SalaryCalculationDetailResponse.builder()
+            .reportId(report.getId())
+            .driverId(driver.getId())
+            .driverName(driver.getUser().getFullName())
+            .driverCode(driver.getDriverCode())
+            .month(month)
+            .totalTrips(routes.stream().mapToInt(r -> r.totalTrips().intValue()).sum())
+            .totalIncome(totalIncome)
+            .totalDeductions(totalDeductions)
+            .netSalary(netSalary)
+            .incomes(incomes)
+            .salaryByroutes(routes)
+            .deductions(deductions)
+            .isPaid(report.getIsPaid())
+            .paidAt(report.getPaidAt())
+            .note(report.getNote())
+            .build();
+        try {
+            redisService.setValue(cacheKey, response);
+            redisService.setTimeToLive(cacheKey, 3600);
+        } catch (Exception e) {
+            System.err.println("⚠️ Lỗi khi ghi Redis cache: " + e.getMessage());
+            redisService.delete(cacheKey);
+        }
+        return response;
     }
         
     public SalaryCalculationResponse calculateSalary(Long driverId, YearMonth month) {
