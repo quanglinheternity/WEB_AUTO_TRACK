@@ -70,7 +70,7 @@ public class TripServiceImpl implements TripService {
                 pageable.getPageNumber(),
                 pageable.getPageSize());
 
-        //Kiểm tra cache
+        // Kiểm tra cache
         try {
             Object cachedData = redisService.get(cacheKey);
             if (cachedData != null) {

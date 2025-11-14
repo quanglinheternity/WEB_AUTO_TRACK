@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,9 +21,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import lombok.val;
 
 public class BaseExport<T> {
-    private XSSFWorkbook workbook;
+    private final XSSFWorkbook workbook;
     private XSSFSheet sheet;
-    private List<T> listData;
+    private final List<T> listData;
     private CellStyle headerStyle;
     private CellStyle dataStyle;
     private CellStyle dateStyle;
@@ -35,6 +36,7 @@ public class BaseExport<T> {
     }
 
     private void initStyles() {
+        Objects.requireNonNull(workbook, "Workbook must not be null");
         // Header Style
         headerStyle = workbook.createCellStyle();
         XSSFFont headerFont = workbook.createFont();

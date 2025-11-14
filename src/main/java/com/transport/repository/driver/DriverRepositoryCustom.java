@@ -10,5 +10,6 @@ public interface DriverRepositoryCustom {
     boolean existsBylicenseNumber(String licenseNumber);
 
     List<Driver> findAllActiveDriversExcludePaid(YearMonth month);
+
     ExpenseByExpenseCategory getExpenseByExpenseCategory(Long driverId, YearMonth month);
 }

@@ -66,12 +66,12 @@ public class VehicleTypeRepositoryImpl implements VehicleTypeRepositoryCustom {
         }
 
         // Count query
-        Long total = queryFactory
+        Long count = queryFactory
                 .select(qVehicleType.id.count())
                 .from(qVehicleType)
                 .where(predicate)
                 .fetchOne();
-
+        long total = (count == null) ? 0L : count;
         // Data query
         var query = queryFactory
                 .selectFrom(qVehicleType)

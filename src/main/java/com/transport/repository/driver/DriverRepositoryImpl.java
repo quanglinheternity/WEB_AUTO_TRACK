@@ -52,6 +52,7 @@ public class DriverRepositoryImpl implements DriverRepositoryCustom {
                                 .where(salaryReport.reportMonth.eq(month))))
                 .fetch();
     }
+
     @Override
     public ExpenseByExpenseCategory getExpenseByExpenseCategory(Long driverId, YearMonth month) {
         LocalDate startOfMonth = month.atDay(1);
@@ -62,14 +63,14 @@ public class DriverRepositoryImpl implements DriverRepositoryCustom {
                 .select(
                         expenseCategory.name,
                         expenseCategory.description,
-                        expense.amount.sum().coalesce(BigDecimal.ZERO)
-                )
+                        expense.amount.sum().coalesce(BigDecimal.ZERO))
                 .from(expenseCategory)
-                .leftJoin(expense).on(
-                        expense.category.id.eq(expenseCategory.id)
+                .leftJoin(expense)
+                .on(expense.category
+                        .id
+                        .eq(expenseCategory.id)
                         .and(expense.driverBy.id.eq(driverId))
-                        .and(expense.expenseDate.between(startOfMonth, endOfMonth))
-                )
+                        .and(expense.expenseDate.between(startOfMonth, endOfMonth)))
                 .groupBy(expenseCategory.id, expenseCategory.name, expenseCategory.description)
                 .fetch();
 
@@ -78,8 +79,7 @@ public class DriverRepositoryImpl implements DriverRepositoryCustom {
                 .map(t -> new ExpenseByExpenseCategory.ExpenseCategory(
                         t.get(expenseCategory.name),
                         t.get(expenseCategory.description),
-                        t.get(expense.amount.sum().coalesce(BigDecimal.ZERO))
-                ))
+                        t.get(expense.amount.sum().coalesce(BigDecimal.ZERO))))
                 .toList();
 
         // Lấy tên driver (nếu không có chi phí, cần fetch driver riêng)
@@ -89,10 +89,9 @@ public class DriverRepositoryImpl implements DriverRepositoryCustom {
                 .where(driver.id.eq(driverId))
                 .fetchOne();
         BigDecimal total = categories.stream()
-            .map(ExpenseByExpenseCategory.ExpenseCategory::getAmount)
-            .reduce(BigDecimal.ZERO, BigDecimal::add);
+                .map(ExpenseByExpenseCategory.ExpenseCategory::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         return new ExpenseByExpenseCategory(driverName, categories, total);
     }
-
 }

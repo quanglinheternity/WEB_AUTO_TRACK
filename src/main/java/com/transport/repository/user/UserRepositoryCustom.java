@@ -17,6 +17,6 @@ public interface UserRepositoryCustom {
     Page<UserResponse> searchUsers(UserSearchRequest request, Pageable pageable);
 
     Optional<User> findByName(String name);
-    
+
     User findByUsername(String username);
 }

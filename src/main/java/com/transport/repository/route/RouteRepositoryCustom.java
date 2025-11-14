@@ -12,5 +12,6 @@ import com.transport.dto.route.RouteSearchRequest;
 
 public interface RouteRepositoryCustom {
     Page<RouteResponse> searchRoutes(RouteSearchRequest request, Pageable pageable);
-    List<RouteBySalary> findRoutesByDriverAndMonth(Long driverId,YearMonth month);
+
+    List<RouteBySalary> findRoutesByDriverAndMonth(Long driverId, YearMonth month);
 }

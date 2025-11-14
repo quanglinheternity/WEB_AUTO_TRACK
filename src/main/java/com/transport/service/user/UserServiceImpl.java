@@ -84,9 +84,7 @@ public class UserServiceImpl implements UserService {
         Set<String> roleNames = rolesToAssign.stream().map(Role::getRoleName).collect(Collectors.toSet());
 
         // Kiểm tra vai trò của người tạo
-        if (authenticationService.hasRole("ADMIN")) {
-            // ADMIN có thể tạo bất kỳ ai
-        } else if (authenticationService.hasRole("MANAGER")) {
+        if (authenticationService.hasRole("MANAGER")) {
             // MANAGER không được tạo ADMIN hoặc MANAGER
             if (roleNames.contains("ADMIN") || roleNames.contains("MANAGER")) {
                 throw new AppException(ErrorCode.ACCESS_DENIED_CREATE_USER);
@@ -126,9 +124,7 @@ public class UserServiceImpl implements UserService {
         userValidator.validateBeforeUpdate(id, request);
         User user = userValidator.validateAndGetExistingUser(id);
         User currentUser = authenticationService.getCurrentUser();
-        if (authenticationService.hasRole("ADMIN")) {
-            // ADMIN: full quyền → không giới hạn
-        } else if (authenticationService.hasRole("MANAGER")) {
+        if (authenticationService.hasRole("MANAGER")) {
             // MANAGER: không được sửa ADMIN
             boolean targetIsAdmin = user.getRoles().stream().anyMatch(r -> "ADMIN".equals(r.getRoleName()));
             if (targetIsAdmin) throw new AppException(ErrorCode.ACCESS_DENIED);
@@ -144,11 +140,8 @@ public class UserServiceImpl implements UserService {
             user.setPassword(passwordEncoder.encode(request.getPassword()));
         }
         // Nếu vai trò là tài xế, tạo thêm thông tin tài xế
-        if (Boolean.TRUE.equals(request.getIsDriver()) && request.getDriver() == null) {
+        if (Boolean.TRUE.equals(request.getIsDriver()) && request.getDriver() != null) {
             DriverRequest driverRequest = request.getDriver();
-            if (driverRequest == null) {
-                throw new AppException(ErrorCode.DRIVER_ALREADY_EMPTY);
-            }
 
             Driver driver = user.getDriver();
             if (driver == null) {
@@ -182,10 +175,11 @@ public class UserServiceImpl implements UserService {
         }
         userRepository.deleteById(id);
     }
-    public User findByUsername(String username){
+
+    public User findByUsername(String username) {
         User user = userRepository.findByUsername(username);
-        if(user == null){
-           throw new AppException(ErrorCode.USER_NOT_FOUND);
+        if (user == null) {
+            throw new AppException(ErrorCode.USER_NOT_FOUND);
         }
         return user;
     }

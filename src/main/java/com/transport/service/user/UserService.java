@@ -19,6 +19,6 @@ public interface UserService {
     UserDetailResponse update(Long id, UserCreateRequest request);
 
     void delete(Long id);
-    
+
     User findByUsername(String username);
 }

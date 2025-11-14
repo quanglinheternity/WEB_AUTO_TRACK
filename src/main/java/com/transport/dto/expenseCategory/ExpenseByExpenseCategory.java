@@ -16,6 +16,7 @@ public class ExpenseByExpenseCategory {
     String nameDriver;
     List<ExpenseCategory> expenseCategories;
     BigDecimal total;
+
     @Data
     @Builder
     @NoArgsConstructor

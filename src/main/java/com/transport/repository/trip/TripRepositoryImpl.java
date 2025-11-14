@@ -3,10 +3,7 @@ package com.transport.repository.trip;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
@@ -146,7 +143,12 @@ public class TripRepositoryImpl implements TripRepositoryCustom {
             query.orderBy(trip.createdAt.desc());
         }
 
-        long total = queryFactory.select(trip.count()).from(trip).where(builder).fetchOne();
+        long total = Optional.ofNullable(queryFactory
+                        .select(trip.count())
+                        .from(trip)
+                        .where(builder)
+                        .fetchOne())
+                .orElse(0L);
         List<Trip> results =
                 query.offset(pageable.getOffset()).limit(pageable.getPageSize()).fetch();
 
@@ -294,13 +296,15 @@ public class TripRepositoryImpl implements TripRepositoryCustom {
                 .leftJoin(trip.expenses, expense)
                 .where(builder)
                 .fetch();
-        Map<String, List<Tuple>> grouped =
-                tuples.stream().collect(Collectors.groupingBy(t -> t.get(trip.driver.driverCode)));
+        Map<String, List<Tuple>> grouped = tuples.stream().collect(Collectors.groupingBy(t -> {
+            String code = t.get(trip.driver.driverCode);
+            return code != null ? code : "UNKNOWN"; // fallback tránh null
+        }));
         List<ExpenseByTripResponse> expenses = new ArrayList<>();
         for (List<Tuple> group : grouped.values()) {
-            Tuple first = group.get(0);
+            Tuple first = group.getFirst();
             List<ExpenseByExpenseCategoryReponse> categories = group.stream()
-                    .filter(t -> t.get(expense.category.name) != null) 
+                    .filter(t -> t.get(expense.category.name) != null)
                     .map(t -> new ExpenseByExpenseCategoryReponse(t.get(expense.category.name), t.get(expense.amount)))
                     .toList();
             BigDecimal totalExpense = categories.stream()
@@ -309,7 +313,10 @@ public class TripRepositoryImpl implements TripRepositoryCustom {
             BigDecimal estimatedFuelCost = first.get(trip.route.estimatedFuelCost) != null
                     ? first.get(trip.route.estimatedFuelCost)
                     : BigDecimal.ZERO;
-            BigDecimal residual = estimatedFuelCost.subtract(totalExpense);
+            BigDecimal safeEstimated = estimatedFuelCost != null ? estimatedFuelCost : BigDecimal.ZERO;
+            BigDecimal safeTotal = totalExpense != null ? totalExpense : BigDecimal.ZERO;
+
+            BigDecimal residual = safeEstimated.subtract(safeTotal);
             ExpenseByTripResponse tripResponse = new ExpenseByTripResponse(
                     first.get(trip.driver.driverCode),
                     first.get(trip.driver.user.fullName),

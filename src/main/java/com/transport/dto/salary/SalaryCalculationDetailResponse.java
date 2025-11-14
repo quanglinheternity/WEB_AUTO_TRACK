@@ -35,7 +35,4 @@ public class SalaryCalculationDetailResponse {
     private Boolean isPaid;
     private LocalDateTime paidAt;
     private String note;
-
-    
-    
 }

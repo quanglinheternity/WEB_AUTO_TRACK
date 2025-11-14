@@ -78,7 +78,7 @@
 2025-11-14 10:43:57 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
 2025-11-14 10:43:57 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2025-11-14 10:43:57 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-11-14 10:43:57 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+2025-11-14 10:43:57 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger -
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
 2025-11-14 10:43:57 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
@@ -337,7 +337,7 @@ Need more flexibility with validation rules? Learn more: https://rd.gt/3AbJUZE
 2025-11-14 10:47:42 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
 2025-11-14 10:47:42 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2025-11-14 10:47:42 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-11-14 10:47:42 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+2025-11-14 10:47:42 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger -
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
 2025-11-14 10:47:42 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
@@ -568,7 +568,7 @@ Need more flexibility with validation rules? Learn more: https://rd.gt/3AbJUZE
 2025-11-14 10:48:15 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
 2025-11-14 10:48:15 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2025-11-14 10:48:15 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-11-14 10:48:15 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+2025-11-14 10:48:15 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger -
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
 2025-11-14 10:48:15 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
@@ -985,7 +985,7 @@ Need more flexibility with validation rules? Learn more: https://rd.gt/3AbJUZE
 2025-11-14 11:02:53 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 6 ms
 2025-11-14 11:02:55 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.updated_at,u1_0.username from users u1_0 where u1_0.username=? limit ?
 2025-11-14 11:02:55 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
-2025-11-14 11:02:56 [http-nio-8080-exec-1] INFO  c.t.s.a.token.TokenServiceImpl - signerKey: bvkfSG5tgcc6kHcMWz6VpgyEjCmg16w8EzZv5mPs3KT4Tt1lS3AhkkOBE3oabTJ8 
+2025-11-14 11:02:56 [http-nio-8080-exec-1] INFO  c.t.s.a.token.TokenServiceImpl - signerKey: bvkfSG5tgcc6kHcMWz6VpgyEjCmg16w8EzZv5mPs3KT4Tt1lS3AhkkOBE3oabTJ8
 2025-11-14 11:02:56 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select r1_0.user_id,r1_1.role_name,r1_1.description from user_roles r1_0 join roles r1_1 on r1_1.role_name=r1_0.role_name where r1_0.user_id=?
 2025-11-14 11:02:56 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select p1_0.role_name,p1_1.permission_name,p1_1.description from role_permissions p1_0 join permissions p1_1 on p1_1.permission_name=p1_0.permission_name where p1_0.role_name=?
 2025-11-14 11:03:41 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
@@ -1115,7 +1115,7 @@ Need more flexibility with validation rules? Learn more: https://rd.gt/3AbJUZE
 2025-11-14 11:12:16 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
 2025-11-14 11:12:17 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.updated_at,u1_0.username from users u1_0 where u1_0.username=? limit ?
 2025-11-14 11:12:17 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
-2025-11-14 11:12:17 [http-nio-8080-exec-1] INFO  c.t.s.a.token.TokenServiceImpl - signerKey: bvkfSG5tgcc6kHcMWz6VpgyEjCmg16w8EzZv5mPs3KT4Tt1lS3AhkkOBE3oabTJ8 
+2025-11-14 11:12:17 [http-nio-8080-exec-1] INFO  c.t.s.a.token.TokenServiceImpl - signerKey: bvkfSG5tgcc6kHcMWz6VpgyEjCmg16w8EzZv5mPs3KT4Tt1lS3AhkkOBE3oabTJ8
 2025-11-14 11:12:17 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select r1_0.user_id,r1_1.role_name,r1_1.description from user_roles r1_0 join roles r1_1 on r1_1.role_name=r1_0.role_name where r1_0.user_id=?
 2025-11-14 11:12:17 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select p1_0.role_name,p1_1.permission_name,p1_1.description from role_permissions p1_0 join permissions p1_1 on p1_1.permission_name=p1_0.permission_name where p1_0.role_name=?
 2025-11-14 11:12:34 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
@@ -1184,7 +1184,7 @@ Need more flexibility with validation rules? Learn more: https://rd.gt/3AbJUZE
 2025-11-14 11:13:41 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
 2025-11-14 11:13:42 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.updated_at,u1_0.username from users u1_0 where u1_0.username=? limit ?
 2025-11-14 11:13:42 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
-2025-11-14 11:13:42 [http-nio-8080-exec-1] INFO  c.t.s.a.token.TokenServiceImpl - signerKey: bvkfSG5tgcc6kHcMWz6VpgyEjCmg16w8EzZv5mPs3KT4Tt1lS3AhkkOBE3oabTJ8 
+2025-11-14 11:13:42 [http-nio-8080-exec-1] INFO  c.t.s.a.token.TokenServiceImpl - signerKey: bvkfSG5tgcc6kHcMWz6VpgyEjCmg16w8EzZv5mPs3KT4Tt1lS3AhkkOBE3oabTJ8
 2025-11-14 11:13:42 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select r1_0.user_id,r1_1.role_name,r1_1.description from user_roles r1_0 join roles r1_1 on r1_1.role_name=r1_0.role_name where r1_0.user_id=?
 2025-11-14 11:13:42 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select p1_0.role_name,p1_1.permission_name,p1_1.description from role_permissions p1_0 join permissions p1_1 on p1_1.permission_name=p1_0.permission_name where p1_0.role_name=?
 2025-11-14 11:15:10 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
@@ -1253,7 +1253,7 @@ Need more flexibility with validation rules? Learn more: https://rd.gt/3AbJUZE
 2025-11-14 11:15:53 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
 2025-11-14 11:15:55 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.updated_at,u1_0.username from users u1_0 where u1_0.username=? limit ?
 2025-11-14 11:15:55 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
-2025-11-14 11:15:55 [http-nio-8080-exec-2] INFO  c.t.s.a.token.TokenServiceImpl - signerKey: dd22ffdbd37ee5040379cb27439f107838f90180b2f1896fc26945f56c7b486e 
+2025-11-14 11:15:55 [http-nio-8080-exec-2] INFO  c.t.s.a.token.TokenServiceImpl - signerKey: dd22ffdbd37ee5040379cb27439f107838f90180b2f1896fc26945f56c7b486e
 2025-11-14 11:15:55 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select r1_0.user_id,r1_1.role_name,r1_1.description from user_roles r1_0 join roles r1_1 on r1_1.role_name=r1_0.role_name where r1_0.user_id=?
 2025-11-14 11:15:55 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select p1_0.role_name,p1_1.permission_name,p1_1.description from role_permissions p1_0 join permissions p1_1 on p1_1.permission_name=p1_0.permission_name where p1_0.role_name=?
 2025-11-14 11:19:29 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
@@ -1285,7 +1285,7 @@ Need more flexibility with validation rules? Learn more: https://rd.gt/3AbJUZE
 2025-11-14 11:19:42 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.transport.repository.vehicle.VehicleRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
 2025-11-14 11:19:42 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 80 ms. Found 0 Redis repository interfaces.
 2025-11-14 11:19:44 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
-2025-11-14 11:19:45 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+2025-11-14 11:19:45 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger -
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
 2025-11-14 11:19:45 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
@@ -1343,7 +1343,7 @@ Caused by: java.nio.file.AccessDeniedException: C:\WINDOWS\tomcat.8080.164270209
 2025-11-14 11:20:33 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.transport.repository.vehicle.VehicleRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
 2025-11-14 11:20:33 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 68 ms. Found 0 Redis repository interfaces.
 2025-11-14 11:20:36 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
-2025-11-14 11:20:36 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+2025-11-14 11:20:36 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger -
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
 2025-11-14 11:20:36 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
@@ -1401,7 +1401,7 @@ Caused by: java.nio.file.AccessDeniedException: C:\WINDOWS\tomcat.8080.145034905
 2025-11-14 11:23:39 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.transport.repository.vehicle.VehicleRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
 2025-11-14 11:23:39 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 81 ms. Found 0 Redis repository interfaces.
 2025-11-14 11:23:41 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
-2025-11-14 11:23:41 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+2025-11-14 11:23:41 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger -
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
 2025-11-14 11:23:41 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
@@ -1459,7 +1459,7 @@ Caused by: java.nio.file.AccessDeniedException: C:\WINDOWS\tomcat.8080.826341972
 2025-11-14 11:24:16 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.transport.repository.vehicle.VehicleRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
 2025-11-14 11:24:16 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 86 ms. Found 0 Redis repository interfaces.
 2025-11-14 11:24:18 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
-2025-11-14 11:24:18 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+2025-11-14 11:24:18 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger -
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
 2025-11-14 11:24:18 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
@@ -1551,7 +1551,7 @@ Caused by: java.nio.file.AccessDeniedException: C:\WINDOWS\tomcat.8080.165359115
 2025-11-14 11:25:18 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
 2025-11-14 11:25:18 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2025-11-14 11:25:18 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-11-14 11:25:18 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+2025-11-14 11:25:18 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger -
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
 2025-11-14 11:25:18 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
@@ -1781,7 +1781,7 @@ Need more flexibility with validation rules? Learn more: https://rd.gt/3AbJUZE
 2025-11-14 11:54:06 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
 2025-11-14 11:54:06 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2025-11-14 11:54:06 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-11-14 11:54:06 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+2025-11-14 11:54:06 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger -
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
 2025-11-14 11:54:06 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
@@ -1978,7 +1978,7 @@ Need more flexibility with validation rules? Learn more: https://rd.gt/3AbJUZE
 2025-11-14 11:56:52 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.transport.repository.vehicle.VehicleRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
 2025-11-14 11:56:52 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 81 ms. Found 0 Redis repository interfaces.
 2025-11-14 11:56:55 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
-2025-11-14 11:56:55 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+2025-11-14 11:56:55 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger -
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
 2025-11-14 11:56:55 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
@@ -2036,7 +2036,7 @@ Caused by: java.nio.file.AccessDeniedException: C:\WINDOWS\tomcat.8080.306311005
 2025-11-14 12:03:12 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.transport.repository.vehicle.VehicleRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
 2025-11-14 12:03:12 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 35 ms. Found 0 Redis repository interfaces.
 2025-11-14 12:03:15 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
-2025-11-14 12:03:15 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+2025-11-14 12:03:15 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger -
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
 2025-11-14 12:03:15 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
@@ -2156,7 +2156,7 @@ Caused by: java.nio.file.AccessDeniedException: C:\WINDOWS\tomcat.8080.270260655
 2025-11-14 12:03:39 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
 2025-11-14 12:03:39 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2025-11-14 12:03:39 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-11-14 12:03:39 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+2025-11-14 12:03:39 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger -
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
 2025-11-14 12:03:39 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
@@ -2386,7 +2386,7 @@ Need more flexibility with validation rules? Learn more: https://rd.gt/3AbJUZE
 2025-11-14 13:46:27 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
 2025-11-14 13:46:27 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2025-11-14 13:46:27 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-11-14 13:46:27 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+2025-11-14 13:46:27 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger -
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
 2025-11-14 13:46:27 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
@@ -2620,7 +2620,7 @@ Need more flexibility with validation rules? Learn more: https://rd.gt/3AbJUZE
 2025-11-14 13:49:04 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
 2025-11-14 13:49:06 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.updated_at,u1_0.username from users u1_0 where u1_0.username=? limit ?
 2025-11-14 13:49:06 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
-2025-11-14 13:49:07 [http-nio-8080-exec-1] INFO  c.t.s.a.token.TokenServiceImpl - signerKey: dd22ffdbd37ee5040379cb27439f107838f90180b2f1896fc26945f56c7b486e 
+2025-11-14 13:49:07 [http-nio-8080-exec-1] INFO  c.t.s.a.token.TokenServiceImpl - signerKey: dd22ffdbd37ee5040379cb27439f107838f90180b2f1896fc26945f56c7b486e
 2025-11-14 13:49:07 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select r1_0.user_id,r1_1.role_name,r1_1.description from user_roles r1_0 join roles r1_1 on r1_1.role_name=r1_0.role_name where r1_0.user_id=?
 2025-11-14 13:49:07 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select p1_0.role_name,p1_1.permission_name,p1_1.description from role_permissions p1_0 join permissions p1_1 on p1_1.permission_name=p1_0.permission_name where p1_0.role_name=?
 2025-11-14 13:49:41 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
@@ -2717,7 +2717,7 @@ Need more flexibility with validation rules? Learn more: https://rd.gt/3AbJUZE
 2025-11-14 14:03:57 [restartedMain] ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.UnsatisfiedDependencyException. Message: Error creating bean with name 'securityConfig': Unsatisfied dependency expressed through field 'jwtDecoder': Error creating bean with name 'customJWTDecoder' defined in file [D:\ITS\Truck\target\classes\com\transport\config\CustomJWTDecoder.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'authenticationServiceImpl' defined in file [D:\ITS\Truck\target\classes\com\transport\service\authentication\auth\AuthenticationServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in com.transport.repository.user.UserRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
 2025-11-14 14:03:57 [restartedMain] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
 2025-11-14 14:03:57 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
-2025-11-14 14:03:57 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+2025-11-14 14:03:57 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger -
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
 2025-11-14 14:03:57 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
@@ -2975,7 +2975,7 @@ Caused by: java.net.ConnectException: Connection refused: getsockopt
 2025-11-14 15:01:09 [restartedMain] ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.UnsatisfiedDependencyException. Message: Error creating bean with name 'securityConfig': Unsatisfied dependency expressed through field 'jwtDecoder': Error creating bean with name 'customJWTDecoder' defined in file [D:\ITS\Truck\target\classes\com\transport\config\CustomJWTDecoder.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'authenticationServiceImpl' defined in file [D:\ITS\Truck\target\classes\com\transport\service\authentication\auth\AuthenticationServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in com.transport.repository.user.UserRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
 2025-11-14 15:01:09 [restartedMain] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
 2025-11-14 15:01:09 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
-2025-11-14 15:01:09 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+2025-11-14 15:01:09 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger -
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
 2025-11-14 15:01:09 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
@@ -3233,7 +3233,7 @@ Caused by: java.net.ConnectException: Connection refused: getsockopt
 2025-11-14 15:03:08 [restartedMain] ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.UnsatisfiedDependencyException. Message: Error creating bean with name 'securityConfig': Unsatisfied dependency expressed through field 'jwtDecoder': Error creating bean with name 'customJWTDecoder' defined in file [D:\ITS\Truck\target\classes\com\transport\config\CustomJWTDecoder.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'authenticationServiceImpl' defined in file [D:\ITS\Truck\target\classes\com\transport\service\authentication\auth\AuthenticationServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in com.transport.repository.user.UserRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
 2025-11-14 15:03:08 [restartedMain] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
 2025-11-14 15:03:08 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
-2025-11-14 15:03:08 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+2025-11-14 15:03:08 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger -
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
 2025-11-14 15:03:08 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
@@ -3494,7 +3494,7 @@ Caused by: java.net.ConnectException: Connection refused: getsockopt
 2025-11-14 15:06:44 [restartedMain] ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.UnsatisfiedDependencyException. Message: Error creating bean with name 'securityConfig': Unsatisfied dependency expressed through field 'jwtDecoder': Error creating bean with name 'customJWTDecoder' defined in file [D:\ITS\Truck\target\classes\com\transport\config\CustomJWTDecoder.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'authenticationServiceImpl' defined in file [D:\ITS\Truck\target\classes\com\transport\service\authentication\auth\AuthenticationServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in com.transport.repository.user.UserRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
 2025-11-14 15:06:44 [restartedMain] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
 2025-11-14 15:06:44 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
-2025-11-14 15:06:44 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+2025-11-14 15:06:44 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger -
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
 2025-11-14 15:06:45 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
@@ -3780,7 +3780,7 @@ Caused by: java.net.ConnectException: Connection refused: getsockopt
 2025-11-14 15:11:11 [http-nio-8080-exec-4] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
 2025-11-14 15:11:12 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.updated_at,u1_0.username from users u1_0 where u1_0.username=? limit ?
 2025-11-14 15:11:13 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
-2025-11-14 15:11:13 [http-nio-8080-exec-4] INFO  c.t.s.a.token.TokenServiceImpl - signerKey: dd22ffdbd37ee5040379cb27439f107838f90180b2f1896fc26945f56c7b486e 
+2025-11-14 15:11:13 [http-nio-8080-exec-4] INFO  c.t.s.a.token.TokenServiceImpl - signerKey: dd22ffdbd37ee5040379cb27439f107838f90180b2f1896fc26945f56c7b486e
 2025-11-14 15:11:13 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select r1_0.user_id,r1_1.role_name,r1_1.description from user_roles r1_0 join roles r1_1 on r1_1.role_name=r1_0.role_name where r1_0.user_id=?
 2025-11-14 15:11:13 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - select p1_0.role_name,p1_1.permission_name,p1_1.description from role_permissions p1_0 join permissions p1_1 on p1_1.permission_name=p1_0.permission_name where p1_0.role_name=?
 2025-11-14 15:14:09 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
@@ -3788,265 +3788,3 @@ Caused by: java.net.ConnectException: Connection refused: getsockopt
 2025-11-14 15:14:09 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-11-14 15:14:09 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2025-11-14 15:14:09 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-11-14 15:18:07 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
-2025-11-14 15:18:07 [restartedMain] INFO  com.transport.VanchuyenApplication - Starting VanchuyenApplication using Java 21.0.7 with PID 7036 (D:\ITS\Truck\target\classes started by LENOVO in D:\ITS\Truck)
-2025-11-14 15:18:07 [restartedMain] INFO  com.transport.VanchuyenApplication - The following 1 profile is active: "pro"
-2025-11-14 15:18:08 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2025-11-14 15:18:08 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2025-11-14 15:18:13 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2025-11-14 15:18:13 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-11-14 15:18:13 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 645 ms. Found 12 JPA repository interfaces.
-2025-11-14 15:18:13 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2025-11-14 15:18:13 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2025-11-14 15:18:13 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.transport.repository.driver.DriverRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2025-11-14 15:18:13 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.transport.repository.expenseCategory.ExpenseCategoryRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2025-11-14 15:18:13 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.transport.repository.expense.ExpenseRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2025-11-14 15:18:13 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.transport.repository.invalidate.InvalidateRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2025-11-14 15:18:13 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.transport.repository.permission.PermissionRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2025-11-14 15:18:13 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.transport.repository.role.RoleRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2025-11-14 15:18:13 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.transport.repository.route.RouteRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2025-11-14 15:18:13 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.transport.repository.salary.SalaryReportRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2025-11-14 15:18:13 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.transport.repository.trip.TripRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2025-11-14 15:18:13 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.transport.repository.user.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2025-11-14 15:18:13 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.transport.repository.vehicleType.VehicleTypeRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2025-11-14 15:18:13 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.transport.repository.vehicle.VehicleRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2025-11-14 15:18:13 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 78 ms. Found 0 Redis repository interfaces.
-2025-11-14 15:18:15 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2025-11-14 15:18:15 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2025-11-14 15:18:15 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-11-14 15:18:15 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.46]
-2025-11-14 15:18:16 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2025-11-14 15:18:16 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 7858 ms
-2025-11-14 15:18:17 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-11-14 15:18:18 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6f333266
-2025-11-14 15:18:18 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-11-14 15:18:18 [restartedMain] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:mysql://localhost:3306/transport_1?createDatabaseIfNotExist=true (MySQL 8.0)
-2025-11-14 15:18:18 [restartedMain] INFO  o.f.core.internal.command.DbValidate - Successfully validated 7 migrations (execution time 00:00.209s)
-2025-11-14 15:18:18 [restartedMain] INFO  o.f.core.internal.command.DbMigrate - Current version of schema `transport_1`: 7
-2025-11-14 15:18:18 [restartedMain] INFO  o.f.core.internal.command.DbMigrate - Schema `transport_1` is up to date. No migration necessary.
-2025-11-14 15:18:19 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-11-14 15:18:19 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.29.Final
-2025-11-14 15:18:19 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-11-14 15:18:20 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-11-14 15:18:20 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-11-14 15:18:20 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
-	Database driver: undefined/unknown
-	Database version: 8.0.30
-	Autocommit mode: undefined/unknown
-	Isolation level: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-11-14 15:18:23 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-11-14 15:18:23 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-11-14 15:18:27 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-11-14 15:18:30 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2025-11-14 15:18:30 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2025-11-14 15:18:30 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2025-11-14 15:18:30 [restartedMain] INFO  com.transport.VanchuyenApplication - Started VanchuyenApplication in 24.15 seconds (process running for 26.571)
-2025-11-14 15:18:36 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-11-14 15:18:36 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2025-11-14 15:18:36 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
-2025-11-14 15:18:37 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.updated_at,u1_0.username from users u1_0 where u1_0.username=? limit ?
-2025-11-14 15:18:38 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
-2025-11-14 15:18:38 [http-nio-8080-exec-2] INFO  c.t.s.a.token.TokenServiceImpl - signerKey: dd22ffdbd37ee5040379cb27439f107838f90180b2f1896fc26945f56c7b486e 
-2025-11-14 15:18:38 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select r1_0.user_id,r1_1.role_name,r1_1.description from user_roles r1_0 join roles r1_1 on r1_1.role_name=r1_0.role_name where r1_0.user_id=?
-2025-11-14 15:18:38 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - select p1_0.role_name,p1_1.permission_name,p1_1.description from role_permissions p1_0 join permissions p1_1 on p1_1.permission_name=p1_0.permission_name where p1_0.role_name=?
-2025-11-14 15:18:55 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select count(*) from invalidated_tokens it1_0 where it1_0.token_id=?
-2025-11-14 15:18:55 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.updated_at,u1_0.username from users u1_0 where u1_0.username=? limit ?
-2025-11-14 15:18:55 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
-2025-11-14 15:18:55 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.updated_at,u1_0.username from users u1_0 where u1_0.username=? limit ?
-2025-11-14 15:18:55 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select r1_0.user_id,r1_1.role_name,r1_1.description from user_roles r1_0 join roles r1_1 on r1_1.role_name=r1_0.role_name where r1_0.user_id=?
-2025-11-14 15:18:55 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select p1_0.role_name,p1_1.permission_name,p1_1.description from role_permissions p1_0 join permissions p1_1 on p1_1.permission_name=p1_0.permission_name where p1_0.role_name=?
-2025-11-14 15:18:55 [http-nio-8080-exec-3] ERROR c.t.exception.GlobalException - error
-org.springframework.data.redis.RedisConnectionFailureException: Cannot get Jedis connection
-	at org.springframework.data.redis.connection.jedis.JedisConnectionFactory.fetchJedisConnector(JedisConnectionFactory.java:940)
-	at org.springframework.data.redis.connection.jedis.JedisConnectionFactory.getConnection(JedisConnectionFactory.java:902)
-	at org.springframework.data.redis.core.RedisConnectionUtils.fetchConnection(RedisConnectionUtils.java:195)
-	at org.springframework.data.redis.core.RedisConnectionUtils.doGetConnection(RedisConnectionUtils.java:144)
-	at org.springframework.data.redis.core.RedisConnectionUtils.getConnection(RedisConnectionUtils.java:105)
-	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:400)
-	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:380)
-	at org.springframework.data.redis.core.RedisTemplate.doWithKeys(RedisTemplate.java:802)
-	at org.springframework.data.redis.core.RedisTemplate.delete(RedisTemplate.java:595)
-	at com.transport.service.redis.RedisServiceImpl.delete(RedisServiceImpl.java:80)
-	at com.transport.service.trip.TripServiceImpl.getAll(TripServiceImpl.java:85)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:380)
-	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
-	at com.transport.service.trip.TripServiceImpl$$SpringCGLIB$$0.getAll(<generated>)
-	at com.transport.controller.TripController.getAll(TripController.java:61)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:724)
-	at com.transport.controller.TripController$$SpringCGLIB$$0.getAll(<generated>)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258)
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191)
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896)
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
-	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
-	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
-	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
-	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
-	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
-	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
-	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:101)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:125)
-	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.authentication.AuthenticationFilter.doFilterInternal(AuthenticationFilter.java:177)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter.doFilterInternal(BearerTokenAuthenticationFilter.java:158)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
-	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
-	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
-	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
-	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
-	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
-	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
-	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52)
-	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
-	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
-	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:319)
-	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
-	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$4(HandlerMappingIntrospector.java:267)
-	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
-	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
-	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:240)
-	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362)
-	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:116)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:398)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1776)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:975)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:493)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
-	at java.base/java.lang.Thread.run(Thread.java:1583)
-Caused by: redis.clients.jedis.exceptions.JedisConnectionException: Failed to connect to any host resolved for DNS name.
-	at redis.clients.jedis.DefaultJedisSocketFactory.connectToFirstSuccessfulHost(DefaultJedisSocketFactory.java:63)
-	at redis.clients.jedis.DefaultJedisSocketFactory.createSocket(DefaultJedisSocketFactory.java:87)
-	at redis.clients.jedis.Connection.connect(Connection.java:188)
-	at redis.clients.jedis.Connection.initializeFromClientConfig(Connection.java:357)
-	at redis.clients.jedis.Connection.<init>(Connection.java:61)
-	at redis.clients.jedis.Jedis.<init>(Jedis.java:214)
-	at redis.clients.jedis.JedisFactory.makeObject(JedisFactory.java:178)
-	at org.apache.commons.pool2.impl.GenericObjectPool.create(GenericObjectPool.java:557)
-	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:299)
-	at org.apache.commons.pool2.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:231)
-	at redis.clients.jedis.util.Pool.getResource(Pool.java:38)
-	at redis.clients.jedis.JedisPool.getResource(JedisPool.java:378)
-	at redis.clients.jedis.JedisPool.getResource(JedisPool.java:17)
-	at org.springframework.data.redis.connection.jedis.JedisConnectionFactory.fetchJedisConnector(JedisConnectionFactory.java:930)
-	... 133 common frames omitted
-	Suppressed: java.net.ConnectException: Connection refused: getsockopt
-		at java.base/sun.nio.ch.Net.pollConnect(Native Method)
-		at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:682)
-		at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:542)
-		at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:592)
-		at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
-		at java.base/java.net.Socket.connect(Socket.java:751)
-		at redis.clients.jedis.DefaultJedisSocketFactory.connectToFirstSuccessfulHost(DefaultJedisSocketFactory.java:73)
-		... 146 common frames omitted
-	Suppressed: java.net.ConnectException: Connection refused: getsockopt
-		at java.base/sun.nio.ch.Net.pollConnect(Native Method)
-		at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:682)
-		at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:542)
-		at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:592)
-		at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
-		at java.base/java.net.Socket.connect(Socket.java:751)
-		at redis.clients.jedis.DefaultJedisSocketFactory.connectToFirstSuccessfulHost(DefaultJedisSocketFactory.java:73)
-		... 146 common frames omitted
-2025-11-14 15:18:55 [http-nio-8080-exec-3] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.data.redis.RedisConnectionFailureException: Cannot get Jedis connection]
-2025-11-14 15:19:02 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select count(*) from invalidated_tokens it1_0 where it1_0.token_id=?
-2025-11-14 15:19:03 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - select v1_0.license_plate,v1_0.model,d1_0.driver_code,u1_0.full_name,r1_0.origin,r1_0.destination,min(t1_0.departure_time),t1_0.note,count(t1_0.id) from trips t1_0 left join vehicles v1_0 on v1_0.id=t1_0.vehicle_id left join drivers d1_0 on d1_0.id=t1_0.driver_id join users u1_0 on u1_0.id=d1_0.id left join routes r1_0 on r1_0.id=t1_0.route_id where t1_0.departure_time between ? and ? group by v1_0.id,v1_0.license_plate,v1_0.model,d1_0.driver_code,u1_0.full_name,r1_0.origin,r1_0.destination,t1_0.note order by min(t1_0.departure_time)
-2025-11-14 15:20:28 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select count(*) from invalidated_tokens it1_0 where it1_0.token_id=?
-2025-11-14 15:20:28 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.updated_at,u1_0.username from users u1_0 where u1_0.username=? limit ?
-2025-11-14 15:20:28 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience from drivers d1_0 where d1_0.id=?
-2025-11-14 15:20:28 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.updated_at,u1_0.username from users u1_0 where u1_0.username=? limit ?
-2025-11-14 15:20:28 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select r1_0.user_id,r1_1.role_name,r1_1.description from user_roles r1_0 join roles r1_1 on r1_1.role_name=r1_0.role_name where r1_0.user_id=?
-2025-11-14 15:20:28 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select p1_0.role_name,p1_1.permission_name,p1_1.description from role_permissions p1_0 join permissions p1_1 on p1_1.permission_name=p1_0.permission_name where p1_0.role_name=?
-2025-11-14 15:20:29 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select count(t1_0.id) from trips t1_0
-2025-11-14 15:20:29 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select t1_0.id,t1_0.actual_arrival_time,t1_0.approval_status,t1_0.approved_at,t1_0.approved_by,t1_0.cancellation_reason,t1_0.cancelled_at,t1_0.cancelled_by,t1_0.cargo_description,t1_0.cargo_weight,t1_0.completed_at,t1_0.created_at,t1_0.created_by,t1_0.departure_time,d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience,t1_0.estimated_arrival_time,t1_0.note,r1_0.id,r1_0.code,r1_0.created_at,r1_0.description,r1_0.destination,r1_0.distance_km,r1_0.estimated_duration_hours,r1_0.estimated_fuel_cost,r1_0.is_active,r1_0.name,r1_0.origin,r1_0.updated_at,t1_0.status,t1_0.trip_code,t1_0.updated_at,v1_0.id,v1_0.brand,v1_0.color,v1_0.created_at,v1_0.engine_number,v1_0.inspection_expiry_date,v1_0.insurance_expiry_date,v1_0.license_plate,v1_0.manufacture_year,v1_0.model,v1_0.note,v1_0.purchase_date,v1_0.registration_date,v1_0.status,v1_0.updated_at,v1_0.vehicle_type_id,v1_0.vin from trips t1_0 left join drivers d1_0 on d1_0.id=t1_0.driver_id left join vehicles v1_0 on v1_0.id=t1_0.vehicle_id left join routes r1_0 on r1_0.id=t1_0.route_id order by t1_0.created_at desc limit ?,?
-2025-11-14 15:20:29 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.updated_at,u1_0.username from users u1_0 left join drivers d1_0 on u1_0.id=d1_0.id where u1_0.id=?
-2025-11-14 15:20:29 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.updated_at,u1_0.username from users u1_0 left join drivers d1_0 on u1_0.id=d1_0.id where u1_0.id=?
-2025-11-14 15:20:29 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.updated_at,u1_0.username from users u1_0 left join drivers d1_0 on u1_0.id=d1_0.id where u1_0.id=?
-2025-11-14 15:20:29 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.updated_at,u1_0.username from users u1_0 left join drivers d1_0 on u1_0.id=d1_0.id where u1_0.id=?
-2025-11-14 15:20:29 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.updated_at,u1_0.username from users u1_0 left join drivers d1_0 on u1_0.id=d1_0.id where u1_0.id=?
-2025-11-14 15:20:29 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select u1_0.id,u1_0.address,u1_0.avatar_url,u1_0.created_at,u1_0.date_of_birth,d1_0.id,d1_0.base_salary,d1_0.created_at,d1_0.driver_code,d1_0.employment_status,d1_0.license_class,d1_0.license_expiry_date,d1_0.license_issue_date,d1_0.license_number,d1_0.note,d1_0.updated_at,d1_0.years_of_experience,u1_0.full_name,u1_0.id_number,u1_0.is_active,u1_0.password,u1_0.phone,u1_0.updated_at,u1_0.username from users u1_0 left join drivers d1_0 on u1_0.id=d1_0.id where u1_0.id=?
-2025-11-14 15:21:02 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2025-11-14 15:21:02 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2025-11-14 15:21:02 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-11-14 15:21:02 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2025-11-14 15:21:02 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

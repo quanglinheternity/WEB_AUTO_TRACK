@@ -33,7 +33,6 @@ public class RouteRepositoryImpl implements RouteRepositoryCustom {
     private final BooleanBuilder builder = new BooleanBuilder();
     private final QTrip trip = QTrip.trip;
 
-
     @Override
     public Page<RouteResponse> searchRoutes(RouteSearchRequest request, Pageable pageable) {
 
@@ -92,27 +91,22 @@ public class RouteRepositoryImpl implements RouteRepositoryCustom {
 
         return new PageImpl<>(responses, pageable, totalCount);
     }
-    public List<RouteBySalary> findRoutesByDriverAndMonth(Long driverId, YearMonth month) {
-            LocalDateTime startOfMonth = month.atDay(1).atStartOfDay();
-            LocalDateTime endOfMonth = month.atEndOfMonth().atTime(23, 59, 59);
 
-    return queryFactory
-            .select(
-                    com.querydsl.core.types.Projections.constructor(
-                            RouteBySalary.class,
-                            route.name,
-                            trip.countDistinct().as("totalTrips"),
-                            route.distanceKm.sum().coalesce(BigDecimal.ZERO).as("totalDistance"),
-                            com.querydsl.core.types.ConstantImpl.create(BigDecimal.ZERO)
-                    )
-            )
-            .from(trip)
-            .join(trip.route, route)
-            .where(
-                    trip.driver.id.eq(driverId)
-                            .and(trip.departureTime.between(startOfMonth, endOfMonth))
-            )
-            .groupBy(route.id, route.name)
-            .fetch();
-}
+    public List<RouteBySalary> findRoutesByDriverAndMonth(Long driverId, YearMonth month) {
+        LocalDateTime startOfMonth = month.atDay(1).atStartOfDay();
+        LocalDateTime endOfMonth = month.atEndOfMonth().atTime(23, 59, 59);
+
+        return queryFactory
+                .select(com.querydsl.core.types.Projections.constructor(
+                        RouteBySalary.class,
+                        route.name,
+                        trip.countDistinct().as("totalTrips"),
+                        route.distanceKm.sum().coalesce(BigDecimal.ZERO).as("totalDistance"),
+                        com.querydsl.core.types.ConstantImpl.create(BigDecimal.ZERO)))
+                .from(trip)
+                .join(trip.route, route)
+                .where(trip.driver.id.eq(driverId).and(trip.departureTime.between(startOfMonth, endOfMonth)))
+                .groupBy(route.id, route.name)
+                .fetch();
+    }
 }
