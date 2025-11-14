@@ -1,8 +1,8 @@
 package com.transport.controller;
 
-import jakarta.validation.Valid;
-
 import java.time.YearMonth;
+
+import jakarta.validation.Valid;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -87,8 +87,11 @@ public class ExpenseCategoryController {
                 .data(service.getById(id))
                 .build();
     }
+
     @GetMapping("/{driverId}/expense")
-    public ApiResponse<ExpenseByExpenseCategory> getExpense(@PathVariable Long driverId, @RequestParam("month") @DateTimeFormat(pattern = "yyyy-MM") YearMonth yearMonth) {
+    public ApiResponse<ExpenseByExpenseCategory> getExpense(
+            @PathVariable Long driverId,
+            @RequestParam("month") @DateTimeFormat(pattern = "yyyy-MM") YearMonth yearMonth) {
         return ApiResponse.<ExpenseByExpenseCategory>builder()
                 .message("Lấy danh sách chi phí")
                 .data(service.getExpenseByExpenseCategory(driverId, yearMonth))

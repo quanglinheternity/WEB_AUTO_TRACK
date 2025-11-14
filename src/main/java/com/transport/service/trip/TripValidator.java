@@ -1,6 +1,7 @@
 package com.transport.service.trip;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Component;
@@ -54,7 +55,7 @@ public class TripValidator {
             Long vehicleId, LocalDateTime departureTime, LocalDateTime estimatedArrivalTime) {
         Long countOverlappingTrips =
                 tripRepository.countOverlappingTripsByVehicle(vehicleId, departureTime, estimatedArrivalTime);
-        if (countOverlappingTrips > 0) {
+        if (countOverlappingTrips != null && countOverlappingTrips > 0) {
             throw new AppException(ErrorCode.SCHEDULE_VEHICLE_ALREADY_BOOKED);
         }
     }
@@ -62,7 +63,7 @@ public class TripValidator {
     public void validateDriverOverlap(Long driverId, LocalDateTime departureTime, LocalDateTime estimatedArrivalTime) {
         Long countOverlappingTrips =
                 tripRepository.countOverlappingTripsByDriver(driverId, departureTime, estimatedArrivalTime);
-        if (countOverlappingTrips > 0) {
+        if (countOverlappingTrips != null && countOverlappingTrips > 0) {
             throw new AppException(ErrorCode.SCHEDULE_DRIVER_ALREADY_BOOKED);
         }
     }
@@ -71,7 +72,7 @@ public class TripValidator {
             Long vehicleId, LocalDateTime departureTime, LocalDateTime estimatedArrivalTime, Long excludeTripId) {
         Long countOverlappingTrips = tripRepository.countOverlappingTripsByVehicleExcluding(
                 vehicleId, departureTime, estimatedArrivalTime, excludeTripId);
-        if (countOverlappingTrips > 0) {
+        if (countOverlappingTrips != null && countOverlappingTrips > 0) {
             throw new AppException(ErrorCode.SCHEDULE_VEHICLE_ALREADY_BOOKED);
         }
     }
@@ -80,7 +81,7 @@ public class TripValidator {
             Long driverId, LocalDateTime departureTime, LocalDateTime estimatedArrivalTime, Long excludeTripId) {
         Long countOverlappingTrips = tripRepository.countOverlappingTripsByDriverExcluding(
                 driverId, departureTime, estimatedArrivalTime, excludeTripId);
-        if (countOverlappingTrips > 0) {
+        if (countOverlappingTrips != null && countOverlappingTrips > 0) {
             throw new AppException(ErrorCode.SCHEDULE_DRIVER_ALREADY_BOOKED);
         }
     }
@@ -103,8 +104,11 @@ public class TripValidator {
         if (maxPayloadTon == null) {
             throw new AppException(ErrorCode.VEHICLE_PAYLOAD_NOT_CONFIGURED);
         }
-        BigDecimal cargoWeightTon = cargoWeight.divide(BigDecimal.valueOf(1000));
-        if (cargoWeightTon.compareTo(cargoWeightTon) > 0) {
+        BigDecimal cargoWeightTon = cargoWeight.divide(BigDecimal.valueOf(1000), 2, RoundingMode.HALF_UP);
+
+        BigDecimal maxWeightTon = BigDecimal.valueOf(10); // giới hạn tối đa
+
+        if (cargoWeightTon.compareTo(maxWeightTon) > 0) {
             throw new AppException(ErrorCode.CARGO_OVER_WEIGHT);
         }
     }

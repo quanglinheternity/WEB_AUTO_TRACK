@@ -20,5 +20,6 @@ public interface ExpenseCategoryService {
     void delete(Long id);
 
     ExpenseCategoryResponse getById(Long id);
+
     ExpenseByExpenseCategory getExpenseByExpenseCategory(Long driverId, YearMonth month);
 }

@@ -78,12 +78,12 @@ public class ExpenseCategoryRepositoryImpl implements ExpenseCategoryRepositoryC
                 .fetch();
 
         // ⚙️ Đếm tổng số bản ghi
-        long total = queryFactory
+        Long count = queryFactory
                 .select(category.count())
                 .from(category)
                 .where(builder)
                 .fetchOne();
-
+        long total = (count != null) ? count : 0L;
         if (total == 0L && !results.isEmpty()) {
             total = results.size(); // fallback an toàn
         }

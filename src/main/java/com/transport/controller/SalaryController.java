@@ -1,6 +1,7 @@
 package com.transport.controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.YearMonth;
 import java.util.List;
 import java.util.Map;
@@ -18,12 +19,14 @@ import org.springframework.web.bind.annotation.*;
 import com.transport.dto.ApiResponse;
 import com.transport.dto.page.PageResponse;
 import com.transport.dto.salary.PaySalaryRequest;
+import com.transport.dto.salary.SalaryCalculationDetailResponse;
 import com.transport.dto.salary.SalaryCalculationRequest;
 import com.transport.dto.salary.SalaryCalculationResponse;
-import com.transport.dto.salary.SalaryCalculationDetailResponse;
+import com.transport.dto.salary.SalaryExportRow;
 import com.transport.dto.salary.SalaryReportSearchRequest;
 import com.transport.service.salary.SalaryCalculationService;
 import com.transport.service.salary.SalaryReportService;
+import com.transport.util.excel.BaseExport;
 import com.transport.util.excel.BaseExportMap;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -79,7 +82,8 @@ public class SalaryController {
     @Operation(summary = "Get salary report details by report ID")
     @GetMapping("/report/{reportId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'ACCOUNTANT')")
-    public ResponseEntity<ApiResponse<SalaryCalculationDetailResponse>> getSalaryReportDetail(@PathVariable Long reportId) {
+    public ResponseEntity<ApiResponse<SalaryCalculationDetailResponse>> getSalaryReportDetail(
+            @PathVariable Long reportId) {
 
         SalaryCalculationDetailResponse response = salaryCalculationService.calculateSalaryDetail(reportId);
 
@@ -88,6 +92,78 @@ public class SalaryController {
                 .message("Lấy chi tiết báo cáo lương thành công")
                 .data(response)
                 .build());
+    }
+
+    @Operation(summary = "Export salary report details to Excel by report ID")
+    @PreAuthorize("hasAnyRole('ADMIN', 'ACCOUNTANT')")
+    @GetMapping("/report/{reportId}/export/excel")
+    public void exportSalaryReportDetail(@PathVariable Long reportId, HttpServletResponse response) throws IOException {
+
+        // 1. Lấy chi tiết lương từ service
+        SalaryCalculationDetailResponse detail = salaryCalculationService.calculateSalaryDetail(reportId);
+
+        // 2. Chuyển dữ liệu thành DTO để xuất Excel
+        List<SalaryExportRow> rows = detail.getSalaryByroutes().stream()
+                .map(route -> new SalaryExportRow(
+                        route.name(),
+                        route.totalTrips(),
+                        route.totalDistance(),
+                        route.totalSalary(),
+                        detail.getDriverCode(),
+                        detail.getDriverName(),
+                        detail.getMonth(),
+                        detail.getIncomes().getOrDefault("Base Salary", BigDecimal.ZERO),
+                        detail.getIncomes().getOrDefault("Job Allowance", BigDecimal.ZERO),
+                        detail.getDeductions().getOrDefault("Insurance", BigDecimal.ZERO),
+                        detail.getDeductions().getOrDefault("Union Fee", BigDecimal.ZERO),
+                        detail.getTotalIncome(),
+                        detail.getTotalDeductions(),
+                        detail.getNetSalary()))
+                .toList();
+
+        // 3. Tạo BaseExport với DTO
+        BaseExport<SalaryExportRow> excelExport = new BaseExport<>(rows);
+
+        // 4. Đặt header và field names
+        String[] headers = {
+            "Tuyến",
+            "Tổng chuyến",
+            "Tổng km",
+            "Thu nhập tuyến",
+            "Mã tài xế",
+            "Tên tài xế",
+            "Tháng",
+            "Lương cơ bản",
+            "Phụ cấp",
+            "Bảo hiểm",
+            "Đoàn phí",
+            "Tổng thu nhập",
+            "Tổng khấu trừ",
+            "Lương thực nhận"
+        };
+
+        String[] fieldNames = {
+            "routeName",
+            "totalTrips",
+            "totalDistance",
+            "routeIncome",
+            "driverCode",
+            "driverName",
+            "month",
+            "baseSalary",
+            "jobAllowance",
+            "insurance",
+            "unionFee",
+            "totalIncome",
+            "totalDeductions",
+            "netSalary"
+        };
+
+        // 5. Xuất Excel
+        excelExport
+                .writeHeaderLine(headers, "Chi tiết lương tài xế")
+                .writeDataLines(fieldNames, SalaryExportRow.class)
+                .export(response, "Chi_tiet_luong_tai_xe");
     }
 
     @Operation(summary = "Pay salaries based on salary report IDs")

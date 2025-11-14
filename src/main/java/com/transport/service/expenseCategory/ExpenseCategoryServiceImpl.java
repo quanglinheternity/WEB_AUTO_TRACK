@@ -1,8 +1,9 @@
 package com.transport.service.expenseCategory;
 
+import java.time.YearMonth;
+
 import jakarta.transaction.Transactional;
 
-import java.time.YearMonth;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -80,8 +81,9 @@ public class ExpenseCategoryServiceImpl implements ExpenseCategoryService {
 
         expenseCategoryRepository.delete(expenseCategory);
     }
+
     @Override
-    public ExpenseByExpenseCategory getExpenseByExpenseCategory(Long driverId, YearMonth month){
+    public ExpenseByExpenseCategory getExpenseByExpenseCategory(Long driverId, YearMonth month) {
         driverRepository.findById(driverId).orElseThrow(() -> new AppException(ErrorCode.DRIVER_NOT_FOUND));
         return driverRepository.getExpenseByExpenseCategory(driverId, month);
     }

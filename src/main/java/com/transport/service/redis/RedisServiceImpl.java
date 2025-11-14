@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 @Service
 public class RedisServiceImpl<K, F, V> implements RedisService<K, F, V> {
@@ -94,7 +95,7 @@ public class RedisServiceImpl<K, F, V> implements RedisService<K, F, V> {
     @Override
     public void deleteByPattern(K pattern) {
         Set<K> keys = redisTemplate.keys(pattern);
-        if (keys != null && !keys.isEmpty()) {
+        if (!CollectionUtils.isEmpty(keys)) {
             redisTemplate.delete(keys);
         }
     }

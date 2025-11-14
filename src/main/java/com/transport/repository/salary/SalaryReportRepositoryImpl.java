@@ -120,12 +120,12 @@ public class SalaryReportRepositoryImpl implements SalaryReportRepositoryCustom 
         }
 
         // --- Tổng số bản ghi ---
-        long total = queryFactory
+        Long count = queryFactory
                 .select(salaryReport.count())
                 .from(salaryReport)
                 .where(builder)
                 .fetchOne();
-
+        long total = (count != null) ? count : 0L;
         // --- Kết quả ---
         List<SalaryCalculationResponse> results =
                 query.offset(pageable.getOffset()).limit(pageable.getPageSize()).fetch().stream()

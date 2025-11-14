@@ -30,14 +30,14 @@ public class SecurityConfig {
         "/api/v1/auth/{userId}/resend",
     };
 
-    @Autowired
+//    @Autowired
     private CustomJWTDecoder jwtDecoder;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .authorizeHttpRequests(request -> request
-                        .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS_POST).permitAll()
+                .authorizeHttpRequests(request -> request.requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS_POST)
+                        .permitAll()
                         // .requestMatchers(HttpMethod.GET, "/user").hasAnyAuthority(Role.ADMIN.name())
                         // .requestMatchers(HttpMethod.PUT, "/user/{userId}").permitAll()
                         .anyRequest()
