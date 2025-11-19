@@ -1,17 +1,17 @@
 package com.transport.service.trip;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.transport.dto.page.PageResponse;
-import com.transport.dto.trip.*;
-import com.transport.entity.domain.*;
-import com.transport.enums.TripStatus;
-import com.transport.exception.AppException;
-import com.transport.exception.ErrorCode;
-import com.transport.mapper.TripMapper;
-import com.transport.repository.trip.TripRepository;
-import com.transport.service.authentication.auth.AuthenticationService;
-import com.transport.service.redis.RedisService;
-import com.transport.util.CodeGenerator;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.YearMonth;
+import java.util.List;
+import java.util.Optional;
+
+import lombok.Getter;
+import lombok.Setter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,26 +26,41 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.time.YearMonth;
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.transport.dto.page.PageResponse;
+import com.transport.dto.trip.*;
+import com.transport.entity.domain.*;
+import com.transport.enums.TripStatus;
+import com.transport.exception.AppException;
+import com.transport.exception.ErrorCode;
+import com.transport.mapper.TripMapper;
+import com.transport.repository.trip.TripRepository;
+import com.transport.service.authentication.auth.AuthenticationService;
+import com.transport.service.redis.RedisService;
+import com.transport.util.CodeGenerator;
 
 @ExtendWith(MockitoExtension.class)
 public class TripServiceTest {
-    @Mock private TripRepository tripRepository;
-    @Mock private TripMapper tripMapper;
-    @Mock private AuthenticationService authenticationService;
-    @Mock private RedisService<String, Object, Object> redisService;
-    @Mock private TripValidator tripValidator;
+    @Mock
+    private TripRepository tripRepository;
 
+    @Mock
+    private TripMapper tripMapper;
+
+    @Mock
+    private AuthenticationService authenticationService;
+
+    @Mock
+    private RedisService<String, Object, Object> redisService;
+
+    @Mock
+    private TripValidator tripValidator;
+
+    @Getter
+    @Setter
     @Spy
     private ObjectMapper objectMapper = new ObjectMapper();
+
     @InjectMocks
     private TripServiceImpl tripService;
 
@@ -54,6 +69,7 @@ public class TripServiceTest {
     private Vehicle vehicle;
     private Route route;
     private Trip trip;
+
     @BeforeEach
     void setUp() {
         currentUser = new User();
@@ -84,6 +100,7 @@ public class TripServiceTest {
         trip.setRoute(route);
         trip.setCreatedBy(currentUser);
     }
+
     @Test
     @DisplayName("getAll - Có cache → trả về từ Redis")
     void getAll_FromCache() {
@@ -101,8 +118,9 @@ public class TripServiceTest {
 
         PageResponse<TripResponse> result = tripService.getAll(request, pageable);
         assertEquals(1L, result.totalElements());
-        verify(tripRepository, never()).searchTrips(any(),any());
+        verify(tripRepository, never()).searchTrips(any(), any());
     }
+
     @Test
     @DisplayName("getAll - Không có quyền TRIP_READ → chỉ xem chuyến của mình")
     void getAll_NoGlobalPermission_OnlyOwnTrips() {
@@ -119,9 +137,11 @@ public class TripServiceTest {
         PageResponse<TripResponse> result = tripService.getAll(request, pageable);
 
         assertEquals(1, result.totalElements());
-        verify(tripRepository).searchTrips(argThat(r -> r.getDriverId() != null && r.getDriverId().equals(99L)), eq(pageable));
-
+        verify(tripRepository)
+                .searchTrips(
+                        argThat(r -> r.getDriverId() != null && r.getDriverId().equals(99L)), eq(pageable));
     }
+
     @Test
     @DisplayName("createTrip - Thành công")
     void createTrip_Success() {
@@ -146,13 +166,13 @@ public class TripServiceTest {
             TripResponse response = tripService.createTrip(request);
 
             assertNotNull(response);
-            verify(tripRepository).save(argThat(t ->
-                    t.getTripCode().equals("LT20250001") &&
-                            t.getStatus() == TripStatus.NOT_STARTED &&
-                            t.getCreatedBy().equals(currentUser)
-            ));
+            verify(tripRepository)
+                    .save(argThat(t -> t.getTripCode().equals("LT20250001")
+                            && t.getStatus() == TripStatus.NOT_STARTED
+                            && t.getCreatedBy().equals(currentUser)));
         }
     }
+
     @Test
     @DisplayName("updateTrip - Chỉ cho phép sửa khi NOT_STARTED")
     void updateTrip_OnlyNotStarted() {
@@ -191,8 +211,7 @@ public class TripServiceTest {
 
         when(tripRepository.findById(1L)).thenReturn(Optional.of(trip));
 
-        AppException ex = assertThrows(AppException.class,
-                () -> tripService.updateTripStatus(1L, request));
+        AppException ex = assertThrows(AppException.class, () -> tripService.updateTripStatus(1L, request));
 
         assertEquals(ErrorCode.CANCELLATION_REASON_REQUIRED, ex.getErrorCode());
     }
@@ -210,19 +229,16 @@ public class TripServiceTest {
 
         tripService.updateTripStatus(1L, request);
 
-        verify(tripRepository).save(argThat(t ->
-                t.getStatus() == TripStatus.CANCELLED &&
-                        t.getCancelledByUser().equals(currentUser) &&
-                        t.getCancellationReason().equals("Khách hủy đơn")
-        ));
+        verify(tripRepository)
+                .save(argThat(t -> t.getStatus() == TripStatus.CANCELLED
+                        && t.getCancelledByUser().equals(currentUser)
+                        && t.getCancellationReason().equals("Khách hủy đơn")));
     }
 
     @Test
     @DisplayName("approveTrip - Duyệt thành công")
     void approveTrip_ApproveSuccess() {
-        ApproveTripRequest request = ApproveTripRequest.builder()
-                .approved(true)
-                .build();
+        ApproveTripRequest request = ApproveTripRequest.builder().approved(true).build();
 
         when(tripRepository.findById(1L)).thenReturn(Optional.of(trip));
         when(authenticationService.getCurrentUser()).thenReturn(currentUser);
@@ -230,25 +246,21 @@ public class TripServiceTest {
 
         tripService.approveTrip(1L, request);
 
-        verify(tripRepository).save(argThat(t ->
-                t.getApprovalStatus() == Boolean.TRUE &&
-                        t.getApprovedByUser().equals(currentUser) &&
-                        t.getNote() == null
-        ));
+        verify(tripRepository)
+                .save(argThat(t -> t.getApprovalStatus() == Boolean.TRUE
+                        && t.getApprovedByUser().equals(currentUser)
+                        && t.getNote() == null));
     }
 
     @Test
     @DisplayName("approveTrip - Từ chối không có lý do → lỗi")
     void approveTrip_RejectWithoutReason_Fail() {
-        ApproveTripRequest request = ApproveTripRequest.builder()
-                .approved(false)
-                .reason("")
-                .build();
+        ApproveTripRequest request =
+                ApproveTripRequest.builder().approved(false).reason("").build();
 
         when(tripRepository.findById(1L)).thenReturn(Optional.of(trip));
 
-        AppException ex = assertThrows(AppException.class,
-                () -> tripService.approveTrip(1L, request));
+        AppException ex = assertThrows(AppException.class, () -> tripService.approveTrip(1L, request));
 
         assertEquals(ErrorCode.REJECTION_REASON_REQUIRED, ex.getErrorCode());
     }
@@ -290,14 +302,11 @@ public class TripServiceTest {
     @DisplayName("findReportTripByVehicle - Gọi đúng repo")
     void findReportTripByVehicle() {
         YearMonth month = YearMonth.of(2025, 10);
-        TripReport expected = new TripReport(null,0);
+        TripReport expected = new TripReport(null, 0);
         when(tripRepository.findReportTripByVehicle(10L, month)).thenReturn(expected);
 
         TripReport result = tripService.findReportTripByVehicle(10L, month);
 
         assertEquals(expected, result);
     }
-
-
-
 }

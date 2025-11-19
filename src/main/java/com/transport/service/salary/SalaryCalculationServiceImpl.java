@@ -1,19 +1,10 @@
 package com.transport.service.salary;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.time.YearMonth;
-import java.util.List;
-import java.util.Map;
-
-import jakarta.transaction.Transactional;
-
-import org.springframework.stereotype.Service;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.transport.dto.route.RouteBySalary;
 import com.transport.dto.salary.SalaryCalculationDetailResponse;
 import com.transport.dto.salary.SalaryCalculationResponse;
+import com.transport.dto.salary.SalaryReportEmailDTO;
 import com.transport.entity.domain.Driver;
 import com.transport.entity.domain.SalaryReport;
 import com.transport.entity.domain.Trip;
@@ -25,15 +16,25 @@ import com.transport.repository.route.RouteRepository;
 import com.transport.repository.salary.SalaryReportRepository;
 import com.transport.repository.trip.TripRepository;
 import com.transport.service.redis.RedisService;
-
+import com.transport.util.mail.EmailService;
+import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.YearMonth;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Transactional
+@Slf4j
 public class SalaryCalculationServiceImpl implements SalaryCalculationService {
     SalaryReportRepository salaryReportRepository;
     TripRepository tripRepository;
@@ -41,6 +42,7 @@ public class SalaryCalculationServiceImpl implements SalaryCalculationService {
     RouteRepository routeRepository;
     RedisService<String, Object, Object> redisService;
     ObjectMapper objectMapper;
+    EmailService emailService;
 
     static BigDecimal DEFAULT_TRIP_RATE = new BigDecimal("300000"); // 300k/chuyến
     static BigDecimal DEFAULT_DISTANCE_RATE = new BigDecimal("2000"); // 2k/km
@@ -195,6 +197,44 @@ public class SalaryCalculationServiceImpl implements SalaryCalculationService {
         report.setIsPaid(true);
         report.setPaidAt(java.time.LocalDateTime.now());
         salaryReportRepository.save(report);
+    }
+    public void sendSalaryReportEmail(Long reportId) {
+        SalaryReport report = salaryReportRepository.findById(reportId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy báo cáo lương"));
+
+        SalaryReportEmailDTO emailDTO = mapToEmailDTO(report);
+        emailService.sendSalaryReport(emailDTO);
+    }
+    public void sendSalaryReportsForMonth(YearMonth month) {
+        List<SalaryReport> reports = salaryReportRepository.findByReportMonth(month);
+
+        log.info("Bắt đầu gửi {} báo cáo lương cho tháng {}", reports.size(), month);
+
+        for (SalaryReport report : reports) {
+            try {
+                SalaryReportEmailDTO emailDTO = mapToEmailDTO(report);
+                emailService.sendSalaryReport(emailDTO);
+            } catch (Exception e) {
+                log.error("Lỗi khi gửi email cho tài xế ID: {}", report.getDriver().getId(), e);
+            }
+        }
+
+        log.info("Hoàn thành gửi báo cáo lương cho tháng {}", month);
+    }
+    private SalaryReportEmailDTO mapToEmailDTO(SalaryReport report) {
+        return SalaryReportEmailDTO.builder()
+                .driverName(report.getDriver().getUser().getFullName())
+                .driverEmail(report.getDriver().getUser().getUsername())
+                .reportMonth(report.getReportMonth())
+                .totalTrips(report.getTotalTrips())
+                .totalDistance(report.getTotalDistance())
+                .baseSalary(report.getBaseSalary())
+                .tripBonus(report.getTripBonus())
+                .allowance(report.getAllowance())
+                .deduction(report.getDeduction())
+                .totalSalary(report.getTotalSalary())
+                .note(report.getNote())
+                .build();
     }
     // Tính tổng quãng đường
     private BigDecimal calculateTotalDistance(List<Trip> trips) {

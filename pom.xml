@@ -135,6 +135,16 @@
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-mysql</artifactId> <!-- Nếu dùng MySQL -->
 		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <version>3.5.6</version>
+        </dependency>
 		<!-- excle -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>

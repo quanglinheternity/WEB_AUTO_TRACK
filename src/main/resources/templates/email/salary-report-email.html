@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #4c93af;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+        }
+        .content {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #ddd;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .table th, .table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .total-row {
+            background-color: #4c93af;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .note {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>BÁO CÁO LƯƠNG THÁNG</h1>
+    <h2 th:text="${reportMonth}"></h2>
+</div>
+
+<div class="content">
+    <p>Kính gửi: <strong th:text="${driverName}"></strong>,</p>
+
+    <p>Đây là báo cáo lương của bạn cho tháng <span th:text="${reportMonth}"></span>:</p>
+
+    <table class="table">
+        <tr>
+            <th>Hạng mục</th>
+            <th style="text-align: right;">Giá trị</th>
+        </tr>
+        <tr>
+            <td>Tổng số chuyến</td>
+            <td style="text-align: right;" th:text="${totalTrips}"></td>
+        </tr>
+        <tr>
+            <td>Tổng quãng đường (km)</td>
+            <td style="text-align: right;" th:text="${totalDistance}"></td>
+        </tr>
+        <tr>
+            <td>Lương cơ bản</td>
+            <td style="text-align: right;" th:text="${baseSalary}"></td>
+        </tr>
+        <tr>
+            <td>Tiền thưởng chuyến đi</td>
+            <td style="text-align: right;" th:text="${tripBonus}"></td>
+        </tr>
+        <tr>
+            <td>Phụ cấp</td>
+            <td style="text-align: right;" th:text="${allowance}"></td>
+        </tr>
+        <tr>
+            <td>Khấu trừ</td>
+            <td style="text-align: right; color: red;" th:text="${deduction}"></td>
+        </tr>
+        <tr class="total-row">
+            <td>TỔNG LƯƠNG THỰC NHẬN</td>
+            <td style="text-align: right;" th:text="${totalSalary}"></td>
+        </tr>
+    </table>
+
+    <div class="note" th:if="${note != null and note != ''}">
+        <strong>Ghi chú:</strong><br>
+        <span th:text="${note}"></span>
+    </div>
+
+    <p>Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ với phòng nhân sự.</p>
+
+    <p>Trân trọng,<br>
+        <strong>Phòng Nhân Sự</strong></p>
+</div>
+
+<div class="footer">
+    <p>Email này được gửi tự động, vui lòng không trả lời.</p>
+</div>
+</body>
+</html>

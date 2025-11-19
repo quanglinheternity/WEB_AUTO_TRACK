@@ -1,15 +1,15 @@
 package com.transport.controller.user;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.transport.dto.driver.DriverRequest;
-import com.transport.dto.driver.DriverResponse;
-import com.transport.dto.permission.PermissionResponse;
-import com.transport.dto.role.RoleResponse;
-import com.transport.dto.user.UserCreateRequest;
-import com.transport.dto.user.UserDetailResponse;
-import com.transport.enums.EmploymentStatus;
-import com.transport.service.user.UserService;
-import lombok.extern.slf4j.Slf4j;
+import static org.mockito.ArgumentMatchers.any;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Set;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,15 +22,17 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Set;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.transport.dto.driver.DriverRequest;
+import com.transport.dto.driver.DriverResponse;
+import com.transport.dto.permission.PermissionResponse;
+import com.transport.dto.role.RoleResponse;
+import com.transport.dto.user.UserCreateRequest;
+import com.transport.dto.user.UserDetailResponse;
+import com.transport.enums.EmploymentStatus;
+import com.transport.service.user.UserService;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @SpringBootTest
@@ -83,21 +85,21 @@ public class UserControllerTest {
                 "DRV001",
                 "A12345",
                 "B2",
-                LocalDate.of(2020,1,1),
-                LocalDate.of(2030,1,1),
+                LocalDate.of(2020, 1, 1),
+                LocalDate.of(2030, 1, 1),
                 3,
                 EmploymentStatus.ACTIVE,
                 BigDecimal.valueOf(15_000_000),
-                "Good driver"
-        );
+                "Good driver");
 
-        roleManager = new RoleResponse("MANAGER", "MANAGER role", Set.of(
-                new PermissionResponse("USER_CREATE", "Create user"),
-                new PermissionResponse("USER_DELETE", "Delete user")
-        ));
-        RoleResponse roleDriver = new RoleResponse("DRIVER", "Driver role", Set.of(
-                new PermissionResponse("DRIVE_VEHICLE", "Drive vehicle")
-        ));
+        roleManager = new RoleResponse(
+                "MANAGER",
+                "MANAGER role",
+                Set.of(
+                        new PermissionResponse("USER_CREATE", "Create user"),
+                        new PermissionResponse("USER_DELETE", "Delete user")));
+        RoleResponse roleDriver = new RoleResponse(
+                "DRIVER", "Driver role", Set.of(new PermissionResponse("DRIVE_VEHICLE", "Drive vehicle")));
 
         response = new UserDetailResponse(
                 1L,
@@ -112,13 +114,14 @@ public class UserControllerTest {
                 LocalDateTime.now(),
                 LocalDateTime.now(),
                 driverResponse,
-                Set.of(roleDriver)
-        );
+                Set.of(roleDriver));
     }
 
     @Test
     @DisplayName("Tạo người dùng thành công, với vai trò là tài xế")
-    @WithMockUser(username="admin", roles={"ADMIN"})
+    @WithMockUser(
+            username = "admin",
+            roles = {"ADMIN"})
     void createUser_WithDriverRole_Success() throws Exception {
 
         // GIVEN
@@ -140,14 +143,16 @@ public class UserControllerTest {
 
         Mockito.verify(userService, Mockito.times(1)).create(any());
     }
+
     @Test
     @DisplayName("Tạo người dùng với username >50")
-    @WithMockUser(username="admin", roles={"ADMIN"})
+    @WithMockUser(
+            username = "admin",
+            roles = {"ADMIN"})
     void createUser_usernameInvalid_Success() throws Exception {
         request.setUsername("QuangLinhQuangLinhQuangLinhQuangLinhQuangLinhLinhQuangLinhLinhQuangLinh12");
         // GIVEN
         String json = objectMapper.writeValueAsString(request);
-
 
         // WHEN + THEN
         mockMvc.perform(post("/api/v1/users/create")
@@ -156,11 +161,13 @@ public class UserControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.message").value("Dữ liệu không hợp lệ"))
                 .andExpect(jsonPath("$.errors.username").value("Tài khoản không được vượt quá 50 ký tự"));
-
     }
+
     @Test
     @DisplayName("Password quá ngắn (<6 ký tự) - validate")
-    @WithMockUser(username="admin", roles={"ADMIN"})
+    @WithMockUser(
+            username = "admin",
+            roles = {"ADMIN"})
     void testPasswordTooShort() throws Exception {
         request.setPassword("123"); // <6
         String json = objectMapper.writeValueAsString(request);
@@ -174,7 +181,9 @@ public class UserControllerTest {
 
     @Test
     @DisplayName("Phone không hợp lệ - validate")
-    @WithMockUser(username="admin", roles={"ADMIN"})
+    @WithMockUser(
+            username = "admin",
+            roles = {"ADMIN"})
     void testPhoneInvalid() throws Exception {
         request.setPhone("abc123"); // invalid
         String json = objectMapper.writeValueAsString(request);
@@ -188,7 +197,9 @@ public class UserControllerTest {
 
     @Test
     @DisplayName("Fullname trống - validate")
-    @WithMockUser(username="admin", roles={"ADMIN"})
+    @WithMockUser(
+            username = "admin",
+            roles = {"ADMIN"})
     void testFullnameEmpty() throws Exception {
         request.setFullName(""); // empty
         String json = objectMapper.writeValueAsString(request);
@@ -202,7 +213,9 @@ public class UserControllerTest {
 
     @Test
     @DisplayName("ID number không hợp lệ - validate")
-    @WithMockUser(username="admin", roles={"ADMIN"})
+    @WithMockUser(
+            username = "admin",
+            roles = {"ADMIN"})
     void testIdNumberInvalid() throws Exception {
         request.setIdNumber("abc"); // invalid
         String json = objectMapper.writeValueAsString(request);
@@ -216,7 +229,9 @@ public class UserControllerTest {
 
     @Test
     @DisplayName("Ngày sinh tương lai - validate")
-    @WithMockUser(username="admin", roles={"ADMIN"})
+    @WithMockUser(
+            username = "admin",
+            roles = {"ADMIN"})
     void testDateOfBirthFuture() throws Exception {
         request.setDateOfBirth(LocalDate.now().plusDays(1)); // future date
         String json = objectMapper.writeValueAsString(request);
@@ -230,7 +245,9 @@ public class UserControllerTest {
 
     @Test
     @DisplayName("isDriver null - validate")
-    @WithMockUser(username="admin", roles={"ADMIN"})
+    @WithMockUser(
+            username = "admin",
+            roles = {"ADMIN"})
     void testIsDriverNull() throws Exception {
         request.setIsDriver(null);
         String json = objectMapper.writeValueAsString(request);
@@ -244,7 +261,9 @@ public class UserControllerTest {
 
     @Test
     @DisplayName("Roles null - validate")
-    @WithMockUser(username="admin", roles={"ADMIN"})
+    @WithMockUser(
+            username = "admin",
+            roles = {"ADMIN"})
     void testRolesNull() throws Exception {
         request.setRoles(null);
         String json = objectMapper.writeValueAsString(request);
@@ -255,9 +274,12 @@ public class UserControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.errors.roles").value("Quyền người dùng không được để trống"));
     }
+
     @Test
     @DisplayName("Tạo người dùng thành công, với vai trò không là tài xế")
-    @WithMockUser(username="admin", roles={"ADMIN"})
+    @WithMockUser(
+            username = "admin",
+            roles = {"ADMIN"})
     void createUser_WithNoDriverRole_Success() throws Exception {
         UserCreateRequest requestNoDriver = request.toBuilder()
                 .isDriver(false)
@@ -279,8 +301,7 @@ public class UserControllerTest {
                 LocalDateTime.now(),
                 LocalDateTime.now(),
                 null,
-                Set.of(roleManager)
-        );
+                Set.of(roleManager));
         Mockito.when(userService.create(any())).thenReturn(responseNoDriver);
 
         // WHEN + THEN

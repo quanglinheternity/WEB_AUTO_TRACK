@@ -101,7 +101,7 @@ public class ExpenseController {
             @PathVariable Long id, @RequestBody ExpenseApproveRequest request) {
         ExpenseResponse response = expenseService.expenseApprove(id, request);
         String message =
-                switch (response.status()) {
+                switch (response.getStatus()) {
                     case MANAGER_APPROVED -> "Yêu cầu chi phí đã được duyệt thành công";
                     case ACCOUNTANT_APPROVED -> "Yêu cầu chi phí đã được duyệt tài chính";
                     case PAID -> "Yêu cầu chi phí được thanh toán";

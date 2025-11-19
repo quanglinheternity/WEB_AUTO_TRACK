@@ -1,5 +1,24 @@
 package com.transport.service.salary;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.YearMonth;
+import java.util.List;
+import java.util.Optional;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.transport.dto.route.RouteBySalary;
 import com.transport.dto.salary.SalaryCalculationDetailResponse;
@@ -13,35 +32,32 @@ import com.transport.repository.route.RouteRepository;
 import com.transport.repository.salary.SalaryReportRepository;
 import com.transport.repository.trip.TripRepository;
 import com.transport.service.redis.RedisService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Spy;
-import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.time.YearMonth;
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @ExtendWith(MockitoExtension.class)
 class SalaryServiceTest {
 
-    @Mock private SalaryReportRepository salaryReportRepository;
-    @Mock private TripRepository tripRepository;
-    @Mock private DriverRepository driverRepository;
-    @Mock private RouteRepository routeRepository;
-    @Mock private RedisService<String, Object, Object> redisService;
+    @Mock
+    private SalaryReportRepository salaryReportRepository;
 
-    @Spy private ObjectMapper objectMapper = new ObjectMapper();
+    @Mock
+    private TripRepository tripRepository;
+
+    @Mock
+    private DriverRepository driverRepository;
+
+    @Mock
+    private RouteRepository routeRepository;
+
+    @Mock
+    private RedisService<String, Object, Object> redisService;
+
+    @Setter
+    @Getter
+    @Spy
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     @InjectMocks
     private SalaryCalculationServiceImpl salaryCalculationService;
@@ -162,8 +178,8 @@ class SalaryServiceTest {
     void calculateSalary_MonthNotEnded() {
         YearMonth future = YearMonth.now();
 
-        AppException ex = assertThrows(AppException.class,
-                () -> salaryCalculationService.calculateSalary(100L, future));
+        AppException ex =
+                assertThrows(AppException.class, () -> salaryCalculationService.calculateSalary(100L, future));
 
         assertEquals(ErrorCode.SALARY_MONTH_NOT_ENDED, ex.getErrorCode());
     }
@@ -174,8 +190,7 @@ class SalaryServiceTest {
         when(driverRepository.findById(100L)).thenReturn(Optional.of(driver));
         when(salaryReportRepository.existsByDriverIdAndReportMonth(100L, month)).thenReturn(true);
 
-        AppException ex = assertThrows(AppException.class,
-                () -> salaryCalculationService.calculateSalary(100L, month));
+        AppException ex = assertThrows(AppException.class, () -> salaryCalculationService.calculateSalary(100L, month));
 
         assertEquals(ErrorCode.SALARY_ALREADY_CALCULATED, ex.getErrorCode());
     }
@@ -184,7 +199,8 @@ class SalaryServiceTest {
     @DisplayName("calculateAllowance - Đủ điều kiện: trách nhiệm + an toàn + đường xa")
     void calculateAllowance_AllBonuses() {
         driver.setYearsOfExperience(6);
-        BigDecimal allowance = salaryCalculationService.calculateAllowance(driver, List.of(trip1, trip2), new BigDecimal("1000"));
+        BigDecimal allowance =
+                salaryCalculationService.calculateAllowance(driver, List.of(trip1, trip2), new BigDecimal("1000"));
 
         assertEquals(new BigDecimal("1700000"), allowance); // 500k + 1tr + 200k
     }
@@ -204,8 +220,8 @@ class SalaryServiceTest {
     @Test
     @DisplayName("calculateDeduction - Có phạt trễ + bảo hiểm")
     void calculateDeduction_WithLatePenalty() {
-        BigDecimal deduction = salaryCalculationService.calculateDeduction(
-                driver, List.of(trip2), new BigDecimal("10000000"));
+        BigDecimal deduction =
+                salaryCalculationService.calculateDeduction(driver, List.of(trip2), new BigDecimal("10000000"));
 
         // BH 10.5% = 1.05tr + phạt trễ 200k = 1.25tr
         assertEquals(new BigDecimal("1250000"), deduction);

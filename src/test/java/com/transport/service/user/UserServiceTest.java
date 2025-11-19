@@ -1,5 +1,22 @@
 package com.transport.service.user;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
+
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Set;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+
 import com.transport.dto.driver.DriverRequest;
 import com.transport.dto.user.UserCreateRequest;
 import com.transport.dto.user.UserDetailResponse;
@@ -15,22 +32,6 @@ import com.transport.repository.driver.DriverRepository;
 import com.transport.repository.role.RoleRepository;
 import com.transport.repository.user.UserRepository;
 import com.transport.service.authentication.auth.AuthenticationService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
-
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
 
 @SpringBootTest
 public class UserServiceTest {
@@ -92,20 +93,13 @@ public class UserServiceTest {
                 .roles(Set.of("DRIVER"))
                 .build();
 
-        roleAdmin = Role.builder()
-                .roleName("ADMIN")
-                .description("ADMIN Role")
-                .build();
+        roleAdmin = Role.builder().roleName("ADMIN").description("ADMIN Role").build();
 
-        roleDriver = Role.builder()
-                .roleName("DRIVER")
-                .description("Driver role")
-                .build();
+        roleDriver =
+                Role.builder().roleName("DRIVER").description("Driver role").build();
 
-        driverEntity = Driver.builder()
-                .licenseNumber("A12345")
-                .licenseClass("B2")
-                .build();
+        driverEntity =
+                Driver.builder().licenseNumber("A12345").licenseClass("B2").build();
 
         userEntity = User.builder()
                 .username("QuangLinh")
@@ -123,44 +117,35 @@ public class UserServiceTest {
 
         Mockito.when(authenticationService.hasRole("ADMIN")).thenReturn(true);
 
-        Mockito.when(roleRepository.findAllById(any()))
-                .thenReturn(List.of(roleDriver));
+        Mockito.when(roleRepository.findAllById(any())).thenReturn(List.of(roleDriver));
 
-        Mockito.when(userMapper.toCreateEntity(any()))
-                .thenReturn(userEntity);
+        Mockito.when(userMapper.toCreateEntity(any())).thenReturn(userEntity);
 
-        Mockito.when(passwordEncoder.encode(anyString()))
-                .thenReturn("encoded");
+        Mockito.when(passwordEncoder.encode(anyString())).thenReturn("encoded");
 
-        Mockito.when(userRepository.save(any()))
-                .thenReturn(userEntity);
+        Mockito.when(userRepository.save(any())).thenReturn(userEntity);
 
-        Mockito.when(driverRepository.existsBylicenseNumber("A12345"))
-                .thenReturn(false);
+        Mockito.when(driverRepository.existsBylicenseNumber("A12345")).thenReturn(false);
 
-        Mockito.when(driverMapper.toDriverFromCreateRequest(any()))
-                .thenReturn(driverEntity);
+        Mockito.when(driverMapper.toDriverFromCreateRequest(any())).thenReturn(driverEntity);
 
-        Mockito.when(driverRepository.save(any()))
-                .thenReturn(driverEntity);
+        Mockito.when(driverRepository.save(any())).thenReturn(driverEntity);
 
         Mockito.when(userMapper.toDetailResponse(any()))
-                .thenReturn(
-                        new UserDetailResponse(
-                                1L,
-                                "QuangLinh",
-                                "0987654321",
-                                "Quang Linh",
-                                "123456789",
-                                LocalDate.of(2000, 1, 1),
-                                "Ba Vì",
-                                null,
-                                true,
-                                null, null,
-                                null,
-                                Set.of()
-                        )
-                );
+                .thenReturn(new UserDetailResponse(
+                        1L,
+                        "QuangLinh",
+                        "0987654321",
+                        "Quang Linh",
+                        "123456789",
+                        LocalDate.of(2000, 1, 1),
+                        "Ba Vì",
+                        null,
+                        true,
+                        null,
+                        null,
+                        null,
+                        Set.of()));
 
         UserDetailResponse res = userService.create(request);
 
@@ -178,11 +163,9 @@ public class UserServiceTest {
         Mockito.when(authenticationService.hasRole("ADMIN")).thenReturn(false);
         Mockito.when(authenticationService.hasRole("MANAGER")).thenReturn(true);
 
-        Mockito.when(roleRepository.findAllById(any()))
-                .thenReturn(List.of(roleAdmin));
+        Mockito.when(roleRepository.findAllById(any())).thenReturn(List.of(roleAdmin));
 
-        AppException ex = assertThrows(AppException.class,
-                () -> userService.create(request));
+        AppException ex = assertThrows(AppException.class, () -> userService.create(request));
 
         assertEquals(ErrorCode.ACCESS_DENIED_CREATE_USER, ex.getErrorCode());
     }
@@ -193,23 +176,17 @@ public class UserServiceTest {
 
         Mockito.when(authenticationService.hasRole("ADMIN")).thenReturn(true);
 
-        Mockito.when(roleRepository.findAllById(any()))
-                .thenReturn(List.of(roleDriver));
+        Mockito.when(roleRepository.findAllById(any())).thenReturn(List.of(roleDriver));
 
-        Mockito.when(userMapper.toCreateEntity(any()))
-                .thenReturn(userEntity);
+        Mockito.when(userMapper.toCreateEntity(any())).thenReturn(userEntity);
 
-        Mockito.when(passwordEncoder.encode(anyString()))
-                .thenReturn("encoded");
+        Mockito.when(passwordEncoder.encode(anyString())).thenReturn("encoded");
 
-        Mockito.when(userRepository.save(any()))
-                .thenReturn(userEntity);
+        Mockito.when(userRepository.save(any())).thenReturn(userEntity);
 
-        Mockito.when(driverRepository.existsBylicenseNumber("A12345"))
-                .thenReturn(true);
+        Mockito.when(driverRepository.existsBylicenseNumber("A12345")).thenReturn(true);
 
-        AppException ex = assertThrows(AppException.class,
-                () -> userService.create(request));
+        AppException ex = assertThrows(AppException.class, () -> userService.create(request));
 
         assertEquals(ErrorCode.DRIVER_ALREADY_LICENSE_EXISTS, ex.getErrorCode());
         assertEquals(ErrorCode.DRIVER_ALREADY_LICENSE_EXISTS.getMessage(), ex.getMessage());
@@ -222,8 +199,7 @@ public class UserServiceTest {
         Mockito.when(authenticationService.hasRole("ADMIN")).thenReturn(false);
         Mockito.when(authenticationService.hasRole("MANAGER")).thenReturn(false);
 
-        AppException ex = assertThrows(AppException.class,
-                () -> userService.create(request));
+        AppException ex = assertThrows(AppException.class, () -> userService.create(request));
 
         assertEquals(ErrorCode.ACCESS_DENIED_CREATE_USER, ex.getErrorCode());
     }
@@ -237,39 +213,34 @@ public class UserServiceTest {
 
         Mockito.when(authenticationService.hasRole("ADMIN")).thenReturn(true);
 
-        Mockito.when(roleRepository.findAllById(any()))
-                .thenReturn(List.of(roleDriver));
+        Mockito.when(roleRepository.findAllById(any())).thenReturn(List.of(roleDriver));
 
-        Mockito.when(userMapper.toCreateEntity(any()))
-                .thenReturn(userEntity);
+        Mockito.when(userMapper.toCreateEntity(any())).thenReturn(userEntity);
 
-        Mockito.when(passwordEncoder.encode(anyString()))
-                .thenReturn("encoded");
+        Mockito.when(passwordEncoder.encode(anyString())).thenReturn("encoded");
 
-        Mockito.when(userRepository.save(any()))
-                .thenReturn(userEntity);
+        Mockito.when(userRepository.save(any())).thenReturn(userEntity);
 
         Mockito.when(userMapper.toDetailResponse(any()))
-                .thenReturn(
-                        new UserDetailResponse(
-                                1L,
-                                "QuangLinh",
-                                "0987654321",
-                                "Quang Linh",
-                                "123456789",
-                                LocalDate.of(2000, 1, 1),
-                                "Ba Vì",
-                                null,
-                                true,
-                                null, null,
-                                null,
-                                Set.of()
-                        )
-                );
+                .thenReturn(new UserDetailResponse(
+                        1L,
+                        "QuangLinh",
+                        "0987654321",
+                        "Quang Linh",
+                        "123456789",
+                        LocalDate.of(2000, 1, 1),
+                        "Ba Vì",
+                        null,
+                        true,
+                        null,
+                        null,
+                        null,
+                        Set.of()));
 
         UserDetailResponse res = userService.create(request);
 
         assertNotNull(res);
         assertTrue(res.isActive());
+        assertEquals("QuangLinh", res.username());
     }
 }

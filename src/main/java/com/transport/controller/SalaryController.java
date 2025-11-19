@@ -1,13 +1,17 @@
 package com.transport.controller;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.time.YearMonth;
-import java.util.List;
-import java.util.Map;
-
+import com.transport.dto.ApiResponse;
+import com.transport.dto.page.PageResponse;
+import com.transport.dto.salary.*;
+import com.transport.service.salary.SalaryCalculationService;
+import com.transport.service.salary.SalaryReportService;
+import com.transport.util.excel.BaseExport;
+import com.transport.util.excel.BaseExportMap;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
-
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -16,23 +20,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import com.transport.dto.ApiResponse;
-import com.transport.dto.page.PageResponse;
-import com.transport.dto.salary.PaySalaryRequest;
-import com.transport.dto.salary.SalaryCalculationDetailResponse;
-import com.transport.dto.salary.SalaryCalculationRequest;
-import com.transport.dto.salary.SalaryCalculationResponse;
-import com.transport.dto.salary.SalaryExportRow;
-import com.transport.dto.salary.SalaryReportSearchRequest;
-import com.transport.service.salary.SalaryCalculationService;
-import com.transport.service.salary.SalaryReportService;
-import com.transport.util.excel.BaseExport;
-import com.transport.util.excel.BaseExportMap;
-
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.time.YearMonth;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/salary")
@@ -270,5 +262,24 @@ public class SalaryController {
                 .message("Lấy danh sách báo cáo lương thành công")
                 .data(page)
                 .build());
+    }
+    @PostMapping("/{reportId}/send-email")
+    public ResponseEntity<ApiResponse<Void>> sendEmailForReport(@PathVariable Long reportId) {
+        salaryCalculationService.sendSalaryReportEmail(reportId);
+        ApiResponse<Void> response = ApiResponse.<Void>builder()
+                .message("Đã gửi email báo cáo lương thành công")
+                .build();
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/send-emails-by-month")
+    public ResponseEntity<ApiResponse<Void>> sendEmailsForMonth(
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM") YearMonth month) {
+        salaryCalculationService.sendSalaryReportsForMonth(month);
+        ApiResponse<Void> response = ApiResponse.<Void>builder()
+                .message("Đã bắt đầu gửi email báo cáo lương cho tháng " + month)
+                .build();
+        return ResponseEntity.ok(response);
     }
 }

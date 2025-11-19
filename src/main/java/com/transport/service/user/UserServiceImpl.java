@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 
 import jakarta.transaction.Transactional;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -37,6 +36,7 @@ import com.transport.util.CodeGenerator;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
@@ -89,7 +89,7 @@ public class UserServiceImpl implements UserService {
         // Kiểm tra vai trò của người tạo
         if (authenticationService.hasRole("ADMIN")) {
 
-        }else if (authenticationService.hasRole("MANAGER")) {
+        } else if (authenticationService.hasRole("MANAGER")) {
             // MANAGER không được tạo ADMIN hoặc MANAGER
             if (roleNames.contains("ADMIN") || roleNames.contains("MANAGER")) {
                 throw new AppException(ErrorCode.ACCESS_DENIED_CREATE_USER);
@@ -131,7 +131,7 @@ public class UserServiceImpl implements UserService {
         User currentUser = authenticationService.getCurrentUser();
         if (authenticationService.hasRole("ADMIN")) {
 
-        }else if (authenticationService.hasRole("MANAGER")) {
+        } else if (authenticationService.hasRole("MANAGER")) {
             // MANAGER: không được sửa ADMIN
             boolean targetIsAdmin = user.getRoles().stream().anyMatch(r -> "ADMIN".equals(r.getRoleName()));
             if (targetIsAdmin) throw new AppException(ErrorCode.ACCESS_DENIED);

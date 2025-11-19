@@ -37,6 +37,30 @@ spring:
     redis:
       host: ${REDIS_HOST:localhost}
       port:  ${REDIS_PORT:6379}
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: nguyenquanglinh0509@gmail.com
+    password: aoou cjxq wgoi qsrz
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls.enable: true
+          starttls.required: true
+    default-encoding: UTF-8
+    # Cấu hình Thymeleaf
+  thymeleaf:
+    cache: false
+    mode: HTML
+    encoding: UTF-8
+  # Cấu hình async
+  task:
+    execution:
+      pool:
+        core-size: 5
+        max-size: 10
+        queue-capacity: 100
 jwt:  
   signerKey: bvkfSG5tgcc6kHcMWz6VpgyEjCmg16w8EzZv5mPs3KT4Tt1lS3AhkkOBE3oabTJ8
   vaild-duration: 18000
