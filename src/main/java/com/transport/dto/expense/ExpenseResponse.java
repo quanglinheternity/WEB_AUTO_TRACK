@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.time.LocalDateTime;
 
 import com.transport.enums.ExpenseStatus;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -13,7 +14,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ExpenseResponse{
+public class ExpenseResponse {
     Long id;
     String expenseCode;
     String codeTrip;
@@ -35,5 +36,4 @@ public class ExpenseResponse{
     String managerNote;
     LocalDateTime createdAt;
     LocalDateTime updatedAt;
-
 }

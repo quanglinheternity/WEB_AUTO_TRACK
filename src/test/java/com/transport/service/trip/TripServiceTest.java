@@ -10,8 +10,6 @@ import java.time.YearMonth;
 import java.util.List;
 import java.util.Optional;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -38,6 +36,9 @@ import com.transport.repository.trip.TripRepository;
 import com.transport.service.authentication.auth.AuthenticationService;
 import com.transport.service.redis.RedisService;
 import com.transport.util.CodeGenerator;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @ExtendWith(MockitoExtension.class)
 public class TripServiceTest {

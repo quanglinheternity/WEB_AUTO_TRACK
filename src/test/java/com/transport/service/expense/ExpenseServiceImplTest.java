@@ -1,18 +1,14 @@
 package com.transport.service.expense;
 
-import com.transport.dto.expense.*;
-import com.transport.entity.domain.Expense;
-import com.transport.entity.domain.ExpenseCategory;
-import com.transport.entity.domain.Trip;
-import com.transport.entity.domain.User;
-import com.transport.enums.ExpenseStatus;
-import com.transport.exception.AppException;
-import com.transport.exception.ErrorCode;
-import com.transport.mapper.ExpenseMapper;
-import com.transport.repository.expense.ExpenseRepository;
-import com.transport.service.authentication.auth.AuthenticationService;
-import com.transport.service.file.FileStorageService;
-import com.transport.util.CodeGenerator;
+import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+
+import java.math.BigDecimal;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,29 +22,45 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.mock.web.MockMultipartFile;
 
-import java.math.BigDecimal;
-import java.util.List;
-
-import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
+import com.transport.dto.expense.*;
+import com.transport.entity.domain.Expense;
+import com.transport.entity.domain.ExpenseCategory;
+import com.transport.entity.domain.Trip;
+import com.transport.entity.domain.User;
+import com.transport.enums.ExpenseStatus;
+import com.transport.exception.AppException;
+import com.transport.exception.ErrorCode;
+import com.transport.mapper.ExpenseMapper;
+import com.transport.repository.expense.ExpenseRepository;
+import com.transport.service.authentication.auth.AuthenticationService;
+import com.transport.service.file.FileStorageService;
+import com.transport.util.CodeGenerator;
 
 @ExtendWith(MockitoExtension.class)
 public class ExpenseServiceImplTest {
-    @Mock private ExpenseRepository expenseRepository;
-    @Mock private ExpenseMapper expenseMapper;
-    @Mock private ExpenseValidator expenseValidator;
-    @Mock private AuthenticationService authenticationService;
-    @Mock private FileStorageService fileStorageService;
+    @Mock
+    private ExpenseRepository expenseRepository;
+
+    @Mock
+    private ExpenseMapper expenseMapper;
+
+    @Mock
+    private ExpenseValidator expenseValidator;
+
+    @Mock
+    private AuthenticationService authenticationService;
+
+    @Mock
+    private FileStorageService fileStorageService;
 
     @InjectMocks
     private ExpenseServiceImpl expenseService;
+
     private User driverUser, managerUser, accountantUser;
     private Trip trip;
     private ExpenseCategory category;
     private Expense expense;
+
     @BeforeEach
     void setUp() {
         driverUser = new User();
@@ -78,6 +90,7 @@ public class ExpenseServiceImplTest {
         expense.setExpenseCode("YCCP20250001");
         expense.setAttachmentUrl("expenses/abc123.pdf");
     }
+
     @Test
     @DisplayName("getAll - Không có quyền EXPENSE_READ → chỉ xem chi phí của mình")
     void getAll_NoGlobalPermission_OnlyOwnExpenses() {
@@ -90,8 +103,11 @@ public class ExpenseServiceImplTest {
 
         expenseService.getAll(request, pageable);
 
-        verify(expenseRepository).searchExpenses(argThat(r -> r.getDriverId() != null && r.getDriverId().equals(100L)), eq(pageable));
+        verify(expenseRepository)
+                .searchExpenses(
+                        argThat(r -> r.getDriverId() != null && r.getDriverId().equals(100L)), eq(pageable));
     }
+
     @Test
     @DisplayName("create - Thành công với file đính kèm")
     void create_WithFile_Success() {
@@ -110,7 +126,10 @@ public class ExpenseServiceImplTest {
         when(expenseMapper.toCreateExpense(request)).thenReturn(expense);
         when(fileStorageService.uploadFile(any(), eq("expenses"))).thenReturn("expenses/abc123.pdf");
         when(expenseRepository.save(any(Expense.class))).thenReturn(expense);
-        when(expenseMapper.toExpenseResponse(expense)).thenReturn(new ExpenseResponse(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null));
+        when(expenseMapper.toExpenseResponse(expense))
+                .thenReturn(new ExpenseResponse(
+                        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+                        null, null, null, null, null));
 
         try (MockedStatic<CodeGenerator> mocked = mockStatic(CodeGenerator.class)) {
             mocked.when(() -> CodeGenerator.generateCode("YCCP")).thenReturn("YCCP20250001");
@@ -118,13 +137,13 @@ public class ExpenseServiceImplTest {
             ExpenseResponse result = expenseService.create(request, file);
 
             assertNotNull(result);
-            verify(expenseRepository).save(argThat(e ->
-                    e.getExpenseCode().equals("YCCP20250001") &&
-                            e.getStatus() == ExpenseStatus.PENDING &&
-                            e.getAttachmentUrl() != null
-            ));
+            verify(expenseRepository)
+                    .save(argThat(e -> e.getExpenseCode().equals("YCCP20250001")
+                            && e.getStatus() == ExpenseStatus.PENDING
+                            && e.getAttachmentUrl() != null));
         }
     }
+
     @Test
     @DisplayName("update - Chỉ sửa được khi PENDING + thay file")
     void update_Pending_WithNewFile_Success() {
@@ -133,12 +152,16 @@ public class ExpenseServiceImplTest {
                 .description("Cập nhật hóa đơn")
                 .build();
 
-        MockMultipartFile newFile = new MockMultipartFile("file", "new-bill.pdf", "application/pdf", "New PDF".getBytes());
+        MockMultipartFile newFile =
+                new MockMultipartFile("file", "new-bill.pdf", "application/pdf", "New PDF".getBytes());
 
         when(expenseValidator.validateExpense(999L)).thenReturn(expense);
         when(fileStorageService.uploadFile(any(), eq("expenses"))).thenReturn("expenses/new123.pdf");
         when(expenseRepository.save(any(Expense.class))).thenReturn(expense);
-        when(expenseMapper.toExpenseResponse(expense)).thenReturn(new ExpenseResponse(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null));
+        when(expenseMapper.toExpenseResponse(expense))
+                .thenReturn(new ExpenseResponse(
+                        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+                        null, null, null, null, null));
 
         expenseService.update(999L, request, newFile);
 
@@ -146,17 +169,18 @@ public class ExpenseServiceImplTest {
         verify(fileStorageService).uploadFile(any(), eq("expenses"));
         verify(expenseRepository).save(argThat(e -> e.getAttachmentUrl().equals("expenses/new123.pdf")));
     }
+
     @Test
     @DisplayName("update - Không phải PENDING → bị chặn")
     void update_NotPending_Fail() {
         expense.setStatus(ExpenseStatus.MANAGER_APPROVED);
         when(expenseValidator.validateExpense(999L)).thenReturn(expense);
 
-        AppException ex = assertThrows(AppException.class,
-                () -> expenseService.update(999L, new ExpenseUpdateRequest(), null));
+        AppException ex =
+                assertThrows(AppException.class, () -> expenseService.update(999L, new ExpenseUpdateRequest(), null));
         assertEquals(ErrorCode.EXPENSE_NOT_PENDING, ex.getErrorCode());
-
     }
+
     @Test
     @DisplayName("delete - Chỉ xóa được khi PENDING")
     void delete_OnlyPending_Success() {
@@ -167,6 +191,7 @@ public class ExpenseServiceImplTest {
         verify(fileStorageService).deleteFile("expenses/abc123.pdf");
         verify(expenseRepository).delete(expense);
     }
+
     @Test
     @DisplayName("expenseApprove - Quản lý duyệt (PENDING → MANAGER_APPROVED)")
     void expenseApprove_ManagerApprove_Success() {
@@ -183,10 +208,9 @@ public class ExpenseServiceImplTest {
 
         expenseService.expenseApprove(999L, request);
 
-        verify(expenseRepository).save(argThat(e ->
-                e.getStatus() == ExpenseStatus.MANAGER_APPROVED &&
-                        e.getManagerApprovedBy().equals(managerUser)
-        ));
+        verify(expenseRepository)
+                .save(argThat(e -> e.getStatus() == ExpenseStatus.MANAGER_APPROVED
+                        && e.getManagerApprovedBy().equals(managerUser)));
     }
 
     @Test
@@ -202,8 +226,7 @@ public class ExpenseServiceImplTest {
         when(authenticationService.getCurrentUser()).thenReturn(managerUser);
         doNothing().when(authenticationService).requirePermission("EXPENSE_APPROVE_MANAGER");
 
-        AppException ex = assertThrows(AppException.class,
-                () -> expenseService.expenseApprove(999L, request));
+        AppException ex = assertThrows(AppException.class, () -> expenseService.expenseApprove(999L, request));
 
         assertEquals(ErrorCode.CANCELLATION_REASON_REQUIRED, ex.getErrorCode());
     }
@@ -223,24 +246,22 @@ public class ExpenseServiceImplTest {
 
         expenseService.expenseApprove(999L, request);
 
-        verify(expenseRepository).save(argThat(e ->
-                e.getStatus() == ExpenseStatus.MANAGER_APPROVED && // lưu ý: code hiện tại bị sai ở đây!
-                        e.getAccountantApprovedBy() != null
-        ));
+        verify(expenseRepository)
+                .save(argThat(e -> e.getStatus() == ExpenseStatus.MANAGER_APPROVED
+                        && // lưu ý: code hiện tại bị sai ở đây!
+                        e.getAccountantApprovedBy() != null));
     }
 
     @Test
     @DisplayName("expenseApprove - Thanh toán cuối cùng (ACCOUNTANT_APPROVED → PAID)")
     void expenseApprove_FinalPayment_Success() {
-        ExpenseApproveRequest request = ExpenseApproveRequest.builder()
-                .isApproved(false)
-                .build();
+        ExpenseApproveRequest request =
+                ExpenseApproveRequest.builder().isApproved(false).build();
 
         expense.setStatus(ExpenseStatus.ACCOUNTANT_APPROVED);
         when(expenseValidator.validateExpense(999L)).thenReturn(expense);
         when(authenticationService.getCurrentUser()).thenReturn(accountantUser);
         doNothing().when(authenticationService).requirePermission("EXPENSE_APPROVE_ACCOUNTANT");
-
 
         expenseService.expenseApprove(999L, request);
 
@@ -253,10 +274,9 @@ public class ExpenseServiceImplTest {
         expense.setStatus(ExpenseStatus.PAID);
         when(expenseValidator.validateExpense(999L)).thenReturn(expense);
 
-        AppException ex = assertThrows(AppException.class,
-                () -> expenseService.expenseApprove(999L, new ExpenseApproveRequest()));
+        AppException ex = assertThrows(
+                AppException.class, () -> expenseService.expenseApprove(999L, new ExpenseApproveRequest()));
 
         assertEquals(ErrorCode.INVALID_STATE_TRANSITION, ex.getErrorCode());
     }
-
 }

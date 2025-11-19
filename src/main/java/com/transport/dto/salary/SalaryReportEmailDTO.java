@@ -1,8 +1,9 @@
 package com.transport.dto.salary;
 
-import lombok.*;
 import java.math.BigDecimal;
 import java.time.YearMonth;
+
+import lombok.*;
 
 @Getter
 @Setter

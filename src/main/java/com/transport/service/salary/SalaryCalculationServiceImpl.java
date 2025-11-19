@@ -1,5 +1,15 @@
 package com.transport.service.salary;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.YearMonth;
+import java.util.List;
+import java.util.Map;
+
+import jakarta.transaction.Transactional;
+
+import org.springframework.stereotype.Service;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.transport.dto.route.RouteBySalary;
 import com.transport.dto.salary.SalaryCalculationDetailResponse;
@@ -17,18 +27,11 @@ import com.transport.repository.salary.SalaryReportRepository;
 import com.transport.repository.trip.TripRepository;
 import com.transport.service.redis.RedisService;
 import com.transport.util.mail.EmailService;
-import jakarta.transaction.Transactional;
+
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.time.YearMonth;
-import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -198,13 +201,16 @@ public class SalaryCalculationServiceImpl implements SalaryCalculationService {
         report.setPaidAt(java.time.LocalDateTime.now());
         salaryReportRepository.save(report);
     }
+
     public void sendSalaryReportEmail(Long reportId) {
-        SalaryReport report = salaryReportRepository.findById(reportId)
+        SalaryReport report = salaryReportRepository
+                .findById(reportId)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy báo cáo lương"));
 
         SalaryReportEmailDTO emailDTO = mapToEmailDTO(report);
         emailService.sendSalaryReport(emailDTO);
     }
+
     public void sendSalaryReportsForMonth(YearMonth month) {
         List<SalaryReport> reports = salaryReportRepository.findByReportMonth(month);
 
@@ -215,12 +221,16 @@ public class SalaryCalculationServiceImpl implements SalaryCalculationService {
                 SalaryReportEmailDTO emailDTO = mapToEmailDTO(report);
                 emailService.sendSalaryReport(emailDTO);
             } catch (Exception e) {
-                log.error("Lỗi khi gửi email cho tài xế ID: {}", report.getDriver().getId(), e);
+                log.error(
+                        "Lỗi khi gửi email cho tài xế ID: {}",
+                        report.getDriver().getId(),
+                        e);
             }
         }
 
         log.info("Hoàn thành gửi báo cáo lương cho tháng {}", month);
     }
+
     private SalaryReportEmailDTO mapToEmailDTO(SalaryReport report) {
         return SalaryReportEmailDTO.builder()
                 .driverName(report.getDriver().getUser().getFullName())

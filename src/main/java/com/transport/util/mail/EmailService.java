@@ -25,8 +25,10 @@ import java.util.Locale;
 public class EmailService {
     private final JavaMailSender mailSender;
     private final TemplateEngine templateEngine;
+
     @Value("${spring.mail.username}")
     private String fromEmail;
+
     @Async
     public void sendSalaryReport(SalaryReportEmailDTO emailDTO) {
         try {
@@ -72,13 +74,15 @@ public class EmailService {
 
     private String formatCurrency(BigDecimal amount) {
         if (amount == null) return "0 ₫";
-        NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(
+                new Locale.Builder().setLanguage("en").setRegion("US").build());
         return formatter.format(amount);
     }
 
     private String formatNumber(BigDecimal number) {
         if (number == null) return "0";
-        NumberFormat formatter = NumberFormat.getNumberInstance(new Locale("vi", "VN"));
+        NumberFormat formatter = NumberFormat.getNumberInstance(
+                new Locale.Builder().setLanguage("en").setRegion("US").build());
         return formatter.format(number);
     }
 }
