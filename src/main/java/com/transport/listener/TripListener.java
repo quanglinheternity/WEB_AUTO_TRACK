@@ -41,7 +41,7 @@ public class TripListener {
     /** Xóa cache liên quan */
     private void clearCache(String action, Object entity) {
         if (redisService != null) {
-//            log.debug("🧹 TripListener: " + action + " -> clear Redis cache 'trip:list:*'");
+            //            log.debug("🧹 TripListener: " + action + " -> clear Redis cache 'trip:list:*'");
             redisService.deleteByPattern("trip:list:*");
         } else {
             log.warn("⚠️ RedisService chưa được inject vào TripListener");

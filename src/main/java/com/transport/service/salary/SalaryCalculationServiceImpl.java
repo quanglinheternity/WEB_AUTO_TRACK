@@ -127,7 +127,8 @@ public class SalaryCalculationServiceImpl implements SalaryCalculationService {
     }
 
     public SalaryCalculationResponse calculateSalary(Long driverId, YearMonth month) {
-        if (!month.isBefore(month.plusMonths(1))) {
+        YearMonth current = YearMonth.now();
+        if (!month.isBefore(current)) {
             throw new AppException(ErrorCode.SALARY_MONTH_NOT_ENDED);
         }
         Driver driver =
@@ -205,7 +206,7 @@ public class SalaryCalculationServiceImpl implements SalaryCalculationService {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
     // Tính phụ cấp
-    private BigDecimal calculateAllowance(Driver driver, List<Trip> trips, BigDecimal totalDistance) {
+    BigDecimal calculateAllowance(Driver driver, List<Trip> trips, BigDecimal totalDistance) {
         BigDecimal totalAllowance = BigDecimal.ZERO;
 
         if (driver.getYearsOfExperience() != null && driver.getYearsOfExperience() >= 5) {
@@ -238,7 +239,7 @@ public class SalaryCalculationServiceImpl implements SalaryCalculationService {
         return totalAllowance;
     }
     // Tính khấu trừ
-    private BigDecimal calculateDeduction(Driver driver, List<Trip> trips, BigDecimal baseSalary) {
+    BigDecimal calculateDeduction(Driver driver, List<Trip> trips, BigDecimal baseSalary) {
         BigDecimal totalDeduction = BigDecimal.ZERO;
 
         BigDecimal insuranceDeduction = baseSalary.multiply(INSURANCE_RATE).setScale(0, RoundingMode.HALF_UP);
@@ -270,7 +271,7 @@ public class SalaryCalculationServiceImpl implements SalaryCalculationService {
         return bonusFromTrips.add(bonusFromDistance);
     }
     // Lấy đơn giá thưởng theo chuyến
-    private BigDecimal getTripRate(Driver driver) {
+    BigDecimal getTripRate(Driver driver) {
         // Có thể tùy chỉnh theo hạng bằng lái
         String licenseClass = driver.getLicenseClass();
         if (licenseClass != null) {
@@ -287,7 +288,7 @@ public class SalaryCalculationServiceImpl implements SalaryCalculationService {
         return DEFAULT_TRIP_RATE;
     }
     // Lấy đơn giá thưởng theo km
-    private BigDecimal getDistanceRate(Driver driver) {
+    BigDecimal getDistanceRate(Driver driver) {
         Integer experience = driver.getYearsOfExperience();
         if (experience != null && experience >= 10) {
             return new BigDecimal("2500");

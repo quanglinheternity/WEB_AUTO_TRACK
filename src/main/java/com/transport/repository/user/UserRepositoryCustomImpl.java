@@ -110,7 +110,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
 
         long totalCount = (total != null) ? total : 0L;
 
-        // ✅ Map sang DTO phản hồi
+        //  Map sang DTO phản hồi
         List<UserResponse> responses =
                 users.stream().map(userMapper::toResponse).toList();
 

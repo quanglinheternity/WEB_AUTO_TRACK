@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.transport.entity.domain.SalaryReport;
 
 @Repository
-public interface SalaryReportRepository extends JpaRepository<SalaryReport, Long>, SalaryReportRepositoryCustom {}
+public interface SalaryReportRepository extends JpaRepository<SalaryReport, Long>, SalaryReportRepositoryCustom {
+
+}

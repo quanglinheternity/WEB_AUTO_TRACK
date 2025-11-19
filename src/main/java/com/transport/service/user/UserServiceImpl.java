@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import jakarta.transaction.Transactional;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -37,6 +38,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -55,6 +57,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public PageResponse<UserResponse> getAll(UserSearchRequest request, Pageable pageable) {
         // return nguoiDungRepository.findAll();
+        log.info("service: getAll");
         Page<UserResponse> page = userRepository.searchUsers(request, pageable);
 
         return PageResponse.from(page);
@@ -84,7 +87,9 @@ public class UserServiceImpl implements UserService {
         Set<String> roleNames = rolesToAssign.stream().map(Role::getRoleName).collect(Collectors.toSet());
 
         // Kiểm tra vai trò của người tạo
-        if (authenticationService.hasRole("MANAGER")) {
+        if (authenticationService.hasRole("ADMIN")) {
+
+        }else if (authenticationService.hasRole("MANAGER")) {
             // MANAGER không được tạo ADMIN hoặc MANAGER
             if (roleNames.contains("ADMIN") || roleNames.contains("MANAGER")) {
                 throw new AppException(ErrorCode.ACCESS_DENIED_CREATE_USER);
@@ -124,7 +129,9 @@ public class UserServiceImpl implements UserService {
         userValidator.validateBeforeUpdate(id, request);
         User user = userValidator.validateAndGetExistingUser(id);
         User currentUser = authenticationService.getCurrentUser();
-        if (authenticationService.hasRole("MANAGER")) {
+        if (authenticationService.hasRole("ADMIN")) {
+
+        }else if (authenticationService.hasRole("MANAGER")) {
             // MANAGER: không được sửa ADMIN
             boolean targetIsAdmin = user.getRoles().stream().anyMatch(r -> "ADMIN".equals(r.getRoleName()));
             if (targetIsAdmin) throw new AppException(ErrorCode.ACCESS_DENIED);

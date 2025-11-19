@@ -1,6 +1,5 @@
 package com.transport.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -30,7 +29,7 @@ public class SecurityConfig {
         "/api/v1/auth/{userId}/resend",
     };
 
-//    @Autowired
+    //    @Autowired
     private CustomJWTDecoder jwtDecoder;
 
     @Bean

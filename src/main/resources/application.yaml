@@ -21,6 +21,7 @@ spring:
   #   init:
   #     mode: always  # Luôn chạy file data.sql
   #     platform: mysql
+#    open-in-view: false
   servlet:
     multipart:
       enabled: true

@@ -46,6 +46,7 @@ public class UserController {
             UserSearchRequest request,
             @PageableDefault(page = 0, size = 10, sort = "createdAt", direction = Sort.Direction.DESC)
                     Pageable pageable) {
+        log.info("controller: create");
         return ApiResponse.<PageResponse<UserResponse>>builder()
                 .message("Lấy danh sách thành công")
                 .data(userService.getAll(request, pageable))
@@ -65,6 +66,8 @@ public class UserController {
     // @PreAuthorize("hasAuthority('USER_CREATE')")
     @PostMapping("/create")
     public ApiResponse<UserDetailResponse> create(@RequestBody @Valid UserCreateRequest request) {
+        log.info("controller: getAll");
+
         return ApiResponse.<UserDetailResponse>builder()
                 .message("Tạo người dùng thành công")
                 .data(userService.create(request))
